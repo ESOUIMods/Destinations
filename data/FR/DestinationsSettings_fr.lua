@@ -4,8 +4,8 @@
 local strings = {
 
   --Filtre des icônes sur la carte
-  DEST_FILTER_UNKNOWN = "(Dest) PI Inconnus",
-  DEST_FILTER_KNOWN = "(Dest) PI Connus",
+  DEST_FILTER_UNKNOWN = "(Dest) Points d'Intérêt inconnus",
+  DEST_FILTER_KNOWN = "(Dest) Points d'Intérêt connus",
   DEST_FILTER_OTHER = "(Dest) Autres succès",
   DEST_FILTER_OTHER_DONE = "Autres succès déverrouillés",
   DEST_FILTER_MAIQ = "(Dest) " .. zo_strformat(GetAchievementInfo(872)) .."",
@@ -35,10 +35,10 @@ local strings = {
   DEST_FILTER_CHAMPION_DONE = "Champions de donjon achevés",
 
   DEST_FILTER_COLLECTIBLE = "(Dest) Trophées",
-  DEST_FILTER_COLLECTIBLE_DONE = "Trophées achevés",
+  DEST_FILTER_COLLECTIBLE_DONE = "Trophées obtenus",
 
-  DEST_FILTER_FISHING = "(Dest) Points de pêche",
-  DEST_FILTER_FISHING_DONE = "Points de pêche complétés",
+  DEST_FILTER_FISHING = "(Dest) Trous de pêche",
+  DEST_FILTER_FISHING_DONE = "Trous de pêche complétés",
 
   DEST_FILTER_QUESTGIVER = "(Dest) Donneurs de quête",
   DEST_FILTER_QUESTS_IN_PROGRESS = "(Dest) Quêtes en cours",
@@ -65,7 +65,7 @@ local strings = {
   DEST_SETTINGS_POI_ENGLISH_COLOR = "Couleur du texte des noms anglais",
   DEST_SETTINGS_POI_ENGLISH_COLOR_TT = "Détermine la couleur du texte pour la traduction en anglais des noms des Points d'Intérêt.",
   DEST_SETTINGS_POI_SHOW_ENGLISH_KEEPS = "Afficher les noms anglais des Forts",
-  DEST_SETTINGS_POI_SHOW_ENGLISH_KEEPS_TT = "Affiche les noms des Points d'Intérêt en anglais des Forts dans l'infobulle .",
+  DEST_SETTINGS_POI_SHOW_ENGLISH_KEEPS_TT = "Affiche les noms des Points d'Intérêt des Forts en anglais dans l'infobulle .",
   DEST_SETTINGS_POI_ENGLISH_KEEPS_COLOR = "Couleur du nom anglais des Forts",
   DEST_SETTINGS_POI_ENGLISH_KEEPS_COLOR_TT = "Détermine la couleur du texte pour la traduction en anglais des noms des Forts.",
   DEST_SETTINGS_POI_ENGLISH_KEEPS_HA = "Masquer le nom de l'Alliance des Forts",
@@ -74,16 +74,16 @@ local strings = {
   DEST_SETTINGS_POI_ENGLISH_KEEPS_NL_TT = "Ajoute une nouvelle ligne dans les infobulles des Forts pour le nom anglais.",
   DEST_SETTINGS_POI_IMPROVE_MUNDUS = "Améliorer les Pierres de Mundus",
   DEST_SETTINGS_POI_IMPROVE_MUNDUS_TT = "Améliore les Points d'Intérêt des pierres de Mundus en ajoutant la description de l'effet dans l'infobulle.",
-  DEST_SETTINGS_POI_IMPROVE_CRAFTING = "Améliorer l'artisanat",
-  DEST_SETTINGS_POI_IMPROVE_CRAFTING_TT = "Améliore les Points d'Intérêt d'artisanat en ajoutant une description de l'ensemble dans l'infobulle.",
+  DEST_SETTINGS_POI_IMPROVE_CRAFTING = "Améliorer les ateliers d'artisanat",
+  DEST_SETTINGS_POI_IMPROVE_CRAFTING_TT = "Améliore les Points d'Intérêt des ateliers d'artisanat en ajoutant une description de l'ensemble dans l'infobulle.",
 
   DEST_SETTINGS_USE_ACCOUNTWIDE = "Paramètres communs au compte",
   DEST_SETTINGS_USE_ACCOUNTWIDE_TT = "Lorsque cette option est activée, les paramètres seront les mêmes pour TOUS les personnages.",
   DEST_SETTINGS_RELOAD_WARNING = "Modifier ce paramètre déclenchera un rechargement de l'interface utilisateur",
   DEST_SETTINGS_PER_CHAR_HEADER = "Les paramètres indiquées avec un '*' jaune n'affectent que le personnage actuel",
   DEST_SETTINGS_PER_CHAR = "*",
-  DEST_SETTINGS_PER_CHAR_TOGGLE_TT = "Ce changement affecte seulement le personnage actuel.",
-  DEST_SETTINGS_PER_CHAR_BUTTON_TT = "Ce bouton affecte seulementle personnage actuel.",
+  DEST_SETTINGS_PER_CHAR_TOGGLE_TT = "Ce changement n'affecte que le personnage actuel.",
+  DEST_SETTINGS_PER_CHAR_BUTTON_TT = "Ce bouton n'affecte que le personnage actuel.",
 
   DEST_SETTINGS_POI_HEADER = "Points d'Intérêt inconnus",
   DEST_SETTINGS_POI_HEADER_TT = "Ce sous-menu gère les Points d'Intérêt inconnus.",
@@ -280,7 +280,7 @@ local strings = {
   DEST_SETTINGS_QUEST_COMPASS_DIST = "Distance d'affichage des icônes sur la boussole",
 
   DEST_SETTINGS_REGISTER_QUEST_GIVER_TOGGLE = "Masquer le nom du Donneur de quête",
-  DEST_SETTINGS_REGISTER_QUEST_GIVER_TOGGLE_TT = "Affiche/Masque le nom des donneur de quête dans l'infobulle.",
+  DEST_SETTINGS_REGISTER_QUEST_GIVER_TOGGLE_TT = "Affiche/Masque le nom du donneur de quête dans l'infobulle.",
 
   DEST_SETTINGS_REGISTER_QUESTS_TOGGLE = "Enregistrer les Quêtes",
   DEST_SETTINGS_REGISTER_QUESTS_TOGGLE_TT = "Enregistre les informations de quête dans des variables pour les rapports. Veuillez consulter la page Destinations sur ESOUI.com pour plus d'informations.",
@@ -293,9 +293,9 @@ local strings = {
   DEST_SETTINGS_COLLECTIBLES_COLORS_HEADER = "Couleur de l'icône des Trophées",
   DEST_SETTINGS_COLLECTIBLES_MISC_HEADER = "Divers",
 
-  DEST_SETTINGS_COLLECTIBLES_TOGGLE = "Afficher les Trophées inachevés",
+  DEST_SETTINGS_COLLECTIBLES_TOGGLE = "Afficher les Trophées non obtenus",
   DEST_SETTINGS_COLLECTIBLES_TOGGLE_TT = "Affiche les zones où les monstres peuvent être tués afin d'obtenir les trophées pour déverouiller les succès.",
-  DEST_SETTINGS_COLLECTIBLES_DONE_TOGGLE = "Afficher les Trophées achevés",
+  DEST_SETTINGS_COLLECTIBLES_DONE_TOGGLE = "Afficher les Trophées obtenus",
   DEST_SETTINGS_COLLECTIBLES_DONE_TOGGLE_TT = "Affiche les zones où les trophées ont déjà été déverouillés.",
   DEST_SETTINGS_COLLECTIBLES_PIN_STYLE = "Style de l'icône des Trophées",
   DEST_SETTINGS_COLLECTIBLES_SHOW_MOBNAME = "Afficher le nom des monstres",
@@ -316,10 +316,10 @@ local strings = {
   DEST_SETTINGS_COLLECTIBLES_PIN_COLOR_TT = "Détermine la couleur des icônes pour les trophées manquants.",
   DEST_SETTINGS_COLLECTIBLES_COLOR_UNDONE = "Couleur du texte des Trophées manquants",
   DEST_SETTINGS_COLLECTIBLES_COLOR_UNDONE_TT = "Détermine la couleur du texte des trophées manquants.",
-  DEST_SETTINGS_COLLECTIBLES_PIN_COLOR_DONE = "Couleur de l'icône des Trophées achevés",
-  DEST_SETTINGS_COLLECTIBLES_PIN_COLOR_DONE_TT = "Détermine la couleur des icônes pour les trophées achevés.",
-  DEST_SETTINGS_COLLECTIBLES_COLOR_DONE = "Couleur du texte des Trophées achevés",
-  DEST_SETTINGS_COLLECTIBLES_COLOR_DONE_TT = "Détermine la couleur du texte pour les trophées achevés.",
+  DEST_SETTINGS_COLLECTIBLES_PIN_COLOR_DONE = "Couleur de l'icône des Trophées obtenus",
+  DEST_SETTINGS_COLLECTIBLES_PIN_COLOR_DONE_TT = "Détermine la couleur des icônes pour les trophées obtenus.",
+  DEST_SETTINGS_COLLECTIBLES_COLOR_DONE = "Couleur du texte des Trophées obtenus",
+  DEST_SETTINGS_COLLECTIBLES_COLOR_DONE_TT = "Détermine la couleur du texte pour les trophées obtenus.",
 
   DEST_SETTINGS_FISHING_HEADER = "Emplacements de Pêche",
   DEST_SETTINGS_FISHING_HEADER_TT = "Ce sous-menu gère tous les paramètres relatifs à la pêche.",
@@ -392,7 +392,7 @@ local strings = {
   --POI Types
   POITYPE_AOI = "Zone d'Intérêt",
   POITYPE_HOUSING = "Maison",
-  POITYPE_CRAFTING = "Lieux d'artisanat",
+  POITYPE_CRAFTING = "Ateliers d'artisanat",
   POITYPE_DELVE = "Exploration",
   POITYPE_DOLMEN = "Dolmen",
   POITYPE_GATE = "Portail",
@@ -472,9 +472,9 @@ local strings = {
   FISHING_LAKE = "Lac",
   FISHING_UNKNOWN = "- inconnu -",
   FISHING_FOUL_BAIT = "Rampants/Oeufs de poisson",
-  FISHING_RIVER_BAIT = "Insectes/Petits Poissons",
+  FISHING_RIVER_BAIT = "Insectes/Shads",
   FISHING_OCEAN_BAIT = "Vers/Chevesnes",
-  FISHING_LAKE_BAIT = "Boyaux/Poissons",
+  FISHING_LAKE_BAIT = "Entrailles/Ménés",
   FISHING_HWBC = "Crabe-grue-carnassier",
 
   -- Destinations => Commandes de Tchat  
