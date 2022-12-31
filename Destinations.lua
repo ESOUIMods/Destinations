@@ -22,29 +22,18 @@ FX is an alternate Polish lang file
 KB is Korean Beta and TR is some kind of Korean and English
 Index Mix that I don't understand how that works
 
-Most languages only have Quest Names or Quest Givers that
-change, which won't matter once LibQuestData is fully updated
-
 client_lang
 effective_lang
 supported_lang
 ]]--
 Destinations.client_lang = GetCVar("Language.2")
-Destinations.effective_quest_lang = nil
 Destinations.effective_menu_lang = nil
-local supported_quest_langs = { "br", "de", "en", "es", "fr", "fx", "it", "jp", "kb", "kr", "pl", "ru", }
 local supported_menu_langs = { "de", "en", "es", "fr", "fx", "jf", "jp", "pl", "ru", "zh", }
-if is_in(Destinations.client_lang, supported_quest_langs) then
-  Destinations.effective_quest_lang = Destinations.client_lang
-else
-  Destinations.effective_quest_lang = "en"
-end
 if is_in(Destinations.client_lang, supported_menu_langs) then
   Destinations.effective_menu_lang = Destinations.client_lang
 else
   Destinations.effective_menu_lang = "en"
 end
-Destinations.supported_quest_lang = Destinations.client_lang == Destinations.effective_quest_lang
 Destinations.supported_menu_lang = Destinations.client_lang == Destinations.effective_menu_lang
 
 -------------------------------------------------
@@ -121,14 +110,12 @@ end
 -------------------------------------------------
 
 local ADDON_AUTHOR = "Sharlikran |c990000Snowman|r|cFFFFFFDK|r & MasterLenman & Ayantir"
-local ADDON_VERSION = "29.76"
+local ADDON_VERSION = "29.77"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
-local LQD = LibQuestData
 
-local isQuestCompleted = true
-local mapTextureName, zoneTextureName, mapData, zoneQuests, mapId, zoneId
+local mapTextureName, zoneTextureName, mapData, mapId, zoneId
 local DestinationsSV, DestinationsCSSV, DestinationsAWSV, playerAlliance
 
 local destinationsSetsData = {}
@@ -191,17 +178,10 @@ local DESTINATIONS_PIN_TYPE_HIGHISLE = 53
 local DESTINATIONS_PIN_TYPE_UNKNOWN = 99
 local DESTINATIONS_PIN_PRIORITY_OFFSET = 1
 
--- quest value constants
-Destinations.QUEST_DONE = 1
-Destinations.QUEST_IN_PROGRESS = 2
-Destinations.QUEST_HIDDEN = 5
-
 local ENGLISH_POI_COLOR, ENGLISH_KEEP_COLOR
 
 -- Define Runtime Variables
 local drtv = {
-  EditingQuests = false,
-  getQuestInfo = false,
   MapMiscPOIs = false,
   LastMapShown = "",
   pinName = nil,
@@ -245,12 +225,6 @@ local TradersStore
 local AchIndex
 local AchStore
 local AchIDs
-local QuestsIndex
-local QuestsStore
-local QTableIndex
-local QTableStore
-local QGiverIndex
-local QGiverStore
 local DBossIndex
 local DBossStore
 local SetsStore
@@ -317,15 +291,6 @@ local DPINS = {
   VAMPIRE_ALTAR = "DEST_PinSet_Vampire_Alter",
   WEREWOLF_SHRINE = "DEST_PinSet_Werewolf_Shrine",
   VWW_COMPASS = "DEST_Compass_WWVamp",
-
-  QUESTS_UNDONE = "DEST_Pin_Quest_Giver",
-  QUESTS_IN_PROGRESS = "DEST_Pin_Quest_In_Progress",
-  QUESTS_DONE = "DEST_Pin_Quest_Done",
-  QUESTS_COMPASS = "DEST_Compass_Quest_Giver",
-  QUESTS_DAILIES = "DEST_Pin_Quest_Daily",
-  QUESTS_WRITS = "DEST_Pin_Quest_Writ",
-  QUESTS_REPEATABLES = "DEST_Pin_Quest_Repeatable",
-  REGISTER_QUESTS = "DEST_Register_Quests",
 
   COLLECTIBLES = "DEST_Pin_Collectibles",
   COLLECTIBLES_COMPASS = "DEST_Compass_Collectibles",
@@ -656,37 +621,6 @@ local defaults = {
       tint = { 1, 1, 1, 1 },
       textcolor = { 1, 1, 1 },
     },
-    pinTextureQuestsUndone = {
-      type = 1,
-      size = 26,
-      level = 30,
-      maxDistance = 0.05,
-      texture = "",
-      tint = { 1, 1, 1, 1 },
-      tintmain = { 0, 1, 1, 1 },
-      tintday = { 1, 0, 1, 1 },
-      tintrep = { 1, 1, 0, 1 },
-      tintdun = { 0, 0, 1, 1 },
-      textcolor = { 1, 1, 1 },
-    },
-    pinTextureQuestsInProgress = {
-      type = 1,
-      size = 26,
-      level = 30,
-      maxDistance = 0.05,
-      texture = "",
-      tint = { 1, 1, 1, 1 },
-      textcolor = { 1, 1, 1 },
-    },
-    pinTextureQuestsDone = {
-      type = 1,
-      size = 26,
-      level = 30,
-      maxDistance = 0.05,
-      texture = "",
-      tint = { 1, 1, 1, 1 },
-      textcolor = { 1, 1, 1 },
-    },
     pinTextureCollectible = {
       type = 2,
       size = 26,
@@ -755,7 +689,6 @@ local defaults = {
     settingsTextAchHeaders = ZO_ColorDef:New("00AAAA"),
     settingsTextMiscellaneous = ZO_ColorDef:New("00CC00"),
     settingsTextVWW = ZO_ColorDef:New("44DD44"),
-    settingsTextQuests = ZO_ColorDef:New("66FF66"),
     settingsTextCollectibles = ZO_ColorDef:New("99FF99"),
     settingsTextFish = ZO_ColorDef:New("CCFFCC"),
     settingsTextInstructions = ZO_ColorDef:New("CCFFFF"),
@@ -777,7 +710,6 @@ local defaults = {
     ShowCadwellsAlmanacOnly = false,
     MapFiltersPOIs = true,
     MapFiltersAchievements = true,
-    MapFiltersQuestgivers = true,
     MapFiltersCollectibles = true,
     MapFiltersFishing = true,
     MapFiltersMisc = true,
@@ -785,7 +717,6 @@ local defaults = {
     AddEnglishOnKeeps = true,
     AddNewLineOnKeeps = true,
     HideAllianceOnKeeps = false,
-    HideQuestGiverName = false,
     ImproveCrafting = true,
     ImproveMundus = true,
     EnglishColorKeeps = STAT_BATTLE_LEVEL_COLOR:ToHex(),
@@ -837,14 +768,6 @@ local defaults = {
     [DPINS.WEREWOLF_SHRINE] = false,
     [DPINS.VWW_COMPASS] = true,
 
-    [DPINS.QUESTS_UNDONE] = false,
-    [DPINS.QUESTS_IN_PROGRESS] = false,
-    [DPINS.QUESTS_DONE] = false,
-    [DPINS.QUESTS_COMPASS] = false,
-    [DPINS.QUESTS_DAILIES] = false,
-    [DPINS.QUESTS_WRITS] = false,
-    [DPINS.QUESTS_REPEATABLES] = false,
-
     [DPINS.COLLECTIBLES] = false,
     [DPINS.COLLECTIBLESDONE] = false,
     [DPINS.COLLECTIBLES_SHOW_ITEM] = false,
@@ -870,8 +793,6 @@ local defaults = {
     LakeSBaitLeft = 0,
     GeneralBait = 0,
   },
-  Quests = {},
-  QuestsDone = {},
   TEMPPINDATA = {},
 }
 
@@ -1139,15 +1060,6 @@ local pinTextures = {
       [5] = "Destinations/pins/old/Werewolf_Shrine.dds",
       [6] = "Destinations/pins/old/Werewolf_Shrine_Red.dds",
     },
-    Quests = {
-      [1] = "esoui/art/compass/quest_icon.dds",
-      [2] = "esoui/art/compass/quest_icon_assisted.dds",
-      [3] = "esoui/art/compass/quest_available_icon.dds",
-      [4] = "Destinations/pins/Quest_1.dds",
-      [5] = "Destinations/pins/Quest_2.dds",
-      [6] = "Destinations/pins/Quest_3.dds",
-      [7] = "Destinations/pins/Cadwells.dds",
-    },
     collectible = {
       [1] = "Destinations/pins/Collectible_Skull.dds",
       [2] = "Destinations/pins/Collectible_Dwemer_Cog.dds",
@@ -1344,14 +1256,6 @@ local pinTextures = {
       "Asghaard's Aura",
       "Old Colored Altar",
       "Old Red Circled Altar",
-    },
-    Quests = {
-      "Original Quest (Black)",
-      "Original Quest (White)",
-      "Original Quest (Glow)",
-      "Straight Custom Quest",
-      "Tilted Custom Quest",
-      "Exclamation Mark",
     },
     Collectible = {
       "Skull",
@@ -1631,37 +1535,6 @@ local function RedrawQolPins()
   RedrawMapPinsOnly(DPINS.QOLPINS_PORTAL)
 end
 
-local function check_map_state()
-  if GetMapType() > MAPTYPE_ZONE then
-    return
-  end
-  zoneQuests = LQD.zone_quests
-  RedrawAllPins(DPINS.QUESTS_UNDONE)
-  RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-  RedrawAllPins(DPINS.QUESTS_DONE)
-  RedrawQolPins()
-end
-
-CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", function()
-  check_map_state()
-end)
-
-WORLD_MAP_SCENE:RegisterCallback("StateChange", function(oldState, newState)
-  if newState == SCENE_SHOWING then
-    check_map_state()
-  elseif newState == SCENE_HIDDEN then
-    SetPlayerLocation()
-    check_map_state()
-  end
-end)
-
-function on_zone_changed(eventCode, zoneName, subZoneName, newSubzone, zoneId, subZoneId)
-  if SetPlayerLocation() then
-    check_map_state()
-  end
-end
-EVENT_MANAGER:RegisterForEvent(ADDON_NAME .. "_zone_changed", EVENT_ZONE_CHANGED, on_zone_changed)
-
 --[[ Various map names
     Reference https://wiki.esoui.com/Texture_List/ESO/art/maps
 
@@ -1709,7 +1582,7 @@ local function MapCallbackQolPins(pinType)
     --Destinations:dm("Debug", "mapData in not set")
     return
   end
-  -- Loop over both quests and create a map pin with the quest name
+
   for key, pinData in pairs(mapData) do
 
     if pinType == DPINS.QOLPINS_DOCK and pinData.pinsType == Destinations.DocksHighIsle then
@@ -3045,692 +2918,6 @@ local function FishDonepinTypeCallback()
   end
 end
 
-----------------Quest Giver Data---------------
-local function QuestPinFilters(QuestID, dataName, questLine, questSeries)
-  local questInfo = nil
-  local _, _, _, _, HoWcompleted, _, _ = GetAchievementInfo(1248)
-  if QuestID == 5479 and not HoWcompleted then
-    -- Hide "A Cold Wind From the Mountain" while missing the achievement "Hero of Wrothgar".
-    isQuestCompleted = false
-  end
-  if GetUnitLevel("player") <= 44 or (QuestID == 5312 and not dataName) then
-    -- Undaunted pledges
-    if (QuestID >= 5244 and QuestID <= 5312 and QuestID ~= 5245 and QuestID ~= 5249 and QuestID ~= 5258 and QuestID ~= 5259 and QuestID ~= 5289 and QuestID ~= 5302 and QuestID ~= 5310) or QuestID == 5381 or QuestID == 5382 or QuestID == 5431 then
-      isQuestCompleted = false
-    end
-  end
-  if GetUnitLevel("player") <= 5 then
-    -- Hide certifications while not lvl 6+.
-    if QuestID == 5249 or QuestID == 5259 or QuestID == 5289 or QuestID == 5302 or QuestID == 5310 or QuestID == 5314 or QuestID == 5315 then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5249 or QuestID == 5259 or QuestID == 5289 or QuestID == 5302 or QuestID == 5310 or QuestID == 5314 or QuestID == 5315 then
-    -- Hide certifications in other alliances.
-    if (playerAlliance == 1 and (zoneTextureName == "glenumbra_base_0" or zoneTextureName == "stonefalls_base_0"))  --Aldmeri Dominion
-      or (playerAlliance == 2 and (zoneTextureName == "auridon_base_0" or zoneTextureName == "glenumbra_base_0")) --Ebonheart Pact
-      or (playerAlliance == 3 and (zoneTextureName == "auridon_base_0" or zoneTextureName == "stonefalls_base_0")) then
-      --Daggerfall Covenant
-      isQuestCompleted = false
-    end
-  end
-  if questLine == 99990 then
-    -- Hide Mage's Guild quest while not the required rank in the guild.
-    local skillLineLevel = nil
-    local SkillLine = LQD:get_quest_giver(500114, Destinations.effective_quest_lang)
-    for i = 1, GetNumSkillLines(SKILL_TYPE_GUILD) do
-      local skillLineName = GetSkillLineInfo(SKILL_TYPE_GUILD, i)
-      if skillLineName and skillLineName == SkillLine then
-        _, skillLineLevel = GetSkillLineInfo(SKILL_TYPE_GUILD, i)
-        break
-      end
-    end
-    if skillLineName and ((QuestID == 3916 and skillLineLevel <= 0) or (QuestID == 4435 and skillLineLevel <= 1) or (QuestID == 3918 and skillLineLevel <= 2) or (QuestID == 3953 and skillLineLevel <= 3) or ((QuestID == 3997 or QuestID == 4971) and skillLineLevel <= 4)) then
-      isQuestCompleted = false
-    end
-  end
-  if questLine == 99995 then
-    -- Hide Fighter's Guild quest while not the required rank in the guild.
-    local skillLineLevel = nil
-    local SkillLine = LQD:get_quest_giver(500115, Destinations.effective_quest_lang)
-    for i = 1, GetNumSkillLines(SKILL_TYPE_GUILD) do
-      local skillLineName = GetSkillLineInfo(SKILL_TYPE_GUILD, i)
-      if skillLineName and skillLineName == SkillLine then
-        _, skillLineLevel = GetSkillLineInfo(SKILL_TYPE_GUILD, i)
-        break
-      end
-    end
-    if skillLineName and ((QuestID == 3856 and skillLineLevel <= 0) or (QuestID == 3858 and skillLineLevel <= 1) or (QuestID == 3885 and skillLineLevel <= 2) or (QuestID == 3898 and skillLineLevel <= 3) or (QuestID == 3973 and skillLineLevel <= 4)) then
-      isQuestCompleted = false
-    end
-  end
-  if questLine == 99999 then
-    -- Hide Harborage/Cadwell quests if requirements are not fulfilled
-    if QuestID == 4847 then
-      -- "God of Schemes"
-      questInfo = GetCompletedQuestInfo(4758) -- Also requires "The Final Assault" in Coldharbour.
-      if string.len(questInfo) <= 1 then questInfo = nil end
-      if not questInfo then
-        isQuestCompleted = false
-      end
-    elseif QuestID == 4998 then
-      -- "Cadwell's Silver"
-      questInfo = GetCompletedQuestInfo(4847) -- "God of Schemes"
-      if string.len(questInfo) <= 1 then questInfo = nil end
-      if not questInfo then
-        isQuestCompleted = false
-      end
-    elseif QuestID == 5000 then
-      -- "Cadwell's Gold"
-      questInfo = GetCompletedQuestInfo(4998) -- "Cadwell's Silver"
-      if string.len(questInfo) <= 1 then questInfo = nil end
-      if not questInfo then
-        isQuestCompleted = false
-      end
-    end
-  end
-  if DestinationsSV.filters[DPINS.QUESTS_WRITS] == false then
-    -- Hide Writs or if Certifications if set as not shown.
-    if (QuestID == 5400) or (QuestID >= 5406 and QuestID <= 5418) or (QuestID >= 5368 and QuestID <= 5377) or (QuestID >= 5388 and QuestID <= 5396) or -- writs
-      (QuestID == 5249) or (QuestID == 5259) or (QuestID == 5289) or (QuestID == 5302) or (QuestID == 5310) or (QuestID == 5314) or (QuestID == 5315) then
-      -- certifications
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5368 or QuestID == 5377 or QuestID == 5392 then
-    -- Hide Blacksmith Writs if certification is not done
-    questInfo = GetCompletedQuestInfo(5249)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5374 or QuestID == 5388 or QuestID == 5389 then
-    -- Hide Clothier Writs if certification is not done
-    questInfo = GetCompletedQuestInfo(5310)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5394 or QuestID == 5395 or QuestID == 5396 then
-    -- Hide Woodworker Writs if certification is not done
-    questInfo = GetCompletedQuestInfo(5302)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5400 or QuestID == 5406 or QuestID == 5407 then
-    -- Hide Enchanter Writs if certification is not done
-    questInfo = GetCompletedQuestInfo(5314)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5409 or QuestID == 5412 or QuestID == 5413 or QuestID == 5414 then
-    -- Hide Provisioner Writs if certification is not done
-    questInfo = GetCompletedQuestInfo(5289)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5415 or QuestID == 5416 or QuestID == 5417 or QuestID == 5418 then
-    -- Hide Alchemist Writs if certification is not done
-    questInfo = GetCompletedQuestInfo(5315)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if mapTextureName == "coldharbour_base_0" or mapTextureName == "hollowcity_base_0" then
-    -- Hide Coldharbour quests until previous storyline quests are completed.
-    questInfo = GetCompletedQuestInfo(4720)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if playerAlliance == 1 and not questInfo then
-      -- Aldmeri Dominion
-      isQuestCompleted = false
-    end
-    questInfo = GetCompletedQuestInfo(4188)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if playerAlliance == 2 and not questInfo then
-      -- Ebonheart Pact
-      isQuestCompleted = false
-    end
-    questInfo = GetCompletedQuestInfo(4960)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if playerAlliance == 3 and not questInfo then
-      -- Daggerfall Covenant
-      isQuestCompleted = false
-    end
-  end
-  if zoneTextureName == "ava_whole_0" and GetUnitLevel("player") <= 9 then
-    -- Hide Cyrodiil quests as long as level is too low
-    isQuestCompleted = false
-  end
-  --[[
-  if QuestID == 4411 then
-    -- Hide Final Blows" while "The Veil Falls" is not completed.
-    questInfo = GetCompletedQuestInfo(4592)
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  ]]-- data is incorrect handeled by LQD now anyway
-  if QuestID == 5535 then
-    -- Hide "A Double Life" while "Cleaning House" is not completed.
-    questInfo = GetCompletedQuestInfo(5534)
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5543 then
-    -- Hide "Shell Game" while "The Long Game" is not completed.
-    questInfo = GetCompletedQuestInfo(5532)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5668 or QuestID == 5566 or (QuestID >= 5586 and QuestID <= 5589) or questLine == 15582 or questLine == 15668 or questLine == 15535 then
-    -- Hide Thieves Guild Tip Board and Reacquisition Board quests while "Partners in Crime" is not completed.
-    questInfo = GetCompletedQuestInfo(5531)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5582 then
-    -- Hide Thieves Guild Heists Board quests while "Master of Heists" is not completed.
-    questInfo = GetCompletedQuestInfo(5532)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if questLine == 15614 or questLine == 15595 then
-    -- Hide Dark Brotherhood Contracts and "A Lesson in Silence" while "Welcome Home" is not completed.
-    questInfo = GetCompletedQuestInfo(5542)
-    if string.len(questInfo) <= 1 then questInfo = nil end
-    if not questInfo then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5531 or zoneTextureName == "hewsbane_base_0" then
-    -- check if Thieves Guild DLC (254) is unlocked.
-    local _, _, _, _, unlocked = GetCollectibleInfo(254)
-    if not unlocked then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5450 or zoneTextureName == "orsinium_base_0" then
-    -- check if Orsinium DLC (215) is unlocked.
-    local _, _, _, _, unlocked = GetCollectibleInfo(215)
-    if not unlocked then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5538 or zoneTextureName == "goldcoast_base_0" then
-    -- check if Dark Brotherhood DLC (306) is unlocked.
-    local _, _, _, _, unlocked = GetCollectibleInfo(306)
-    if not unlocked then
-      isQuestCompleted = false
-    end
-  end
-  if mapTextureName == "imperialcity_base_0" then
-    -- check if Imperial City DLC (154) is unlocked.
-    local _, _, _, _, unlocked = GetCollectibleInfo(154)
-    if not unlocked then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5549 or QuestID == 5545 or QuestID == 5581 or QuestID == 5553 then
-    -- check for Thieves Guild level.
-    local skillLineLevel = nil
-    local SkillLine = LQD:get_quest_giver(500113, Destinations.effective_quest_lang)
-    for i = 1, GetNumSkillLines(SKILL_TYPE_GUILD) do
-      local skillLineName = GetSkillLineInfo(SKILL_TYPE_GUILD, i)
-      if skillLineName and skillLineName == SkillLine then
-        _, skillLineLevel = GetSkillLineInfo(SKILL_TYPE_GUILD, i)
-        break
-      end
-    end
-    if skillLineName and ((QuestID == 5549 and skillLineLevel <= 6) or (QuestID == 5545 and skillLineLevel <= 7) or (QuestID == 5581 and skillLineLevel <= 8) or (QuestID == 5553 and skillLineLevel <= 9)) then
-      isQuestCompleted = false
-    end
-  end
-  if QuestID == 5595 or QuestID == 5599 or QuestID == 5596 or QuestID == 5567 or QuestID == 5597 or QuestID == 5598 or QuestID == 5600 then
-    -- check for Dark Brotherhood level.
-    local skillLineLevel = nil
-    local SkillLine = LQD:get_quest_giver(500119, Destinations.effective_quest_lang)
-    for i = 1, GetNumSkillLines(SKILL_TYPE_GUILD) do
-      local skillLineName = GetSkillLineInfo(SKILL_TYPE_GUILD, i)
-      if skillLineName and skillLineName == SkillLine then
-        _, skillLineLevel = GetSkillLineInfo(SKILL_TYPE_GUILD, i)
-        break
-      end
-    end
-    if skillLineName and ((QuestID == 5595 and skillLineLevel <= 1) or (QuestID == 5599 and skillLineLevel <= 2) or (QuestID == 5596 and skillLineLevel <= 3) or (QuestID == 5567 and skillLineLevel <= 4) or (QuestID == 5597 and skillLineLevel <= 5) or (QuestID == 5598 and skillLineLevel <= 6) or (QuestID == 5600 and skillLineLevel <= 7)) then
-      isQuestCompleted = false
-    end
-  end
-  return
-end
---[[
-local function sharedQuestPinData()
-  mapData, mapTextureName, zoneTextureName, mapId, zoneId = nil, nil, nil, nil, nil
-  if LMP:IsEnabled(drtv.pinName) and DestinationsCSSV.filters[drtv.pinName] then
-    GetMapTextureName()
-    mapData = LQD:get_quest_list(LMP:GetZoneAndSubzone(true, false, true))
-  end
-end
-]]--
-local function AvailableQuestPinTint(pin)
-  if pin ~= nil then
-    if pin.m_PinTag ~= nil then
-      local tintIndex = pin.m_PinTag.tintIndex
-      if tintIndex ~= nil then
-        if tintIndex == 1 then
-          return ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.tintmain))
-        end
-        if tintIndex == 2 then
-          return ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.tintdun))
-        end
-        if tintIndex == 3 then
-          return ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.tintrep))
-        end
-        if tintIndex == 4 then
-          return ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.tintday))
-        end
-      end
-    end
-  end
-  return ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.tint))
-end
-
-------------------Quest Givers------------------
-local function Quests_Undone_pinTypeCallback(pinManager)
-  if GetMapType() >= MAPTYPE_WORLD then return end
-  drtv.pinName = DPINS.QUESTS_UNDONE
-  if not zoneQuests then return end
-  for _, pinData in ipairs(zoneQuests) do
-    local QuestID = pinData[LQD.quest_map_pin_index.quest_id]
-    if not QuestID then return end
-    local dataName = GetCompletedQuestInfo(QuestID)
-    local QuestName = GetQuestName(QuestID)
-    if not QuestName then QuestName = "<<->>" end
-    local Name = zo_strformat(QuestName)
-    local questLine = LQD:get_quest_line(QuestID)
-    local questNumber = LQD:get_quest_number(QuestID)
-    local questSeries = LQD:get_quest_series(QuestID)
-    local NPCID = LQD:get_quest_npc_id(pinData)
-    local NPCName, NPC = nil, nil
-    local useNpcName = true
-    NPCName = LQD:get_quest_giver(NPCID)
-    if not NPCName then useNpcName = false end
-    if useNpcName then
-      NPC = zo_strformat(NPCName)
-    end
-    isQuestCompleted = true
-    QuestPinFilters(QuestID, dataName, questLine, questSeries)
-    --[[
-        if questLine >= 10002 and questNumber ~= 10001 then
-            if GetMapContentType() == MAP_CONTENT_DUNGEON or GetMapType() == MAPTYPE_SUBZONE then
-                zoneTextureName = ZoneIDsToFileNames[GetZoneId(GetCurrentMapZoneIndex())]
-            else
-                zoneTextureName = mapTextureName
-            end
-            if not zoneTextureName then return end
-            local subdata = QuestsStore[zoneTextureName]
-            if not subdata then return end
-            for _, questData in ipairs(subdata) do
-                if questData[QuestsIndex.QUESTLINE] == questLine and questData[QuestsIndex.QUESTNUMBER] <= questNumber - 1 then
-                    local questInfo = GetCompletedQuestInfo(questData[QuestsIndex.QUESTID])
-                    if string.len(questInfo) == 0 then
-                        isQuestCompleted = false
-                        break
-                    end
-                end
-            end
-        end
-        ]]--
-    if dataName ~= Name and DestinationsCSSV.QuestsDone[QuestID] ~= 2 and DestinationsCSSV.QuestsDone[QuestID] ~= 1 and DestinationsCSSV.QuestsDone[QuestID] ~= 5 and isQuestCompleted then
-      local outputQuestName = zo_strformat("<<1>>", Name)
-      local outputNpcName = ""
-      local outputQuestLine = ""
-      if useNpcName and not DestinationsCSSV.settings.HideQuestGiverName then
-        outputNpcName = zo_strformat("<<C:1>>", NPC)
-        outputQuestLine = string.format("%s [%s]", outputQuestName, outputNpcName)
-      else
-        outputQuestLine = string.format("%s", outputQuestName)
-      end
-      drtv.pinTag = { ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.textcolor)):Colorize(outputQuestLine) }
-      local Rep = LQD:get_quest_repeat(QuestID)
-      local Type = LQD:get_quest_type(QuestID)
-      local tintIndex, skipRep = 0, false
-      LMP:SetLayoutKey(drtv.pinName, "tint", AvailableQuestPinTint)
-      if Type then
-        local QType = nil
-        local Repeatable = nil
-        if Type == 2 then
-          QType = GetString(QUESTTYPE_MAIN_STORY)
-          tintIndex = 1
-        elseif Type == 5 then
-          QType = GetString(QUESTTYPE_DUNGEON)
-          tintIndex = 2
-        end
-        if Rep then
-          if Rep == 1 then
-            if DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] then
-              skipRep = false
-            else
-              skipRep = true
-            end
-            Repeatable = GetString(QUESTREPEAT_REPEATABLE)
-            tintIndex = 3
-          elseif Rep == 2 then
-            if DestinationsSV.filters[DPINS.QUESTS_DAILIES] then
-              skipRep = false
-            else
-              skipRep = true
-            end
-            Repeatable = GetString(QUESTREPEAT_DAILY)
-            tintIndex = 4
-          end
-        end
-        if QType then
-          table.insert(drtv.pinTag, 3,
-            ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.textcolor)):Colorize(zo_strformat("<<1>>",
-              "{" .. QType .. "}")))
-          if Repeatable then
-            table.insert(drtv.pinTag, 4,
-              ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.textcolor)):Colorize(zo_strformat("<<1>>",
-                "<" .. Repeatable .. ">")))
-          end
-        else
-          if Repeatable then
-            table.insert(drtv.pinTag, 3,
-              ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.textcolor)):Colorize(zo_strformat("<<1>>",
-                "<" .. Repeatable .. ">")))
-          end
-        end
-      end
-      if skipRep == false then
-        drtv.pinTag.IsAvailableQuest = true
-        drtv.pinTag.tintIndex = tintIndex
-        if not DestinationsSV.settings.ShowCadwellsAlmanac then
-          LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-            pinData[LQD.quest_map_pin_index.local_y])
-        elseif DestinationsSV.settings.ShowCadwellsAlmanac and not DestinationsSV.settings.ShowCadwellsAlmanacOnly then
-          LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-            pinData[LQD.quest_map_pin_index.local_y])
-          if LQD:get_quest_series(QuestID) == 1 then
-            drtv.pinTag = { ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.textcolor)):Colorize("<" .. zo_strformat("<<C:1>>",
-              "Cadwell's Almanac") .. ">") }
-            LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsUndone.level + 1)
-            LMP:SetLayoutKey(drtv.pinName, "texture", pinTextures.paths.Quests[7])
-            LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-              pinData[LQD.quest_map_pin_index.local_y])
-            LMP:SetLayoutKey(drtv.pinName, "texture",
-              pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsUndone.type])
-            LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsUndone.level - 1)
-          end
-        elseif DestinationsSV.settings.ShowCadwellsAlmanac and DestinationsSV.settings.ShowCadwellsAlmanacOnly and LQD:get_quest_series(QuestID) == 1 then
-          LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-            pinData[LQD.quest_map_pin_index.local_y])
-          drtv.pinTag = { ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.textcolor)):Colorize("<" .. zo_strformat("<<C:1>>",
-            "Cadwell's Almanac") .. ">") }
-          LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsUndone.level + 1)
-          LMP:SetLayoutKey(drtv.pinName, "texture", pinTextures.paths.Quests[7])
-          LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-            pinData[LQD.quest_map_pin_index.local_y])
-          LMP:SetLayoutKey(drtv.pinName, "texture",
-            pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsUndone.type])
-          LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsUndone.level - 1)
-        end
-      end
-    end
-  end
-end
-
-local function Quests_In_Progress_pinTypeCallback(pinManager)
-  if GetMapType() >= MAPTYPE_WORLD then return end
-  drtv.pinName = DPINS.QUESTS_IN_PROGRESS
-  if not zoneQuests then return end
-  for _, pinData in ipairs(zoneQuests) do
-    local QuestID = pinData[LQD.quest_map_pin_index.quest_id]
-    if not QuestID then return end
-    isQuestCompleted = true
-    local dataName = GetCompletedQuestInfo(QuestID)
-    local questLine = LQD:get_quest_line(QuestID)
-    local questSeries = LQD:get_quest_series(QuestID)
-    QuestPinFilters(QuestID, dataName, questLine, questSeries)
-    if DestinationsCSSV.QuestsDone[QuestID] and DestinationsCSSV.QuestsDone[QuestID] == 2 and isQuestCompleted then
-      local QuestName = GetQuestName(QuestID)
-      if not QuestName then QuestName = "<<->>" end
-      local Name = zo_strformat(QuestName)
-      local NPCID = LQD:get_quest_npc_id(pinData)
-      local NPCName, NPC = nil, nil
-      local useNpcName = true
-      NPCName = LQD:get_quest_giver(NPCID)
-      if not NPCName then useNpcName = false end
-      if useNpcName then
-        NPC = zo_strformat(NPCName)
-      end
-      local outputQuestName = zo_strformat("<<1>>", Name)
-      local outputNpcName = ""
-      local outputQuestLine = ""
-      if useNpcName and not DestinationsCSSV.settings.HideQuestGiverName then
-        outputNpcName = zo_strformat("<<C:1>>", NPC)
-        outputQuestLine = string.format("%s [%s]", outputQuestName, outputNpcName)
-      else
-        outputQuestLine = string.format("%s", outputQuestName)
-      end
-      drtv.pinTag = { ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsInProgress.textcolor)):Colorize(outputQuestLine) }
-      local Rep = LQD:get_quest_repeat(QuestID)
-      local Type = LQD:get_quest_type(QuestID)
-      local skipRep = false
-      if Type then
-        local QType = nil
-        local Repeatable = nil
-        if Type == 2 then
-          QType = GetString(QUESTTYPE_MAIN_STORY)
-        elseif Type == 5 then
-          QType = GetString(QUESTTYPE_DUNGEON)
-        end
-        if Rep then
-          if Rep == 1 then
-            if DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] then
-              skipRep = false
-            else
-              skipRep = true
-            end
-            Repeatable = GetString(QUESTREPEAT_REPEATABLE)
-          elseif Rep == 2 then
-            if DestinationsSV.filters[DPINS.QUESTS_DAILIES] then
-              skipRep = false
-            else
-              skipRep = true
-            end
-            Repeatable = GetString(QUESTREPEAT_DAILY)
-          end
-        end
-        if QType then
-          table.insert(drtv.pinTag, 3,
-            ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsInProgress.textcolor)):Colorize(zo_strformat("<<1>>",
-              "{" .. QType .. "}")))
-          if Repeatable then
-            table.insert(drtv.pinTag, 4,
-              ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsInProgress.textcolor)):Colorize(zo_strformat("<<1>>",
-                "<" .. Repeatable .. ">")))
-          end
-        else
-          if Repeatable then
-            table.insert(drtv.pinTag, 3,
-              ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsInProgress.textcolor)):Colorize(zo_strformat("<<1>>",
-                "<" .. Repeatable .. ">")))
-          end
-        end
-      end
-      if skipRep == false then
-        drtv.pinTag.InProgressQuest = true
-        if not DestinationsSV.settings.ShowCadwellsAlmanac then
-          LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-            pinData[LQD.quest_map_pin_index.local_y])
-        elseif DestinationsSV.settings.ShowCadwellsAlmanac and not DestinationsSV.settings.ShowCadwellsAlmanacOnly then
-          LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-            pinData[LQD.quest_map_pin_index.local_y])
-          if questSeries == 1 then
-            drtv.pinTag = { ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsInProgress.textcolor)):Colorize("<" .. zo_strformat("<<C:1>>",
-              "Cadwell's Almanac") .. ">") }
-            LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsInProgress.level + 1)
-            LMP:SetLayoutKey(drtv.pinName, "texture", pinTextures.paths.Quests[7])
-            LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-              pinData[LQD.quest_map_pin_index.local_y])
-            LMP:SetLayoutKey(drtv.pinName, "texture",
-              pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsInProgress.type])
-            LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsInProgress.level - 1)
-          end
-        elseif DestinationsSV.settings.ShowCadwellsAlmanac and DestinationsSV.settings.ShowCadwellsAlmanacOnly and questSeries == 1 then
-          LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-            pinData[LQD.quest_map_pin_index.local_y])
-          drtv.pinTag = { ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsInProgress.textcolor)):Colorize("<" .. zo_strformat("<<C:1>>",
-            "Cadwell's Almanac") .. ">") }
-          LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsInProgress.level + 1)
-          LMP:SetLayoutKey(drtv.pinName, "texture", pinTextures.paths.Quests[7])
-          LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-            pinData[LQD.quest_map_pin_index.local_y])
-          LMP:SetLayoutKey(drtv.pinName, "texture",
-            pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsInProgress.type])
-          LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsInProgress.level - 1)
-        end
-      end
-    end
-  end
-end
-
-local function Quests_Done_pinTypeCallback(pinManager)
-  if GetMapType() >= MAPTYPE_WORLD then return end
-  drtv.pinName = DPINS.QUESTS_DONE
-  if not zoneQuests then return end
-  for _, pinData in ipairs(zoneQuests) do
-    local QuestID = pinData[LQD.quest_map_pin_index.quest_id]
-    if not QuestID then return end
-    local dataName = GetCompletedQuestInfo(QuestID)
-    local QuestName = GetQuestName(QuestID)
-    if not QuestName then QuestName = "<<->>" end
-    local Name = zo_strformat(QuestName)
-    isQuestCompleted = true
-    local dataName = GetCompletedQuestInfo(QuestID)
-    local questLine = LQD:get_quest_line(QuestID)
-    local questSeries = LQD:get_quest_series(QuestID)
-    local NPCID = LQD:get_quest_npc_id(pinData)
-    local NPCName, NPC = nil, nil
-    local useNpcName = true
-    NPCName = LQD:get_quest_giver(NPCID)
-    if not NPCName then useNpcName = false end
-    if useNpcName then
-      NPC = zo_strformat(NPCName)
-    end
-    QuestPinFilters(QuestID, dataName, questLine, questSeries)
-    if (dataName == Name and DestinationsCSSV.QuestsDone[QuestID] ~= Destinations.QUEST_HIDDEN and isQuestCompleted) or (DestinationsCSSV.QuestsDone[QuestID] == 1 and isQuestCompleted) then
-      local outputQuestName = zo_strformat("<<1>>", Name)
-      local outputNpcName = ""
-      local outputQuestLine = ""
-      if useNpcName and not DestinationsCSSV.settings.HideQuestGiverName then
-        outputNpcName = zo_strformat("<<C:1>>", NPC)
-        outputQuestLine = string.format("%s [%s]", outputQuestName, outputNpcName)
-      else
-        outputQuestLine = string.format("%s", outputQuestName)
-      end
-      drtv.pinTag = { ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsDone.textcolor)):Colorize(outputQuestLine) }
-      local Rep = LQD:get_quest_repeat(QuestID)
-      local Type = LQD:get_quest_type(QuestID)
-      local skipRep = false
-      if Type ~= 0 then
-        local QType = nil
-        local Repeatable = nil
-        if Type == 2 then
-          QType = GetString(QUESTTYPE_MAIN_STORY)
-        elseif Type == 5 then
-          QType = GetString(QUESTTYPE_DUNGEON)
-        end
-        if Rep ~= 0 then
-          if Rep == 1 then
-            if DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] then
-              skipRep = false
-            else
-              skipRep = true
-            end
-            Repeatable = GetString(QUESTREPEAT_REPEATABLE)
-          elseif Rep == 2 then
-            if DestinationsSV.filters[DPINS.QUESTS_DAILIES] then
-              skipRep = false
-            else
-              skipRep = true
-            end
-            Repeatable = GetString(QUESTREPEAT_DAILY)
-          end
-        end
-        if QType then
-          table.insert(drtv.pinTag, 3,
-            ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsDone.textcolor)):Colorize(zo_strformat("<<1>>",
-              "{" .. QType .. "}")))
-          if Repeatable then
-            table.insert(drtv.pinTag, 4,
-              ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsDone.textcolor)):Colorize(zo_strformat("<<1>>",
-                "<" .. Repeatable .. ">")))
-          end
-        else
-          if Repeatable then
-            table.insert(drtv.pinTag, 3,
-              ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsDone.textcolor)):Colorize(zo_strformat("<<1>>",
-                "<" .. Repeatable .. ">")))
-          end
-        end
-      end
-      if skipRep == false then
-        if not DestinationsSV.settings.ShowCadwellsAlmanac then
-          LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-            pinData[LQD.quest_map_pin_index.local_y])
-        elseif DestinationsSV.settings.ShowCadwellsAlmanac then
-          if not DestinationsSV.settings.ShowCadwellsAlmanacOnly then
-            LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-              pinData[LQD.quest_map_pin_index.local_y])
-            if questSeries == 1 then
-              drtv.pinTag = { ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsDone.textcolor)):Colorize("<" .. zo_strformat("<<C:1>>",
-                "Cadwell's Almanac") .. ">") }
-              LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsDone.level + 1)
-              LMP:SetLayoutKey(drtv.pinName, "texture", pinTextures.paths.Quests[7])
-              LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-                pinData[LQD.quest_map_pin_index.local_y])
-              LMP:SetLayoutKey(drtv.pinName, "texture",
-                pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsDone.type])
-              LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsDone.level - 1)
-            end
-          elseif DestinationsSV.settings.ShowCadwellsAlmanacOnly then
-            if questSeries == 1 then
-              LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-                pinData[LQD.quest_map_pin_index.local_y])
-              drtv.pinTag = { ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsDone.textcolor)):Colorize("<" .. zo_strformat("<<C:1>>",
-                "Cadwell's Almanac") .. ">") }
-              LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsDone.level + 1)
-              LMP:SetLayoutKey(drtv.pinName, "texture", pinTextures.paths.Quests[7])
-              LMP:CreatePin(drtv.pinName, drtv.pinTag, pinData[LQD.quest_map_pin_index.local_x],
-                pinData[LQD.quest_map_pin_index.local_y])
-              LMP:SetLayoutKey(drtv.pinName, "texture",
-                pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsDone.type])
-              LMP:SetLayoutKey(drtv.pinName, "level", DestinationsSV.pins.pinTextureQuestsDone.level - 1)
-            end
-          end
-        end
-      end
-    end
-  end
-end
-
 local function AddAchievementCompassPins()
 
   if GetMapType() >= MAPTYPE_WORLD then return end
@@ -3882,111 +3069,6 @@ local function AddMiscCompassPins()
     elseif drtv.pinType == 24 then
       if not LMP:IsEnabled(DPINS.WEREWOLF_SHRINE) or not DestinationsCSSV.filters[DPINS.VWW_COMPASS] then return end
       COMPASS_PINS.pinManager:CreatePin(DPINS.WEREWOLF_SHRINE, pinData, pinData[AchIndex.X], pinData[AchIndex.Y])
-    end
-  end
-end
-
-local function Quests_CompassPins()
-  if GetMapType() >= MAPTYPE_WORLD then return end
-  if not LMP:IsEnabled(DPINS.QUESTS_UNDONE) and not LMP:IsEnabled(DPINS.QUESTS_IN_PROGRESS) and not LMP:IsEnabled(DPINS.QUESTS_DONE) then return end
-  if not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and not DestinationsCSSV.filters[DPINS.QUESTS_DONE] then return end
-  if not DestinationsSV.filters[DPINS.QUESTS_COMPASS] or not DestinationsAWSV.filters[DPINS.QUESTS_COMPASS] then return end
-  --[[
-    GetMapTextureName()
-    if not mapTextureName then return end
-    ]]--
-  if not zoneQuests then return end
-  for _, pinData in ipairs(zoneQuests) do
-    local QuestID = pinData[LQD.quest_map_pin_index.quest_id]
-    local Rep = LQD:get_quest_repeat(QuestID)
-    local skipRep = false
-    LMP:SetLayoutKey(DPINS.QUESTS_UNDONE, "tint", AvailableQuestPinTint)
-    if Rep then
-      if Rep == 1 then
-        if DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] then
-          skipRep = false
-        else
-          skipRep = true
-        end
-        Repeatable = GetString(QUESTREPEAT_REPEATABLE)
-      elseif Rep == 2 then
-        if DestinationsSV.filters[DPINS.QUESTS_DAILIES] then
-          skipRep = false
-        else
-          skipRep = true
-        end
-        Repeatable = GetString(QUESTREPEAT_DAILY)
-      end
-    end
-    if skipRep == false then
-      if not QuestID then return end
-      local dataName = GetCompletedQuestInfo(QuestID)
-      local QuestName = GetQuestName(QuestID)
-      if not QuestName then QuestName = "<<->>" end
-      local questLine = LQD:get_quest_line(QuestID)
-      local questNumber = LQD:get_quest_number(QuestID)
-      local questSeries = LQD:get_quest_series(QuestID)
-      isQuestCompleted = true
-      QuestPinFilters(QuestID, dataName, questLine, questSeries)
-      --[[
-            if questLine >= 10002 and questNumber ~= 10001 then
-                if GetMapContentType() == MAP_CONTENT_DUNGEON or GetMapType() == MAPTYPE_SUBZONE then
-                    zoneTextureName = ZoneIDsToFileNames[GetZoneId(GetCurrentMapZoneIndex())]
-                else
-                    zoneTextureName = mapTextureName
-                end
-                if not zoneTextureName then return end
-                local subdata = QuestsStore[zoneTextureName]
-                if not subdata then return end
-                for _, questData in ipairs(subdata) do
-                    if questData[QuestsIndex.QUESTLINE] == questLine and questData[QuestsIndex.QUESTNUMBER] <= questNumber - 1 then
-                        local questInfo = GetCompletedQuestInfo(questData[QuestsIndex.QUESTID])
-                        if string.len(questInfo) == 0 then
-                            isQuestCompleted = false
-                            break
-                        end
-                    end
-                end
-            end
-            QuestPinFilters(QuestID, dataName, mapTextureName, questLine)
-            ]]--
-      local Name = zo_strformat(QuestName)
-      if isQuestCompleted then
-        if dataName ~= Name and DestinationsCSSV.QuestsDone[QuestID] ~= Destinations.QUEST_IN_PROGRESS and DestinationsCSSV.QuestsDone[QuestID] ~= 1 and DestinationsCSSV.QuestsDone[QuestID] ~= Destinations.QUEST_HIDDEN and DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] then
-          if not DestinationsSV.settings.ShowCadwellsAlmanac then
-            COMPASS_PINS.pinManager:CreatePin(DPINS.QUESTS_UNDONE, pinData, pinData[LQD.quest_map_pin_index.local_x],
-              pinData[LQD.quest_map_pin_index.local_y])
-          elseif DestinationsSV.settings.ShowCadwellsAlmanac and not DestinationsSV.settings.ShowCadwellsAlmanacOnly then
-            COMPASS_PINS.pinManager:CreatePin(DPINS.QUESTS_UNDONE, pinData, pinData[LQD.quest_map_pin_index.local_x],
-              pinData[LQD.quest_map_pin_index.local_y])
-          elseif DestinationsSV.settings.ShowCadwellsAlmanac and DestinationsSV.settings.ShowCadwellsAlmanacOnly and questSeries == 1 then
-            COMPASS_PINS.pinManager:CreatePin(DPINS.QUESTS_UNDONE, pinData, pinData[LQD.quest_map_pin_index.local_x],
-              pinData[LQD.quest_map_pin_index.local_y])
-          end
-        elseif DestinationsCSSV.QuestsDone[QuestID] and DestinationsCSSV.QuestsDone[QuestID] == Destinations.QUEST_IN_PROGRESS and DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] then
-          if not DestinationsSV.settings.ShowCadwellsAlmanac then
-            COMPASS_PINS.pinManager:CreatePin(DPINS.QUESTS_IN_PROGRESS, pinData,
-              pinData[LQD.quest_map_pin_index.local_x], pinData[LQD.quest_map_pin_index.local_y])
-          elseif DestinationsSV.settings.ShowCadwellsAlmanac and not DestinationsSV.settings.ShowCadwellsAlmanacOnly then
-            COMPASS_PINS.pinManager:CreatePin(DPINS.QUESTS_IN_PROGRESS, pinData,
-              pinData[LQD.quest_map_pin_index.local_x], pinData[LQD.quest_map_pin_index.local_y])
-          elseif DestinationsSV.settings.ShowCadwellsAlmanac and DestinationsSV.settings.ShowCadwellsAlmanacOnly and questSeries == 1 then
-            COMPASS_PINS.pinManager:CreatePin(DPINS.QUESTS_IN_PROGRESS, pinData,
-              pinData[LQD.quest_map_pin_index.local_x], pinData[LQD.quest_map_pin_index.local_y])
-          end
-        elseif ((dataName == Name and DestinationsCSSV.QuestsDone[QuestID] ~= Destinations.QUEST_HIDDEN) or DestinationsCSSV.QuestsDone[QuestID] == 1) and DestinationsCSSV.filters[DPINS.QUESTS_DONE] then
-          if not DestinationsSV.settings.ShowCadwellsAlmanac then
-            COMPASS_PINS.pinManager:CreatePin(DPINS.QUESTS_DONE, pinData, pinData[LQD.quest_map_pin_index.local_x],
-              pinData[LQD.quest_map_pin_index.local_y])
-          elseif DestinationsSV.settings.ShowCadwellsAlmanac and not DestinationsSV.settings.ShowCadwellsAlmanacOnly then
-            COMPASS_PINS.pinManager:CreatePin(DPINS.QUESTS_DONE, pinData, pinData[LQD.quest_map_pin_index.local_x],
-              pinData[LQD.quest_map_pin_index.local_y])
-          elseif DestinationsSV.settings.ShowCadwellsAlmanac and DestinationsSV.settings.ShowCadwellsAlmanacOnly and questSeries == 1 then
-            COMPASS_PINS.pinManager:CreatePin(DPINS.QUESTS_DONE, pinData, pinData[LQD.quest_map_pin_index.local_x],
-              pinData[LQD.quest_map_pin_index.local_y])
-          end
-        end
-      end
     end
   end
 end
@@ -4446,644 +3528,15 @@ local function MapCallback_unknown()
   end
 end
 
--- Quest functions
 local function FormatCoords(number)
   return ("%05.04f"):format(zo_round(number * 10000) / 10000)
 end
 
-local function RegisterQuestAdded(eventCode, journalIndex, questName, objectiveName)
-  Destinations.UpdateQuestsDoneLQD({})
-  RedrawAllPins(DPINS.QUESTS_UNDONE)
-  RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-  RedrawAllPins(DPINS.QUESTS_DONE)
-end
-
-local function RegisterQuestDone(eventCode, questName, level, previousExperience, currentExperience, championPoints, questType, instanceDisplayType)
-  local questFound, questID = false, 0
-  local tempQuestID = LQD:get_questids_table(questName, Destinations.effective_quest_lang)
-  local questData = {}
-  if tempQuestID then
-    if #tempQuestID == 1 then
-      questFound = true
-      questID = tempQuestID[1]
-    end
-  end
-  --[[TODO this need to be redone and added to the routine when you complete
-  a quest because you don't know the questID here.
-  ]]--
-  if questFound then
-    if drtv.getQuestInfo then
-      Destinations:dm("Info", "Completed: " .. tostring(questID) .. " / " .. questName)
-    end
-    for k, v in pairs(DestinationsCSSV.QuestsDone) do
-      if questID == k then
-        if questID == 5073 or questID == 5075 or questID == 5077 then
-          -- fighters guild
-          questData[5073] = 1
-          questData[5075] = 1
-          questData[5077] = 1
-        elseif questID == 5071 or questID == 5074 or questID == 5076 then
-          -- mages guild
-          questData[5071] = 1
-          questData[5074] = 1
-          questData[5076] = 1
-        elseif questID == 4767 or questID == 4967 or questID == 4997 then
-          -- "One of the Undaunted"
-          questData[4767] = 1
-          questData[4967] = 1
-          questData[4997] = 1
-        end
-      else
-        questData[k] = v
-      end
-    end
-  end
-  Destinations.UpdateQuestsDoneLQD(questData)
-  RedrawAllPins(DPINS.QUESTS_UNDONE)
-  RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-  RedrawAllPins(DPINS.QUESTS_DONE)
-end
-
-local function RegisterQuestCancelled(eventCode, isCompleted, journalIndex, questName, zoneIndex, poiIndex, questID)
-  if isCompleted then return end
-  if drtv.getQuestInfo then
-    Destinations:dm("Info", "Cancelled: " .. tostring(questID) .. "/" .. questName)
-  end
-  local questData = {}
-  for k, v in pairs(DestinationsCSSV.QuestsDone) do
-    if questID ~= k then
-      if questID == 5073 or questID == 5075 or questID == 5077 then -- fighters guild
-      elseif questID == 5071 or questID == 5074 or questID == 5076 then -- mages guild
-      elseif questID == 4767 or questID == 4967 or questID == 4997 then -- "One of the Undaunted"
-      else
-        questData[k] = v
-      end
-    end
-  end
-  Destinations.UpdateQuestsDoneLQD(questData)
-  RedrawAllPins(DPINS.QUESTS_UNDONE)
-  RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-  RedrawAllPins(DPINS.QUESTS_DONE)
-end
-
-local function CheckBreadcrumbQuests()
-  local questName = nil
-  questName = GetCompletedQuestInfo(4453) -- "Message To Mournhold" (breadcrumb quest to A Favor Returned)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3956] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3686) -- "Onward To Shadowfen" (breadcrumb quest to Three Tender Souls)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4163] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3799) -- "Overrun" (breadcrumb quest to Scales of Retribution)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3732] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3978) -- "To Pinepeak Caverns" (breadcrumb quest to Tomb Beneath the Mountain)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4184] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3978) -- "Calling Hakra" (breadcrumb quest to Tomb Beneath the Mountain)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5035] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3191) -- "To The Wyrd Tree" (breadcrumb quest to Reclaiming the Elements)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3183] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3060) -- "The Wyrd Sisters" (breadcrumb quest to Seeking the Guardians)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3026] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(2251) -- "The Scholar of Bergama" (breadcrumb quest to Gone Missing)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[2193] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4712) -- "To Saifa in Rawl'kha" (breadcrumb quest to The First Step)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4799] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4712) -- "The Champions at Rawl'kha" (breadcrumb quest to The First Step)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5092] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3632) -- "Taking Precautions" (breadcrumb quest to Breaking Fort Virak)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5040] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(974) -- "Werewolves To The North" (breadcrumb quest to A Duke in Exile)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3283] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(521) -- "An Offering To Azura" (breadcrumb quest to Azura's Aid)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5052] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(1799) -- "Kingdom in Mourning" and "Dark Wings" (breadcrumb quests to A City in Black)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3566] = 1 -- breadcrumb
-    DestinationsCSSV.QuestsDone[4991] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4850) -- "Breaking the Ward" (breadcrumb quest to Shades Of Green)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4790] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4689) -- breadcrumb quests to A Door into Moonlight
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5091] = 1 -- "Hallowed to Grimwatch"
-    DestinationsCSSV.QuestsDone[5093] = 1 -- "Moons Over Grimwatch"
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4479) -- "To Moonmont" (breadcrumb quest to Motes in the Moonlight)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4802] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4139) -- "Honrich Tower" (breadcrumb quest to Shattered Hopes)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5036] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4364) -- A Thorn in Your Side (alternate quest to A Bargain With Shadows and The Will of the Worm)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4370] = 1 -- "A Bargain With Shadows"
-    DestinationsCSSV.QuestsDone[4369] = 1 -- "The Will of the Worm"
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4370) -- A Bargain With Shadows (alternate quest to The Will of the Worm and A Thorn in Your Side)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4369] = 1 -- "The Will of the Worm"
-    DestinationsCSSV.QuestsDone[4364] = 1 -- "A Thorn in Your Side"
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4369) -- The Will of the Worm (alternate quest to A Thorn in Your Side and A Bargain With Shadows)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4364] = 1 -- "A Thorn in Your Side"
-    DestinationsCSSV.QuestsDone[4370] = 1 -- "A Bargain With Shadows"
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4833) -- Brackenleaf's Briars (breadcrumb quest to Bosmer Insight)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4974] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4712) -- Hallowed to Rawl'kha (breadcrumb quest to The First Step)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4759] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3695) -- City at the Spire (breadcrumb quest to Aggressive Negotiations)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3635] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3678) -- What Happened at Murkwater (breadcrumb quest to Trials of the Burnished Scales)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3802] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3840) -- Bound to the Bog (breadcrumb quest to Saving the Relics)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3982] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3615) -- Mystery of Othrenis (breadcrumb to Wake the Dead)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3855] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4899) -- Leading the Stand (breadcrumb to Beyond the Call)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3281] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4652) -- breadcrumbs to The Colovian Occupation
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3981] = 1 -- To Taarengrav
-    DestinationsCSSV.QuestsDone[4710] = 1 -- Hallowed To Arenthia
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4147) -- A Grave Situation (breadcrumb to The Shackled Guardian)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5034] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4293) -- "To Mathiisen" (breadcrumb to "Putting the Pieces Together")
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4366] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4255) -- "To Auridon" (breadcrumb to "Ensuring Security")
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4818] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(2552) -- "To Alcaire Castle" (breadcrumb to "Army at the Gates")
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4443] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4546) -- "Naemon's Return" (breadcrumb to "Retaking the Pass")
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5088] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(5088) -- "Report to Marbruk" (breadcrumb to "Naemon's Return")
-  if (questName and string.len(questName) >= 3) or (DestinationsCSSV.QuestsDone[5088] and DestinationsCSSV.QuestsDone[5088] == 1) then
-    DestinationsCSSV.QuestsDone[4821] = 1 -- breadcrumb
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4574) -- "Woodhearth" (breadcrumb to "Veil of Illusion")
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4853] = 1 -- breadcrumb
-    questName = nil
-  end
-end
-
-local function CheckAlternateQuests()
-  local questName = nil
-  questName = GetCompletedQuestInfo(4255) -- Ensuring Security (alternate quest to All the Fuss & Missive to the Queen)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5055] = 1
-    DestinationsCSSV.QuestsDone[5058] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(5058) -- All the Fuss (alternate quest to Missive to the Queen)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5055] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(5055) -- Missive to the Queen (alternate quest to All the Fuss)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5058] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(2130) -- Rise of the Dead (alternate quest to Word from the Throne)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4694] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4330) -- Lifting the Veil (alternate quest to Back to Skywatch)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4549] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(1803) -- The Water Stone (alternate quest to Sunken Knowledge)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[1804] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(1804) -- Sunken Knowledge (alternate quest to The Water Stone)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[1803] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(1536) -- An Offering To Azura (alternate quest to Fire in the Fields)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5052] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(5052) -- Fire in the Fields (alternate quest to An Offering To Azura)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[1536] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4028) -- Breaking The Tide (alternate quest to Zeren in Peril)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4026] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4026) -- Zeren in Peril (alternate quest to Breaking The Tide)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4028] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3595) -- Wayward Son (alternate quest to Giving for the Greater Good)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3598] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3598) -- Giving for the Greater Good (alternate quest to Wayward Son)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3595] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3653) -- Ratting Them Out (alternate quest to A Timely Matter)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3658] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(3658) -- A Timely Matter (alternate quest to Ratting Them Out)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[3653] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4679) -- The Shadow's Embrace (alternate quest to An Unusual Circumstance)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4654] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4654) -- Unusual Circumstance (alternate quest to The Shadow's Embrace)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4679] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4364) -- A Thorn in Your Side (alternate quest to A Bargain With Shadows and The Will of the Worm)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4369] = 1
-    DestinationsCSSV.QuestsDone[4370] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4369) -- A Bargain With Shadows (alternate quest to The Will of the Worm and A Thorn in Your Side)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4370] = 1
-    DestinationsCSSV.QuestsDone[4364] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4370) -- The Will of the Worm (alternate quest to A Thorn in Your Side and A Bargain With Shadows)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4364] = 1
-    DestinationsCSSV.QuestsDone[4369] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(5072) -- Aid for bramblebreach (alternate quest to The Staff of Magnus)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4735] = 1
-    questName = nil
-  end
-  questName = GetCompletedQuestInfo(4735) -- The Staff of Magnus (alternate quest to Aid for bramblebreach)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[5072] = 1
-    questName = nil
-  end
-  --Cyrodiil
-  questName = GetCompletedQuestInfo(4706) -- Reporting for Duty (alternate quest to Welcome to Cyrodiil and Siege Warfare)
-  if questName and string.len(questName) >= 3 then
-    DestinationsCSSV.QuestsDone[4704] = 1
-    DestinationsCSSV.QuestsDone[4705] = 1
-    questName = nil
-  end
-end
-
--- sets that the quest is started when the player accepts a quest
-function Destinations.UpdateQuestsDoneLQD(questDataTable)
-  local completed = LQD.completed_quests
-  local started = LQD.started_quests
-  local questData = questDataTable or {}
-  for k, v in pairs(DestinationsCSSV.QuestsDone) do
-    if v == Destinations.QUEST_HIDDEN then
-      questData[k] = v
-    end
-  end
-  DestinationsCSSV.QuestsDone = {}
-  for k, v in pairs(questData) do
-    DestinationsCSSV.QuestsDone[k] = v
-  end
-  for key, id in pairs(completed) do
-    DestinationsCSSV.QuestsDone[key] = Destinations.QUEST_DONE
-  end
-  for key, id in pairs(started) do
-    DestinationsCSSV.QuestsDone[key] = Destinations.QUEST_IN_PROGRESS
-  end
-end
-
-local function GetInProgressQuests()
-  Destinations.UpdateQuestsDoneLQD(nil)
-  local numQuests = GetNumJournalQuests()
-  for i = 1, numQuests do
-    local questName, _, _, _, _, _, _, _, _, _ = GetJournalQuestInfo(i)
-    QTableStore = LQD.quest_names[Destinations.effective_quest_lang]
-    for y, z in pairs(QTableStore) do
-      if z == questName then
-        local questId = y
-        if questId == 5073 or questId == 5075 or questId == 5077 then
-          -- fighters guild
-          DestinationsCSSV.QuestsDone[5073] = Destinations.QUEST_IN_PROGRESS
-          DestinationsCSSV.QuestsDone[5075] = Destinations.QUEST_IN_PROGRESS
-          DestinationsCSSV.QuestsDone[5077] = Destinations.QUEST_IN_PROGRESS
-        end
-        if questId == 5071 or questId == 5074 or questId == 5076 then
-          -- mages guild
-          DestinationsCSSV.QuestsDone[5071] = Destinations.QUEST_IN_PROGRESS
-          DestinationsCSSV.QuestsDone[5074] = Destinations.QUEST_IN_PROGRESS
-          DestinationsCSSV.QuestsDone[5076] = Destinations.QUEST_IN_PROGRESS
-        end
-        if questId == 4767 or questId == 4967 or questId == 4997 then
-          -- "One of the Undaunted"
-          DestinationsCSSV.QuestsDone[4767] = Destinations.QUEST_IN_PROGRESS
-          DestinationsCSSV.QuestsDone[4967] = Destinations.QUEST_IN_PROGRESS
-          DestinationsCSSV.QuestsDone[4997] = Destinations.QUEST_IN_PROGRESS
-        end
-        if questId >= 5388 and questId <= 5396 then
-          -- "Equipment Crafting Writs"
-          DestinationsCSSV.QuestsDone[5388] = Destinations.QUEST_IN_PROGRESS
-        end
-        if questId >= 5406 and questId <= 5418 then
-          -- "Consumables Crafting Writs"
-          DestinationsCSSV.QuestsDone[5406] = Destinations.QUEST_IN_PROGRESS
-        end
-      end
-    end
-  end
-end
-
-local function SetSpecialQuests()
-  for questID = 5071, 5077 do
-    local questName = GetCompletedQuestInfo(questID)
-    if string.len(questName) <= 1 then questName = nil end
-    if questName then
-      if questID == 5073 or questID == 5075 or questID == 5077 then
-        -- fighters guild
-        DestinationsCSSV.QuestsDone[5073] = 1
-        DestinationsCSSV.QuestsDone[5075] = 1
-        DestinationsCSSV.QuestsDone[5077] = 1
-      end
-      if questID == 5071 or questID == 5074 or questID == 5076 then
-        -- mages guild
-        DestinationsCSSV.QuestsDone[5071] = 1
-        DestinationsCSSV.QuestsDone[5074] = 1
-        DestinationsCSSV.QuestsDone[5076] = 1
-      end
-    end
-  end
-  for questID = 4766, 4998 do
-    local questName = GetCompletedQuestInfo(questID)
-    if string.len(questName) <= 1 then questName = nil end
-    if questName then
-      if questID == 4767 or questID == 4967 or questID == 4997 then
-        -- "One of the Undaunted"
-        DestinationsCSSV.QuestsDone[4767] = 1
-        DestinationsCSSV.QuestsDone[4967] = 1
-        DestinationsCSSV.QuestsDone[4997] = 1
-      end
-    end
-  end
-  for questID = 4809, 4811 do
-    -- "Nirnroot Wine"
-    local questName = GetCompletedQuestInfo(questID)
-    if string.len(questName) <= 1 then questName = nil end
-    if questName then
-      DestinationsCSSV.QuestsDone[4809] = 1
-      DestinationsCSSV.QuestsDone[4810] = 1
-      DestinationsCSSV.QuestsDone[4811] = 1
-    end
-  end
-  -- Hide "Tharayya's Trail" if "Blood and Sand" is completed.
-  local questName = GetCompletedQuestInfo(4432)
-  if string.len(questName) <= 1 then questName = nil end
-  if questName then
-    DestinationsCSSV.QuestsDone[4656] = 1
-  end
-  -- check Breadcrumb quests
-  CheckBreadcrumbQuests()
-  CheckAlternateQuests()
-end
-
-local function SetQuestHidden(pin, questID, questName)
-  if drtv.getQuestInfo then
-    Destinations:dm("Info", "Hiding questID: " .. questID)
-    Destinations:dm("Info", "Name: " .. questName)
-  end
-  DestinationsCSSV.QuestsDone[questID] = Destinations.QUEST_HIDDEN
-  RedrawAllPins(DPINS.QUESTS_UNDONE)
-  RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-  RedrawAllPins(DPINS.QUESTS_DONE)
-end
-
-local function SetQuestHiddenDummy()
-end
-
-local function ResetHiddenQuests()
-  local questData = {}
-  for k, v in pairs(DestinationsCSSV.QuestsDone) do
-    if v ~= Destinations.QUEST_HIDDEN then
-      questData[k] = v
-    end
-  end
-  DestinationsCSSV.QuestsDone = {}
-  for k, v in pairs(questData) do
-    DestinationsCSSV.QuestsDone[k] = v
-  end
-  RedrawAllPins(DPINS.QUESTS_UNDONE)
-  RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-  RedrawAllPins(DPINS.QUESTS_DONE)
-end
-
-local SetQuestEditing
-local function ShowQuestEditingMenu(pin)
-
-  local _, pinTag = pin:GetPinTypeAndTag()
-  local questName = pinTag[1]
-  local qName = string.gsub(questName, "|c......", "")
-
-  qName = string.gsub(qName, "|r", "")
-  qName = string.gsub(qName, "%-", " ")
-
-  if drtv.getQuestInfo then
-    Destinations:dm("Info", "Quest found: " .. qName)
-  end
-
-  local questTableName
-  local allQuestNames = LQD.quest_names[Destinations.effective_quest_lang]
-  for questTableID, questData in pairs(allQuestNames) do
-    questTableName = questData
-    if questTableName then
-      questTableName = string.gsub(questTableName, "%-", " ")
-      if string.find(qName, questTableName) then
-        questID = questTableID
-        break
-      end
-    end
-  end
-
-  ClearMenu()
-
-  AddMenuItem(questName, SetQuestHiddenDummy)
-
-  if not questID or questID == 0 then
-    if drtv.getQuestInfo then
-      Destinations:dm("Info",
-        "The quest could not be identified as no ID was found. For that reason the quest can not be hidden.")
-    end
-    AddMenuItem(defaults.miscColorCodes.settingsTextWarn:Colorize(GetString(QUEST_MENU_NOT_FOUND)), SetQuestHiddenDummy)
-  else
-    AddMenuItem(GetString(QUEST_MENU_HIDE_QUEST), function(pin) SetQuestHidden(pin, questID, questName) end)
-  end
-
-  AddMenuItem(GetString(QUEST_MENU_DISABLE_EDIT), SetQuestEditing)
-
-  ShowMenu(pin)
-
-end
-
-function SetQuestEditing()
-  if drtv.EditingQuests then
-    drtv.EditingQuests = false
-    LMP:SetClickHandlers(DPINS.QUESTS_UNDONE, nil)
-    Destinations:dm("Info", GetString(QUEST_EDIT_OFF))
-  else
-    drtv.EditingQuests = true
-    LMP:SetClickHandlers(DPINS.QUESTS_UNDONE, { [1] = { callback = function(pin) ShowQuestEditingMenu(pin) end } },
-      duplicates == false)
-    Destinations:dm("Info", GetString(QUEST_EDIT_ON))
-  end
-end
-
-SLASH_COMMANDS["/dqin"] = function()
-  --Quest Info Debug TOGGLE
-  if drtv.getQuestInfo == false then
-    drtv.getQuestInfo = true
-    Destinations:dm("Info", "Quest debug Info ON")
-    Destinations:dm("Info", "Repeat command to turn it off.")
-  elseif drtv.getQuestInfo == true then
-    drtv.getQuestInfo = false
-    Destinations:dm("Info", "Quest debug Info OFF")
-  end
-end
 SLASH_COMMANDS["/dhlp"] = function()
   --Show help
   Destinations:dm("Info", GetString(DESTCOMMANDS))
   Destinations:dm("Info", GetString(DESTCOMMANDdhlp))
   Destinations:dm("Info", GetString(DESTCOMMANDdset))
-  Destinations:dm("Info", GetString(DESTCOMMANDdqed))
-end
-SLASH_COMMANDS["/dlaq"] = function()
-  --Refresh all Completed Quests and /reloadui
-  GetInProgressQuests()
-  SetSpecialQuests()
-  ReloadUI()
-end
-SLASH_COMMANDS["/dqed"] = SetQuestEditing   --Quest Editing TOGGLE
-SLASH_COMMANDS["/dgcq"] = function()
-  --Get Completed Quests (to saved vars)
-  Destinations:dm("Info", "Saving all completed quests...")
-  local questId = nil
-  local questName = nil
-  local questType
-  for i = 1, 7000 do
-    questId = i
-    questName, questType = GetCompletedQuestInfo(questId)
-    if string.len(questName) >= 3 then
-      DestinationsSV.TEMPPINDATA[questId] = "\v" .. questName .. "\v"
-    end
-  end
-  Destinations:dm("Info", "Done...")
 end
 SLASH_COMMANDS["/dgac"] = function()
   --Get All Achievements (to saved vars)
@@ -5196,15 +3649,6 @@ SLASH_COMMANDS["/dsav"] = function(...)
           MapZoomOut()
         end
       end
-      SetMapToPlayerLocation()
-      mapNumber = 1
-      while coordData[mapNumber] do
-        if drtv.getQuestInfo then
-          Destinations:dm("Info", "saving data for " .. mapName[mapNumber] .. "...")
-        end
-        DestinationsSV.Quests["DQD: " .. mapName[mapNumber] .. "/" .. FormatCoords(mapX) .. FormatCoords(mapY)] = coordData[mapNumber]
-        mapNumber = mapNumber + 1
-      end
     end
   else
     Destinations:dm("Info", "Missing parameter!")
@@ -5292,31 +3736,6 @@ local function InitVariables()
   if not DestinationsSV.pins.pinTextureVampAltar.size then DestinationsSV.pins.pinTextureVampAltar.size = defaults.pins.pinTextureVampAltar.size end
   if not DestinationsSV.pins.pinTextureVampAltar.tint then DestinationsSV.pins.pinTextureVampAltar.tint = defaults.pins.pinTextureVampAltar.tint end
   if not DestinationsSV.pins.pinTextureVampAltar.textcolor then DestinationsSV.pins.pinTextureVampAltar.textcolor = defaults.pins.pinTextureVampAltar.textcolor end
-
-  if not DestinationsSV.pins.pinTextureQuestsUndone.maxDistance then DestinationsSV.pins.pinTextureQuestsUndone.maxDistance = defaults.pins.pinTextureQuestsUndone.maxDistance end
-  if not DestinationsSV.pins.pinTextureQuestsUndone.type then DestinationsSV.pins.pinTextureQuestsUndone.type = defaults.pins.pinTextureQuestsUndone.type end
-  if not DestinationsSV.pins.pinTextureQuestsUndone.level then DestinationsSV.pins.pinTextureQuestsUndone.level = defaults.pins.pinTextureQuestsUndone.level end
-  if not DestinationsSV.pins.pinTextureQuestsUndone.size then DestinationsSV.pins.pinTextureQuestsUndone.size = defaults.pins.pinTextureQuestsUndone.size end
-  if not DestinationsSV.pins.pinTextureQuestsUndone.tint then DestinationsSV.pins.pinTextureQuestsUndone.tint = defaults.pins.pinTextureQuestsUndone.tint end
-  if not DestinationsSV.pins.pinTextureQuestsUndone.tintmain then DestinationsSV.pins.pinTextureQuestsUndone.tintmain = defaults.pins.pinTextureQuestsUndone.tintmain end
-  if not DestinationsSV.pins.pinTextureQuestsUndone.tintday then DestinationsSV.pins.pinTextureQuestsUndone.tintday = defaults.pins.pinTextureQuestsUndone.tintday end
-  if not DestinationsSV.pins.pinTextureQuestsUndone.tintrep then DestinationsSV.pins.pinTextureQuestsUndone.tintrep = defaults.pins.pinTextureQuestsUndone.tintrep end
-  if not DestinationsSV.pins.pinTextureQuestsUndone.tintdun then DestinationsSV.pins.pinTextureQuestsUndone.tintdun = defaults.pins.pinTextureQuestsUndone.tintdun end
-  if not DestinationsSV.pins.pinTextureQuestsUndone.textcolor then DestinationsSV.pins.pinTextureQuestsUndone.textcolor = defaults.pins.pinTextureQuestsUndone.textcolor end
-
-  if not DestinationsSV.pins.pinTextureQuestsInProgress.maxDistance then DestinationsSV.pins.pinTextureQuestsInProgress.maxDistance = defaults.pins.pinTextureQuestsInProgress.maxDistance end
-  if not DestinationsSV.pins.pinTextureQuestsInProgress.type then DestinationsSV.pins.pinTextureQuestsInProgress.type = defaults.pins.pinTextureQuestsInProgress.type end
-  if not DestinationsSV.pins.pinTextureQuestsInProgress.level then DestinationsSV.pins.pinTextureQuestsInProgress.level = defaults.pins.pinTextureQuestsInProgress.level end
-  if not DestinationsSV.pins.pinTextureQuestsInProgress.size then DestinationsSV.pins.pinTextureQuestsInProgress.size = defaults.pins.pinTextureQuestsInProgress.size end
-  if not DestinationsSV.pins.pinTextureQuestsInProgress.tint then DestinationsSV.pins.pinTextureQuestsInProgress.tint = defaults.pins.pinTextureQuestsInProgress.tint end
-  if not DestinationsSV.pins.pinTextureQuestsInProgress.textcolor then DestinationsSV.pins.pinTextureQuestsInProgress.textcolor = defaults.pins.pinTextureQuestsInProgress.textcolor end
-
-  if not DestinationsSV.pins.pinTextureQuestsDone.maxDistance then DestinationsSV.pins.pinTextureQuestsDone.maxDistance = defaults.pins.pinTextureQuestsDone.maxDistance end
-  if not DestinationsSV.pins.pinTextureQuestsDone.type then DestinationsSV.pins.pinTextureQuestsDone.type = defaults.pins.pinTextureQuestsDone.type end
-  if not DestinationsSV.pins.pinTextureQuestsDone.level then DestinationsSV.pins.pinTextureQuestsDone.level = defaults.pins.pinTextureQuestsDone.level end
-  if not DestinationsSV.pins.pinTextureQuestsDone.size then DestinationsSV.pins.pinTextureQuestsDone.size = defaults.pins.pinTextureQuestsDone.size end
-  if not DestinationsSV.pins.pinTextureQuestsDone.tint then DestinationsSV.pins.pinTextureQuestsDone.tint = defaults.pins.pinTextureQuestsDone.tint end
-  if not DestinationsSV.pins.pinTextureQuestsDone.textcolor then DestinationsSV.pins.pinTextureQuestsDone.textcolor = defaults.pins.pinTextureQuestsDone.textcolor end
 
   if not DestinationsSV.pins.pinTextureCollectible.maxDistance then DestinationsSV.pins.pinTextureCollectible.maxDistance = defaults.pins.pinTextureCollectible.maxDistance end
   if not DestinationsSV.pins.pinTextureCollectible.type then DestinationsSV.pins.pinTextureCollectible.type = defaults.pins.pinTextureCollectible.type end
@@ -5884,51 +4303,6 @@ local function SetPinLayouts()
       end,
     },
   }
-  local pinLayout_QuestsUndone = {
-    maxDistance = DestinationsSV.pins.pinTextureQuestsUndone.maxDistance,
-    level = DestinationsSV.pins.pinTextureQuestsUndone.level,
-    texture = pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsUndone.type],
-    size = DestinationsSV.pins.pinTextureQuestsUndone.size,
-    tint = ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsUndone.tint)),
-    additionalLayout = {
-      function(pin)
-        pin:GetNamedChild("Background"):SetColor(unpack(DestinationsSV.pins.pinTextureQuestsUndone.tint))
-      end,
-      function(pin)
-        pin:GetNamedChild("Background"):SetColor(1, 1, 1, 1)
-      end,
-    },
-  }
-  local pinLayout_QuestsInProgress = {
-    maxDistance = DestinationsSV.pins.pinTextureQuestsInProgress.maxDistance,
-    level = DestinationsSV.pins.pinTextureQuestsInProgress.level,
-    texture = pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsInProgress.type],
-    size = DestinationsSV.pins.pinTextureQuestsInProgress.size,
-    tint = ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsInProgress.tint)),
-    additionalLayout = {
-      function(pin)
-        pin:GetNamedChild("Background"):SetColor(unpack(DestinationsSV.pins.pinTextureQuestsInProgress.tint))
-      end,
-      function(pin)
-        pin:GetNamedChild("Background"):SetColor(1, 1, 1, 1)
-      end,
-    },
-  }
-  local pinLayout_QuestsDone = {
-    maxDistance = DestinationsSV.pins.pinTextureQuestsDone.maxDistance,
-    level = DestinationsSV.pins.pinTextureQuestsDone.level,
-    texture = pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsDone.type],
-    size = DestinationsSV.pins.pinTextureQuestsDone.size,
-    tint = ZO_ColorDef:New(unpack(DestinationsSV.pins.pinTextureQuestsDone.tint)),
-    additionalLayout = {
-      function(pin)
-        pin:GetNamedChild("Background"):SetColor(unpack(DestinationsSV.pins.pinTextureQuestsDone.tint))
-      end,
-      function(pin)
-        pin:GetNamedChild("Background"):SetColor(1, 1, 1, 1)
-      end,
-    },
-  }
   local pinLayout_Collectible = {
     maxDistance = DestinationsSV.pins.pinTextureCollectible.maxDistance,
     level = DestinationsSV.pins.pinTextureCollectible.level,
@@ -6213,11 +4587,6 @@ local function SetPinLayouts()
   LMP:AddPinType(DPINS.CUTPURSE, CutpursepinTypeCallback, nil, pinLayout_Cutpurse, pinTooltipCreator)
   LMP:AddPinType(DPINS.CUTPURSE_DONE, CutpursepinTypeCallbackDone, nil, pinLayout_Cutpurse_Done, pinTooltipCreator)
 
-  LMP:AddPinType(DPINS.QUESTS_UNDONE, Quests_Undone_pinTypeCallback, nil, pinLayout_QuestsUndone, pinTooltipCreator)
-  LMP:AddPinType(DPINS.QUESTS_IN_PROGRESS, Quests_In_Progress_pinTypeCallback, nil, pinLayout_QuestsInProgress,
-    pinTooltipCreator)
-  LMP:AddPinType(DPINS.QUESTS_DONE, Quests_Done_pinTypeCallback, nil, pinLayout_QuestsDone, pinTooltipCreator)
-
   LMP:AddPinType(DPINS.COLLECTIBLES, CollectiblepinTypeCallback, nil, pinLayout_Collectible, pinTooltipCreator)
   LMP:AddPinType(DPINS.COLLECTIBLESDONE, CollectibleDonepinTypeCallback, nil, pinLayout_CollectibleDone,
     pinTooltipCreator)
@@ -6373,18 +4742,6 @@ local function SetPinLayouts()
       DestinationsCSSV.filters)
   end
 
-  if DestinationsCSSV.settings.MapFiltersQuestgivers then
-    LMP:AddPinFilter(DPINS.QUESTS_UNDONE,
-      defaults.miscColorCodes.mapFilterTextQUndone:Colorize(GetString(DEST_FILTER_QUESTGIVER)), nil,
-      DestinationsCSSV.filters)
-    LMP:AddPinFilter(DPINS.QUESTS_IN_PROGRESS,
-      defaults.miscColorCodes.mapFilterTextQProg:Colorize(GetString(DEST_FILTER_QUESTS_IN_PROGRESS)), nil,
-      DestinationsCSSV.filters)
-    LMP:AddPinFilter(DPINS.QUESTS_DONE,
-      defaults.miscColorCodes.mapFilterTextQDone:Colorize(GetString(DEST_FILTER_QUESTS_DONE)), nil,
-      DestinationsCSSV.filters)
-  end
-
   if DestinationsCSSV.settings.MapFiltersCollectibles then
     LMP:AddPinFilter(DPINS.COLLECTIBLES,
       defaults.miscColorCodes.mapFilterTextUndone1:Colorize(GetString(DEST_FILTER_COLLECTIBLE)), nil,
@@ -6461,10 +4818,6 @@ local function SetPinLayouts()
 
   COMPASS_PINS:AddCustomPin(DPINS.CUTPURSE, AddAchievementCompassPins, pinLayout_Cutpurse)
   COMPASS_PINS:AddCustomPin(DPINS.CUTPURSE_DONE, AddAchievementCompassPins, pinLayout_Cutpurse_Done)
-
-  COMPASS_PINS:AddCustomPin(DPINS.QUESTS_UNDONE, Quests_CompassPins, pinLayout_QuestsUndone)
-  COMPASS_PINS:AddCustomPin(DPINS.QUESTS_IN_PROGRESS, Quests_CompassPins, pinLayout_QuestsInProgress)
-  COMPASS_PINS:AddCustomPin(DPINS.QUESTS_DONE, Quests_CompassPins, pinLayout_QuestsDone)
 
   COMPASS_PINS:AddCustomPin(DPINS.COLLECTIBLES, CollectibleFishCompassPins, pinLayout_Collectible)
   COMPASS_PINS:AddCustomPin(DPINS.COLLECTIBLESDONE, CollectibleFishCompassPins, pinLayout_CollectibleDone)
@@ -6612,6 +4965,7 @@ local function HookKeepTooltips()
 
 end
 
+--[[TODO Figure out what this was for originally, not used in 27.0]]--
 local function UpdateMapFilters()
   for pin, pinname in pairs(DPINS) do
     pin = "DPINS." .. pin
@@ -6671,7 +5025,7 @@ local function InitSettings()
   local EarthlyPosPreview, EarthlyPosPreviewDone, OnMePreview, OnMePreviewDone, BrawlPreview, BrawlPreviewDone, PatronPreview, PatronPreviewDone
   local WrothgarJumperPreview, WrothgarJumperPreviewDone, RelicHunterPreview, RelicHunterPreviewDone, BreakingPreview, BreakingPreviewDone, CutpursePreview, CutpursePreviewDone
   local ChampionPreview, ChampionPreviewDone, AyleidPreview, DeadlandsPreview, HighIslePreview, DwemerPreview, WWVampPreview, VampAltarPreview, WWShrinePreview
-  local QuestsUndonePreview, QuestsInProgressPreview, QuestsDonePreview, CollectiblePreview, CollectibleDonePreview, FishPreview, FishDonePreview
+  local CollectiblePreview, CollectibleDonePreview, FishPreview, FishDonePreview
 
   CreateIcons = function(panel)
     if panel == settingsPanel then
@@ -6904,27 +5258,6 @@ local function InitSettings()
       WWShrinePreview:SetDimensions(DestinationsSV.pins.pinTextureWWShrine.size,
         DestinationsSV.pins.pinTextureWWShrine.size)
       WWShrinePreview:SetColor(unpack(DestinationsSV.pins.pinTextureWWShrine.tint))
-
-      QuestsUndonePreview = WINDOW_MANAGER:CreateControl(nil, previewpinTextureQuestsUndone, CT_TEXTURE)
-      QuestsUndonePreview:SetAnchor(RIGHT, previewpinTextureQuestsUndone.dropdown:GetControl(), LEFT, -10, 0)
-      QuestsUndonePreview:SetTexture(pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsUndone.type])
-      QuestsUndonePreview:SetDimensions(DestinationsSV.pins.pinTextureQuestsUndone.size,
-        DestinationsSV.pins.pinTextureQuestsUndone.size)
-      QuestsUndonePreview:SetColor(unpack(DestinationsSV.pins.pinTextureQuestsUndone.tint))
-
-      QuestsInProgressPreview = WINDOW_MANAGER:CreateControl(nil, previewpinTextureQuestsInProgress, CT_TEXTURE)
-      QuestsInProgressPreview:SetAnchor(RIGHT, previewpinTextureQuestsInProgress.dropdown:GetControl(), LEFT, -10, 0)
-      QuestsInProgressPreview:SetTexture(pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsInProgress.type])
-      QuestsInProgressPreview:SetDimensions(DestinationsSV.pins.pinTextureQuestsInProgress.size,
-        DestinationsSV.pins.pinTextureQuestsInProgress.size)
-      QuestsInProgressPreview:SetColor(unpack(DestinationsSV.pins.pinTextureQuestsInProgress.tint))
-
-      QuestsDonePreview = WINDOW_MANAGER:CreateControl(nil, previewpinTextureQuestsDone, CT_TEXTURE)
-      QuestsDonePreview:SetAnchor(RIGHT, previewpinTextureQuestsDone.dropdown:GetControl(), LEFT, -10, 0)
-      QuestsDonePreview:SetTexture(pinTextures.paths.Quests[DestinationsSV.pins.pinTextureQuestsDone.type])
-      QuestsDonePreview:SetDimensions(DestinationsSV.pins.pinTextureQuestsDone.size,
-        DestinationsSV.pins.pinTextureQuestsDone.size)
-      QuestsDonePreview:SetColor(unpack(DestinationsSV.pins.pinTextureQuestsDone.tint))
 
       CollectiblePreview = WINDOW_MANAGER:CreateControl(nil, previewpinTextureCollectible, CT_TEXTURE)
       CollectiblePreview:SetAnchor(RIGHT, previewpinTextureCollectible.dropdown:GetControl(), LEFT, -40, 0)
@@ -9094,484 +7427,6 @@ local function InitSettings()
         default = { r = defaults.pins.pinTextureWWVamp.textcolor[1], g = defaults.pins.pinTextureWWVamp.textcolor[2], b = defaults.pins.pinTextureWWVamp.textcolor[3] }
       })
 
-    elseif menu == "Quests" then
-
-      table.insert(submenu, { -- Header
-        type = "header",
-        name = defaults.miscColorCodes.settingsTextAchHeaders:Colorize(GetString(DEST_SETTINGS_QUEST_UNDONE_HEADER)),
-      })
-      table.insert(submenu, { -- Undone Quest pin toggle
-        type = "checkbox",
-        width = "half",
-        name = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_QUEST_UNDONE_PIN_TOGGLE)) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR)),
-        tooltip = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR_TOGGLE_TT)),
-        getFunc = function() return DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] end,
-        setFunc = function(state)
-          TogglePins(DPINS.QUESTS_UNDONE, state)
-          RedrawAllPins(DPINS.QUESTS_UNDONE)
-        end,
-        default = defaults.filters[DPINS.QUESTS_UNDONE],
-      })
-      table.insert(submenu, { -- Undone Quest pin style
-        type = "dropdown",
-        width = "half",
-        reference = "previewpinTextureQuestsUndone",
-        choices = pinTextures.lists.Quests,
-        getFunc = function() return pinTextures.lists.Quests[DestinationsSV.pins.pinTextureQuestsUndone.type] end,
-        setFunc = function(selected)
-          for index, name in ipairs(pinTextures.lists.Quests) do
-            if name == selected then
-              DestinationsSV.pins.pinTextureQuestsUndone.type = index
-              LMP:SetLayoutKey(DPINS.QUESTS_UNDONE, "texture", pinTextures.paths.Quests[index])
-              QuestsUndonePreview:SetTexture(pinTextures.paths.Quests[index])
-              RedrawAllPins(DPINS.QUESTS_UNDONE)
-              break
-            end
-          end
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] end,
-        default = pinTextures.lists.Quests[defaults.pins.pinTextureQuestsUndone.type],
-      })
-      table.insert(submenu, { -- Undone Quest pin size
-        type = "slider",
-        name = GetString(DEST_SETTINGS_QUEST_UNDONE_PIN_SIZE),
-        min = 20,
-        max = 70,
-        getFunc = function() return DestinationsSV.pins.pinTextureQuestsUndone.size end,
-        setFunc = function(size)
-          DestinationsSV.pins.pinTextureQuestsUndone.size = size
-          QuestsUndonePreview:SetDimensions(size, size)
-          LMP:SetLayoutKey(DPINS.QUESTS_UNDONE, "size", size)
-          RedrawAllPins(DPINS.QUESTS_UNDONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] end,
-        default = defaults.pins.pinTextureQuestsUndone.size
-      })
-      table.insert(submenu, { -- Undone Quest pin color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_UNDONE_PIN_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_UNDONE_PIN_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsUndone.tint) end,
-        setFunc = function(r, g, b, a)
-          DestinationsSV.pins.pinTextureQuestsUndone.tint = { r, g, b, a }
-          QuestsUndonePreview:SetColor(r, g, b, a)
-          LMP:SetLayoutKey(DPINS.QUESTS_UNDONE, "tint", ZO_ColorDef:New(r, g, b, a))
-          LMP:RefreshPins(DPINS.QUESTS_UNDONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] end,
-        default = { r = defaults.pins.pinTextureQuestsUndone.tint[1], g = defaults.pins.pinTextureQuestsUndone.tint[2], b = defaults.pins.pinTextureQuestsUndone.tint[3], a = defaults.pins.pinTextureQuestsUndone.tint[4] }
-      })
-      table.insert(submenu, { -- Undone Main Quest pin color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_UNDONE_MAIN_PIN_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_UNDONE_MAIN_PIN_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsUndone.tintmain) end,
-        setFunc = function(r, g, b, a)
-          DestinationsSV.pins.pinTextureQuestsUndone.tintmain = { r, g, b, a }
-          LMP:RefreshPins(DPINS.QUESTS_UNDONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] end,
-        default = { r = defaults.pins.pinTextureQuestsUndone.tintmain[1], g = defaults.pins.pinTextureQuestsUndone.tintmain[2], b = defaults.pins.pinTextureQuestsUndone.tintmain[3], a = defaults.pins.pinTextureQuestsUndone.tintmain[4] }
-      })
-      table.insert(submenu, { -- Undone Daily Quest pin color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_UNDONE_DAY_PIN_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_UNDONE_DAY_PIN_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsUndone.tintday) end,
-        setFunc = function(r, g, b, a)
-          DestinationsSV.pins.pinTextureQuestsUndone.tintday = { r, g, b, a }
-          LMP:RefreshPins(DPINS.QUESTS_UNDONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] end,
-        default = { r = defaults.pins.pinTextureQuestsUndone.tintday[1], g = defaults.pins.pinTextureQuestsUndone.tintday[2], b = defaults.pins.pinTextureQuestsUndone.tintday[3], a = defaults.pins.pinTextureQuestsUndone.tintday[4] }
-      })
-      table.insert(submenu, { -- Undone Repeatable Quest pin color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_UNDONE_REP_PIN_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_UNDONE_REP_PIN_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsUndone.tintrep) end,
-        setFunc = function(r, g, b, a)
-          DestinationsSV.pins.pinTextureQuestsUndone.tintrep = { r, g, b, a }
-          LMP:RefreshPins(DPINS.QUESTS_UNDONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] end,
-        default = { r = defaults.pins.pinTextureQuestsUndone.tintrep[1], g = defaults.pins.pinTextureQuestsUndone.tintrep[2], b = defaults.pins.pinTextureQuestsUndone.tintrep[3], a = defaults.pins.pinTextureQuestsUndone.tintrep[4] }
-      })
-      table.insert(submenu, { -- Undone Dungeon Quest pin color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_UNDONE_DUN_PIN_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_UNDONE_DUN_PIN_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsUndone.tintdun) end,
-        setFunc = function(r, g, b, a)
-          DestinationsSV.pins.pinTextureQuestsUndone.tintdun = { r, g, b, a }
-          LMP:RefreshPins(DPINS.QUESTS_UNDONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] end,
-        default = { r = defaults.pins.pinTextureQuestsUndone.tintdun[1], g = defaults.pins.pinTextureQuestsUndone.tintdun[2], b = defaults.pins.pinTextureQuestsUndone.tintdun[3], a = defaults.pins.pinTextureQuestsUndone.tintdun[4] }
-      })
-      table.insert(submenu, { -- Undone Quest pin text color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_UNDONE_PINTEXT_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_UNDONE_PINTEXT_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsUndone.textcolor) end,
-        setFunc = function(r, g, b)
-          DestinationsSV.pins.pinTextureQuestsUndone.textcolor = { r, g, b }
-          LMP:RefreshPins(DPINS.QUESTS_UNDONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] end,
-        default = { r = defaults.pins.pinTextureQuestsUndone.textcolor[1], g = defaults.pins.pinTextureQuestsUndone.textcolor[2], b = defaults.pins.pinTextureQuestsUndone.textcolor[3] }
-      })
-      table.insert(submenu, { -- Header
-        type = "header",
-        name = defaults.miscColorCodes.settingsTextAchHeaders:Colorize(GetString(DEST_SETTINGS_QUEST_INPROGRESS_HEADER)),
-      })
-      table.insert(submenu, { -- In Progress Quest pin toggle
-        type = "checkbox",
-        width = "half",
-        name = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_QUEST_INPROGRESS_PIN_TOGGLE)) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR)),
-        tooltip = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR_TOGGLE_TT)),
-        getFunc = function() return DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] end,
-        setFunc = function(state)
-          TogglePins(DPINS.QUESTS_IN_PROGRESS, state)
-          RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-        end,
-        default = defaults.filters[DPINS.QUESTS_IN_PROGRESS],
-      })
-      table.insert(submenu, { -- In Progress Quest pin style
-        type = "dropdown",
-        width = "half",
-        reference = "previewpinTextureQuestsInProgress",
-        choices = pinTextures.lists.Quests,
-        getFunc = function() return pinTextures.lists.Quests[DestinationsSV.pins.pinTextureQuestsInProgress.type] end,
-        setFunc = function(selected)
-          for index, name in ipairs(pinTextures.lists.Quests) do
-            if name == selected then
-              DestinationsSV.pins.pinTextureQuestsInProgress.type = index
-              LMP:SetLayoutKey(DPINS.QUESTS_IN_PROGRESS, "texture", pinTextures.paths.Quests[index])
-              QuestsInProgressPreview:SetTexture(pinTextures.paths.Quests[index])
-              RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-              break
-            end
-          end
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] end,
-        default = pinTextures.lists.Quests[defaults.pins.pinTextureQuestsInProgress.type],
-      })
-      table.insert(submenu, { -- In Progress Quest pin size
-        type = "slider",
-        name = GetString(DEST_SETTINGS_QUEST_INPROGRESS_PIN_SIZE),
-        min = 20,
-        max = 70,
-        getFunc = function() return DestinationsSV.pins.pinTextureQuestsInProgress.size end,
-        setFunc = function(size)
-          DestinationsSV.pins.pinTextureQuestsInProgress.size = size
-          QuestsInProgressPreview:SetDimensions(size, size)
-          LMP:SetLayoutKey(DPINS.QUESTS_IN_PROGRESS, "size", size)
-          RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] end,
-        default = defaults.pins.pinTextureQuestsInProgress.size
-      })
-      table.insert(submenu, { -- In Progress Quest pin color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_INPROGRESS_PIN_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_INPROGRESS_PIN_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsInProgress.tint) end,
-        setFunc = function(r, g, b, a)
-          DestinationsSV.pins.pinTextureQuestsInProgress.tint = { r, g, b, a }
-          QuestsInProgressPreview:SetColor(r, g, b, a)
-          LMP:SetLayoutKey(DPINS.QUESTS_IN_PROGRESS, "tint", ZO_ColorDef:New(r, g, b, a))
-          LMP:RefreshPins(DPINS.QUESTS_IN_PROGRESS)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] end,
-        default = { r = defaults.pins.pinTextureQuestsInProgress.tint[1], g = defaults.pins.pinTextureQuestsInProgress.tint[2], b = defaults.pins.pinTextureQuestsInProgress.tint[3], a = defaults.pins.pinTextureQuestsInProgress.tint[4] }
-      })
-      table.insert(submenu, { -- In Progress Quest pin text color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_INPROGRESS_PINTEXT_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_INPROGRESS_PINTEXT_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsInProgress.textcolor) end,
-        setFunc = function(r, g, b)
-          DestinationsSV.pins.pinTextureQuestsInProgress.textcolor = { r, g, b }
-          LMP:RefreshPins(DPINS.QUESTS_IN_PROGRESS)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] end,
-        default = { r = defaults.pins.pinTextureQuestsInProgress.textcolor[1], g = defaults.pins.pinTextureQuestsInProgress.textcolor[2], b = defaults.pins.pinTextureQuestsInProgress.textcolor[3] }
-      })
-      table.insert(submenu, { -- Header
-        type = "header",
-        name = defaults.miscColorCodes.settingsTextAchHeaders:Colorize(GetString(DEST_SETTINGS_QUEST_DONE_HEADER)),
-      })
-      table.insert(submenu, { -- Done Quest pin toggle
-        type = "checkbox",
-        width = "half",
-        name = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_QUEST_DONE_PIN_TOGGLE)) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR)),
-        tooltip = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR_TOGGLE_TT)),
-        getFunc = function() return DestinationsCSSV.filters[DPINS.QUESTS_DONE] end,
-        setFunc = function(state)
-          TogglePins(DPINS.QUESTS_DONE, state)
-          RedrawAllPins(DPINS.QUESTS_DONE)
-        end,
-        default = defaults.filters[DPINS.QUESTS_DONE],
-      })
-      table.insert(submenu, { -- Done Quest pin style
-        type = "dropdown",
-        width = "half",
-        reference = "previewpinTextureQuestsDone",
-        choices = pinTextures.lists.Quests,
-        getFunc = function() return pinTextures.lists.Quests[DestinationsSV.pins.pinTextureQuestsDone.type] end,
-        setFunc = function(selected)
-          for index, name in ipairs(pinTextures.lists.Quests) do
-            if name == selected then
-              DestinationsSV.pins.pinTextureQuestsDone.type = index
-              LMP:SetLayoutKey(DPINS.QUESTS_DONE, "texture", pinTextures.paths.Quests[index])
-              QuestsDonePreview:SetTexture(pinTextures.paths.Quests[index])
-              RedrawAllPins(DPINS.QUESTS_DONE)
-              break
-            end
-          end
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_DONE] end,
-        default = pinTextures.lists.Quests[defaults.pins.pinTextureQuestsDone.type],
-      })
-      table.insert(submenu, { -- Done Quest pin size
-        type = "slider",
-        name = GetString(DEST_SETTINGS_QUEST_DONE_PIN_SIZE),
-        min = 20,
-        max = 70,
-        getFunc = function() return DestinationsSV.pins.pinTextureQuestsDone.size end,
-        setFunc = function(size)
-          DestinationsSV.pins.pinTextureQuestsDone.size = size
-          QuestsDonePreview:SetDimensions(size, size)
-          LMP:SetLayoutKey(DPINS.QUESTS_DONE, "size", size)
-          RedrawAllPins(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_DONE] end,
-        default = defaults.pins.pinTextureQuestsDone.size
-      })
-      table.insert(submenu, { -- Done Quest pin color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_DONE_PIN_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_DONE_PIN_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsDone.tint) end,
-        setFunc = function(r, g, b, a)
-          DestinationsSV.pins.pinTextureQuestsDone.tint = { r, g, b, a }
-          QuestsDonePreview:SetColor(r, g, b, a)
-          LMP:SetLayoutKey(DPINS.QUESTS_DONE, "tint", ZO_ColorDef:New(r, g, b, a))
-          LMP:RefreshPins(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_DONE] end,
-        default = { r = defaults.pins.pinTextureQuestsDone.tint[1], g = defaults.pins.pinTextureQuestsDone.tint[2], b = defaults.pins.pinTextureQuestsDone.tint[3], a = defaults.pins.pinTextureQuestsDone.tint[4] }
-      })
-      table.insert(submenu, { -- Done Quest pin text color
-        type = "colorpicker",
-        name = GetString(DEST_SETTINGS_QUEST_DONE_PINTEXT_COLOR),
-        tooltip = GetString(DEST_SETTINGS_QUEST_DONE_PINTEXT_COLOR_TT),
-        getFunc = function() return unpack(DestinationsSV.pins.pinTextureQuestsDone.textcolor) end,
-        setFunc = function(r, g, b)
-          DestinationsSV.pins.pinTextureQuestsDone.textcolor = { r, g, b }
-          LMP:RefreshPins(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_DONE] end,
-        default = { r = defaults.pins.pinTextureQuestsDone.textcolor[1], g = defaults.pins.pinTextureQuestsDone.textcolor[2], b = defaults.pins.pinTextureQuestsDone.textcolor[3] }
-      })
-      table.insert(submenu, { -- Header
-        type = "header",
-        name = defaults.miscColorCodes.settingsTextAchHeaders:Colorize(GetString(DEST_SETTINGS_QUEST_CADWELLS_HEADER)),
-      })
-      table.insert(submenu, { -- Cadwell's Almanac Quests pin toggle
-        type = "checkbox",
-        width = "full",
-        name = GetString(DEST_SETTINGS_QUEST_CADWELLS_PIN_TOGGLE),
-        tooltip = GetString(DEST_SETTINGS_QUEST_CADWELLS_PIN_TOGGLE_TT),
-        getFunc = function() return DestinationsSV.settings.ShowCadwellsAlmanac end,
-        setFunc = function(state)
-          DestinationsSV.settings.ShowCadwellsAlmanac = state
-          RedrawAllPins(DPINS.QUESTS_UNDONE)
-          RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-          RedrawAllPins(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return
-        not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and
-          not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and
-          not DestinationsCSSV.filters[DPINS.QUESTS_DONE]
-        end,
-        default = defaults.settings.ShowCadwellsAlmanac,
-      })
-      table.insert(submenu, { -- Cadwell's Almanac Quests ONLY pin toggle
-        type = "checkbox",
-        width = "full",
-        name = GetString(DEST_SETTINGS_QUEST_CADWELLS_ONLY_PIN_TOGGLE),
-        tooltip = GetString(DEST_SETTINGS_QUEST_CADWELLS_ONLY_PIN_TOGGLE_TT),
-        getFunc = function() return DestinationsSV.settings.ShowCadwellsAlmanacOnly end,
-        setFunc = function(state)
-          DestinationsSV.settings.ShowCadwellsAlmanacOnly = state
-          RedrawAllPins(DPINS.QUESTS_UNDONE)
-          RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-          RedrawAllPins(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return
-        (not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and
-          not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and
-          not DestinationsCSSV.filters[DPINS.QUESTS_DONE]) or
-          not DestinationsSV.settings.ShowCadwellsAlmanac
-        end,
-        default = defaults.settings.ShowCadwellsAlmanacOnly,
-      })
-      table.insert(submenu, { -- Header
-        type = "header",
-        name = defaults.miscColorCodes.settingsTextAchHeaders:Colorize(GetString(DEST_SETTINGS_QUEST_DAILIES_HEADER)),
-      })
-      table.insert(submenu, { -- Writs pin toggle
-        type = "checkbox",
-        width = "full",
-        name = GetString(DEST_SETTINGS_QUEST_WRITS_PIN_TOGGLE),
-        tooltip = GetString(DEST_SETTINGS_QUEST_WRITS_PIN_TOGGLE_TT),
-        getFunc = function() return DestinationsSV.filters[DPINS.QUESTS_WRITS] end,
-        setFunc = function(state)
-          DestinationsSV.filters[DPINS.QUESTS_WRITS] = state
-          RedrawAllPins(DPINS.QUESTS_UNDONE)
-          RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-          RedrawAllPins(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and not DestinationsCSSV.filters[DPINS.QUESTS_DONE] end,
-        default = defaults.filters[DPINS.QUESTS_WRITS],
-      })
-      table.insert(submenu, { -- Daily Quests pin toggle
-        type = "checkbox",
-        width = "full",
-        name = GetString(DEST_SETTINGS_QUEST_DAILIES_PIN_TOGGLE),
-        tooltip = GetString(DEST_SETTINGS_QUEST_DAILIES_PIN_TOGGLE_TT),
-        getFunc = function() return DestinationsSV.filters[DPINS.QUESTS_DAILIES] end,
-        setFunc = function(state)
-          DestinationsSV.filters[DPINS.QUESTS_DAILIES] = state
-          RedrawAllPins(DPINS.QUESTS_UNDONE)
-          RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-          RedrawAllPins(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and not DestinationsCSSV.filters[DPINS.QUESTS_DONE] end,
-        default = defaults.filters[DPINS.QUESTS_DAILIES],
-      })
-      table.insert(submenu, { -- Repeatable Quests pin toggle
-        type = "checkbox",
-        width = "full",
-        name = GetString(DEST_SETTINGS_QUEST_REPEATABLES_PIN_TOGGLE),
-        tooltip = GetString(DEST_SETTINGS_QUEST_REPEATABLES_PIN_TOGGLE_TT),
-        getFunc = function() return DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] end,
-        setFunc = function(state)
-          DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] = state
-          RedrawAllPins(DPINS.QUESTS_UNDONE)
-          RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-          RedrawAllPins(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and not DestinationsCSSV.filters[DPINS.QUESTS_DONE] end,
-        default = defaults.filters[DPINS.QUESTS_REPEATABLES],
-      })
-      table.insert(submenu, { -- Header
-        type = "header",
-        name = defaults.miscColorCodes.settingsTextAchHeaders:Colorize(GetString(DEST_SETTINGS_QUEST_COMPASS_HEADER)),
-      })
-      table.insert(submenu, { -- Global Quest on compass toggle
-        type = "checkbox",
-        name = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_QUEST_COMPASS_TOGGLE)) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR)),
-        tooltip = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR_TOGGLE_TT)),
-        getFunc = function() return DestinationsCSSV.filters[DPINS.QUESTS_COMPASS] end,
-        setFunc = function(state)
-          DestinationsCSSV.filters[DPINS.QUESTS_COMPASS] = state
-          DestinationsAWSV.filters[DPINS.QUESTS_COMPASS] = state
-          -- TogglePins(DPINS.QUESTS_COMPASS, state)
-          RedrawCompassPinsOnly(DPINS.QUESTS_UNDONE)
-          RedrawCompassPinsOnly(DPINS.QUESTS_IN_PROGRESS)
-          RedrawCompassPinsOnly(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return
-        not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and
-          not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and
-          not DestinationsCSSV.filters[DPINS.QUESTS_DONE]
-        end,
-        default = defaults.filters[DPINS.QUESTS_COMPASS],
-      })
-      table.insert(submenu, { -- Global Quest compass distance
-        type = "slider",
-        name = GetString(DEST_SETTINGS_QUEST_COMPASS_DIST),
-        min = 1,
-        max = 100,
-        getFunc = function() return DestinationsSV.pins.pinTextureQuestsUndone.maxDistance * 1000 end,
-        setFunc = function(maxDistance)
-          DestinationsSV.pins.pinTextureQuestsUndone.maxDistance = maxDistance / 1000
-          DestinationsSV.pins.pinTextureQuestsInProgress.maxDistance = maxDistance / 1000
-          DestinationsSV.pins.pinTextureQuestsDone.maxDistance = maxDistance / 1000
-          COMPASS_PINS.pinLayouts[DPINS.QUESTS_UNDONE].maxDistance = maxDistance / 1000
-          COMPASS_PINS.pinLayouts[DPINS.QUESTS_IN_PROGRESS].maxDistance = maxDistance / 1000
-          COMPASS_PINS.pinLayouts[DPINS.QUESTS_DONE].maxDistance = maxDistance / 1000
-          RedrawCompassPinsOnly(DPINS.QUESTS_UNDONE)
-          RedrawCompassPinsOnly(DPINS.QUESTS_IN_PROGRESS)
-          RedrawCompassPinsOnly(DPINS.QUESTS_DONE)
-        end,
-        width = "full",
-        disabled = function() return (not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and not DestinationsCSSV.filters[DPINS.QUESTS_DONE]) or not DestinationsCSSV.filters[DPINS.QUESTS_COMPASS] end,
-        default = defaults.pins.pinTextureQuestsUndone.maxDistance * 1000,
-      })
-      table.insert(submenu, { -- Global Quest pin layer
-        type = "slider",
-        name = GetString(DEST_SETTINGS_QUEST_ALL_PIN_LAYER),
-        min = 10,
-        max = 200,
-        step = 5,
-        getFunc = function() return DestinationsSV.pins.pinTextureQuestsUndone.level end,
-        setFunc = function(level)
-          DestinationsSV.pins.pinTextureQuestsUndone.level = level + 1
-          DestinationsSV.pins.pinTextureQuestsInProgress.level = level + 2
-          DestinationsSV.pins.pinTextureQuestsDone.level = level
-          LMP:SetLayoutKey(DPINS.QUESTS_UNDONE, "level", level + 1)
-          LMP:SetLayoutKey(DPINS.QUESTS_IN_PROGRESS, "level", level + 2)
-          LMP:SetLayoutKey(DPINS.QUESTS_DONE, "level", level)
-          RedrawAllPins(DPINS.QUESTS_UNDONE)
-          RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-          RedrawAllPins(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and not DestinationsCSSV.filters[DPINS.QUESTS_DONE] end,
-        default = defaults.pins.pinTextureQuestsUndone.level
-      })
-      -----------
-      table.insert(submenu, { -- Global show Quest Giver in tooltip
-        type = "checkbox",
-        name = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_REGISTER_QUEST_GIVER_TOGGLE)) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR)),
-        tooltip = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_REGISTER_QUEST_GIVER_TOGGLE_TT)),
-        getFunc = function() return DestinationsCSSV.settings.HideQuestGiverName end,
-        setFunc = function(state)
-          DestinationsCSSV.settings.HideQuestGiverName = state
-          DestinationsAWSV.settings.HideQuestGiverName = state
-          -- Refresh to reflect change in tooltip
-          RedrawCompassPinsOnly(DPINS.QUESTS_UNDONE)
-          RedrawCompassPinsOnly(DPINS.QUESTS_IN_PROGRESS)
-          RedrawCompassPinsOnly(DPINS.QUESTS_DONE)
-        end,
-        disabled = function() return
-        not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and
-          not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and
-          not DestinationsCSSV.filters[DPINS.QUESTS_DONE]
-        end,
-        default = defaults.settings.HideQuestGiverName,
-      })
-      --------------
-      table.insert(submenu, { -- Header
-        type = "header",
-        name = defaults.miscColorCodes.settingsTextAchHeaders:Colorize(GetString(DEST_SETTINGS_QUEST_REGISTER_HEADER)),
-      })
-      table.insert(submenu, { -- Reset Hidden Quests Button
-        type = "button",
-        name = defaults.miscColorCodes.settingsTextWarn:Colorize(GetString(DEST_SETTINGS_QUEST_RESET_HIDDEN)) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR)),
-        tooltip = GetString(DEST_SETTINGS_QUEST_RESET_HIDDEN_TT) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR_BUTTON_TT)),
-        width = "full",
-        func = function()
-          ResetHiddenQuests()
-          RedrawAllPins(DPINS.QUESTS_UNDONE)
-          RedrawAllPins(DPINS.QUESTS_IN_PROGRESS)
-          RedrawAllPins(DPINS.QUESTS_DONE)
-        end,
-      })
-
     elseif menu == "Collectibles" then
 
       table.insert(submenu, { -- Header
@@ -10135,18 +7990,6 @@ local function InitSettings()
         warning = defaults.miscColorCodes.settingsTextReloadWarning:Colorize(GetString(RELOADUI_INFO)),
         default = defaults.settings.MapFiltersAchievements,
       })
-      table.insert(submenu, { -- Map Filter Questgivers toggle
-        type = "checkbox",
-        name = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_MAPFILTERS_QUES_TOGGLE)) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR)),
-        tooltip = GetString(DEST_SETTINGS_MAPFILTERS_QUES_TOGGLE_TT) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR_TOGGLE_TT)),
-        getFunc = function() return DestinationsCSSV.settings.MapFiltersQuestgivers end,
-        setFunc = function(state)
-          DestinationsCSSV.settings.activateReloaduiButton = true
-          DestinationsCSSV.settings.MapFiltersQuestgivers = state
-        end,
-        warning = defaults.miscColorCodes.settingsTextReloadWarning:Colorize(GetString(RELOADUI_INFO)),
-        default = defaults.settings.MapFiltersQuestgivers,
-      })
       table.insert(submenu, { -- Map Filter Collectibles toggle
         type = "checkbox",
         name = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_MAPFILTERS_COLS_TOGGLE)) .. " " .. defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_PER_CHAR)),
@@ -10256,12 +8099,6 @@ local function InitSettings()
     tooltip = GetString(DEST_SETTINGS_VWW_HEADER_TT),
     controls = GetDestinationsLAMSubMenu("VampWW")
   })
-  table.insert(optionsTable, { -- Quests submenu
-    type = "submenu",
-    name = defaults.miscColorCodes.settingsTextQuests:Colorize(GetString(DEST_SETTINGS_QUEST_HEADER)),
-    tooltip = GetString(DEST_SETTINGS_QUEST_HEADER_TT),
-    controls = GetDestinationsLAMSubMenu("Quests")
-  })
   table.insert(optionsTable, { -- Collectible submenu
     type = "submenu",
     name = defaults.miscColorCodes.settingsTextCollectibles:Colorize(GetString(DEST_SETTINGS_COLLECTIBLES_HEADER)),
@@ -10292,12 +8129,6 @@ local function InitializeDatastores()
   AchIndex = Destinations.ACHDataIndex
   AchStore = Destinations.ACHDataStore
   AchIDs = Destinations.AchIDs
-  -- QuestsIndex = Destinations.QuestDataIndex
-  -- QuestsStore = Destinations.QuestDataStore
-  -- QTableIndex = Destinations.QuestTableIndex
-  -- QTableStore = Destinations.QuestTableStore
-  -- QGiverIndex = Destinations.QuestGiverIndex
-  -- QGiverStore = Destinations.QuestGiverStore
   DBossIndex = Destinations.ChampionTableIndex
   DBossStore = Destinations.ChampionTableStore
   SetsStore = Destinations.SetsStore
@@ -10315,7 +8146,6 @@ local function InitializeDatastores()
 end
 
 local function OnLoad(eventCode, addonName)
-
   if addonName == ADDON_NAME then
 
     InitializeDatastores()
@@ -10323,9 +8153,6 @@ local function OnLoad(eventCode, addonName)
     DestinationsSV = ZO_SavedVars:NewCharacterNameSettings("Destinations_Settings", 1, nil, defaults) -- Basic
     DestinationsCSSV = ZO_SavedVars:NewCharacterNameSettings("Destinations_Settings", 1, nil, defaults)
     DestinationsAWSV = ZO_SavedVars:NewAccountWide("Destinations_Settings", 1, nil, defaults) -- AccountWide
-
-    --d("Checking Map State")
-    check_map_state()
 
     if not Destinations.supported_menu_lang then
       --chat messages aren't shown before player is activated
@@ -10369,21 +8196,13 @@ local function OnLoad(eventCode, addonName)
     -- Set Description
     InitializeSetDescription()
 
-    --Set/Update Quest Data
-    GetInProgressQuests()
-    SetSpecialQuests()
-
     --Register Event Triggers
     EVENT_MANAGER:RegisterForEvent(ADDON_NAME, EVENT_POI_UPDATED, OnPOIUpdated)
     EVENT_MANAGER:RegisterForEvent(ADDON_NAME, EVENT_ACHIEVEMENT_UPDATED, OnAchievementUpdate)
     EVENT_MANAGER:RegisterForEvent(ADDON_NAME, EVENT_GAMEPAD_PREFERRED_MODE_CHANGED, OnGamepadPreferredModeChanged)
-    EVENT_MANAGER:RegisterForEvent(ADDON_NAME, EVENT_QUEST_COMPLETE, RegisterQuestDone)
-    EVENT_MANAGER:RegisterForEvent(ADDON_NAME, EVENT_QUEST_REMOVED, RegisterQuestCancelled)
-    EVENT_MANAGER:RegisterForEvent(ADDON_NAME, EVENT_QUEST_ADDED, RegisterQuestAdded)
 
     EVENT_MANAGER:UnregisterForEvent(ADDON_NAME, EVENT_ADD_ON_LOADED)
 
   end
 end
-
 EVENT_MANAGER:RegisterForEvent(ADDON_NAME, EVENT_ADD_ON_LOADED, OnLoad)
