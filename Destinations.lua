@@ -37,12 +37,12 @@ end
 Destinations.supported_menu_lang = Destinations.client_lang == Destinations.effective_menu_lang
 
 -------------------------------------------------
------ Destinations                          -----
+----- Logger Function                       -----
 -------------------------------------------------
+Destinations.show_log = false
 if LibDebugLogger then
   Destinations.logger = LibDebugLogger.Create(ADDON_NAME)
 end
-
 local logger
 local viewer
 if DebugLogViewer then viewer = true else viewer = false end
@@ -95,6 +95,7 @@ local function emit_table(log_type, t, indent, table_history)
 end
 
 function Destinations:dm(log_type, ...)
+  if not Destinations.show_log then return end
   for i = 1, select("#", ...) do
     local value = select(i, ...)
     if (type(value) == "table") then
