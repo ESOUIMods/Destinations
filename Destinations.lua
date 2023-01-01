@@ -1,3 +1,5 @@
+local LMD = LibMapData
+
 -------------------------------------------------
 ----- early helper                          -----
 -------------------------------------------------
@@ -37,12 +39,12 @@ end
 Destinations.supported_menu_lang = Destinations.client_lang == Destinations.effective_menu_lang
 
 -------------------------------------------------
------ Destinations                          -----
+----- Logger Function                       -----
 -------------------------------------------------
+Destinations.show_log = false
 if LibDebugLogger then
   Destinations.logger = LibDebugLogger.Create(ADDON_NAME)
 end
-
 local logger
 local viewer
 if DebugLogViewer then viewer = true else viewer = false end
@@ -53,6 +55,7 @@ local function create_log(log_type, log_content)
     CHAT_ROUTER:AddSystemMessage(log_content)
     return
   end
+  if not Destinations.show_log then return end
   if logger and log_type == "Debug" then
     Destinations.logger:Debug(log_content)
   end
@@ -1516,19 +1519,6 @@ local function RedrawCompassPinsOnly(pinType)
   COMPASS_PINS:RefreshPins(pinType)
 end
 
-local function SetPlayerLocation()
-  local originalMap = GetMapTileTexture()
-  if SetMapToPlayerLocation() == SET_MAP_RESULT_FAILED then
-    Destinations:dm("Warn", "SetMapToPlayerLocation Failed")
-  end
-  if GetMapTileTexture() ~= originalMap then
-    CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-    return true
-  end
-  -- SET_MAP_RESULT_CURRENT_MAP_UNCHANGED
-  return false
-end
-
 local function RedrawQolPins()
   RedrawMapPinsOnly(DPINS.QOLPINS_DOCK)
   RedrawMapPinsOnly(DPINS.QOLPINS_STABLE)
@@ -1605,24 +1595,13 @@ end
 ---
 -----
 -- Slash commands -------------------------------------------------------------
---prints message to chat
-local function ChatPrint(...)
-  local ChatEditControl = CHAT_SYSTEM.textEntry.editControl
-  if (not ChatEditControl:HasFocus()) then StartChatInput() end
-  ChatEditControl:InsertText(...)
-end
-
 local function ShowMyPosition()
-  if SetMapToPlayerLocation() == SET_MAP_RESULT_MAP_CHANGED then
-    CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-  end
-
   local x, y = GetMapPlayerPosition("player")
   local mapname = LMP:GetZoneAndSubzone(false, true, true)
   GetMapTextureName()
   local xs = '"X"'
   local locationString = string.format("{ %.6f, %.6f, 0, 0, 1, %s }, -- %s/%s", x, y, xs, mapname, zoneTextureName)
-  ChatPrint(locationString)
+  Destinations:dm("Info", locationString)
 end
 
 SLASH_COMMANDS["/fishloc"] = ShowMyPosition
@@ -8147,6 +8126,7 @@ end
 
 local function OnLoad(eventCode, addonName)
   if addonName == ADDON_NAME then
+  Destinations:dm("Debug", "OnAddOnLoaded")
 
     InitializeDatastores()
 
