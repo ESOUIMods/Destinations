@@ -3200,6 +3200,68 @@ Destinations.ACHDataStore = {
   -- Galen
   ["u36_galenisland_base_0"] = {
     { 0.3544013500, 0.5929176807, 43, 3500, 1, "X" }, -- Sharlikran
+    { 0.3529, 0.4494, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3577, 0.4558, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3510, 0.3796, 40, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3466, 0.3751, 40, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3281, 0.3870, 40, 3500, 1, "X" }, -- SnowmanDK
+    { 0.1044, 0.2673, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.0930, 0.2736, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.0700, 0.3704, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.1383, 0.5335, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.1625, 0.5564, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.1922, 0.5991, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3166, 0.5989, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3175, 0.5886, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3232, 0.5893, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3507, 0.5599, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3552, 0.5586, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3587, 0.5709, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3583, 0.5780, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3483, 0.6057, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3433, 0.6155, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3297, 0.6679, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3310, 0.6539, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3287, 0.6436, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3276, 0.6194, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3271, 0.6792, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3312, 0.7043, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3140, 0.7273, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3696, 0.7006, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3976, 0.7057, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4358, 0.7098, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4431, 0.7008, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4976, 0.6692, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.5218, 0.6279, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.5397, 0.5892, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.5030, 0.5186, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4533, 0.4997, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4570, 0.5006, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4610, 0.4964, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4556, 0.4947, 43, 3500, 1, "X" }, -- SnowmanDK
+    { 0.5356, 0.3915, 40, 3500, 1, "X" }, -- SnowmanDK
+    { 0.6734, 0.3686, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.6646, 0.2901, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.6372, 0.2758, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.6253, 0.2554, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.6248, 0.2508, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.6165, 0.2316, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.5097, 0.1657, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4894, 0.1786, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4732, 0.1860, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4569, 0.1764, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4484, 0.1757, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4381, 0.1744, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4415, 0.1551, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.4190, 0.1693, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3801, 0.1372, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3422, 0.1426, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.3317, 0.1488, 42, 3500, 1, "X" }, -- SnowmanDK
+    { 0.2426, 0.1207, 42, 3500, 1, "X" }, -- SnowmanDK
+  },
+  -- Vastyr City, Galen Island
+  ["u36_vastyrcity_base_0"] = {
+    { 0.8898, 0.6256, 42, 3500, 1, "X" }, -- SnowmanDK
   },
 }
 
@@ -3238,12 +3300,12 @@ Destinations.QOLDataStore = {
     { x = 0.16614331305027, y = 0.48378404974937, pinName = "Portal to Fargrave", pinsType = Destinations.Portals },
   },
   -- [2000] = {
-    -- { x = 0.20910930633545, y = 0.1810761988163, pinName = "Atoll Portal", pinsType = Destinations.Portals },
-    -- { x = 0.17482243478298, y = 0.36620065569878, pinName = "Atoll Portal", pinsType = Destinations.Portals },
-    -- { x = 0.2842923104763, y = 0.41839998960495, pinName = "Atoll Portal", pinsType = Destinations.Portals },
-    -- { x = 0.3700675368309, y = 0.34489288926125, pinName = "Atoll Portal", pinsType = Destinations.Portals },
-    -- { x = 0.44089758396149, y = 0.46782067418098, pinName = "Atoll Portal", pinsType = Destinations.Doorway }, Doorway
-    -- { x = 0.73640447854996, y = 0.18979497253895, pinName = "Atoll Portal", pinsType = Destinations.Doorway }, Doorway
+  -- { x = 0.20910930633545, y = 0.1810761988163, pinName = "Atoll Portal", pinsType = Destinations.Portals },
+  -- { x = 0.17482243478298, y = 0.36620065569878, pinName = "Atoll Portal", pinsType = Destinations.Portals },
+  -- { x = 0.2842923104763, y = 0.41839998960495, pinName = "Atoll Portal", pinsType = Destinations.Portals },
+  -- { x = 0.3700675368309, y = 0.34489288926125, pinName = "Atoll Portal", pinsType = Destinations.Portals },
+  -- { x = 0.44089758396149, y = 0.46782067418098, pinName = "Atoll Portal", pinsType = Destinations.Doorway }, Doorway
+  -- { x = 0.73640447854996, y = 0.18979497253895, pinName = "Atoll Portal", pinsType = Destinations.Doorway }, Doorway
   -- },
 }
 --[[
