@@ -118,7 +118,7 @@ end
 -------------------------------------------------
 
 local ADDON_AUTHOR = "|c990000Snowman|r|cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
-local ADDON_VERSION = "29.79"
+local ADDON_VERSION = "29.80"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
@@ -1610,19 +1610,6 @@ local function RedrawCompassPinsOnly(pinType)
   COMPASS_PINS:RefreshPins(pinType)
 end
 
-local function SetPlayerLocation()
-  local originalMap = GetMapTileTexture()
-  if SetMapToPlayerLocation() == SET_MAP_RESULT_FAILED then
-    Destinations:dm("Warn", "SetMapToPlayerLocation Failed")
-  end
-  if GetMapTileTexture() ~= originalMap then
-    CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-    return true
-  end
-  -- SET_MAP_RESULT_CURRENT_MAP_UNCHANGED
-  return false
-end
-
 local function RedrawQolPins()
   RedrawMapPinsOnly(DPINS.QOLPINS_DOCK)
   RedrawMapPinsOnly(DPINS.QOLPINS_STABLE)
@@ -1633,10 +1620,12 @@ local lastMapTexture = ""
 local lastMapId = 0
 local zoneQuests = nil
 local function UpdateZoneQuestData()
-  local mapTypeInvalid = GetMapType() > MAPTYPE_ZONE
   local showQuestPins = (DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] or DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] or DestinationsCSSV.filters[DPINS.QUESTS_DONE] or DestinationsSV.settings.ShowCadwellsAlmanac or DestinationsSV.settings.ShowCadwellsAlmanacOnly or DestinationsSV.filters[DPINS.QUESTS_WRITS] or DestinationsSV.filters[DPINS.QUESTS_DAILIES] or DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] or DestinationsCSSV.filters[DPINS.QUESTS_COMPASS])
 
-  if mapTypeInvalid then return end
+  if LMD.isWorld then
+    --Destinations:dm("Debug", "Tamriel or Aurbis reached, stopped")
+    return
+  end
   if not showQuestPins and not validMapType then
     zoneQuests = nil
     return
@@ -1666,15 +1655,12 @@ WORLD_MAP_SCENE:RegisterCallback("StateChange", function(oldState, newState)
   if newState == SCENE_SHOWING then
     check_map_state()
   elseif newState == SCENE_HIDDEN then
-    SetPlayerLocation()
     check_map_state()
   end
 end)
 
 function on_zone_changed(eventCode, zoneName, subZoneName, newSubzone, zoneId, subZoneId)
-  if SetPlayerLocation() then
     check_map_state()
-  end
 end
 EVENT_MANAGER:RegisterForEvent(ADDON_NAME .. "_zone_changed", EVENT_ZONE_CHANGED, on_zone_changed)
 
@@ -1716,7 +1702,7 @@ end
 local function MapCallbackQolPins(pinType)
   --Destinations:dm("Debug", "MapCallbackQolPins")
 
-  if GetMapType() > MAPTYPE_ZONE then
+  if LMD.isWorld then
     --Destinations:dm("Debug", "Tamriel or Aurbis reached, stopped")
     return
   end
@@ -1756,18 +1742,11 @@ local function ChatPrint(...)
 end
 
 local function ShowMyPosition()
-  if SetMapToPlayerLocation() == SET_MAP_RESULT_MAP_CHANGED then
-    CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-  end
-
   local x, y = GetMapPlayerPosition("player")
-  local mapname = LMP:GetZoneAndSubzone(false, true, true)
-  GetMapTextureName()
   local xs = '"X"'
-  local locationString = string.format("{ %.6f, %.6f, 0, 0, 1, %s }, -- %s/%s", x, y, xs, mapname, zoneTextureName)
+  local locationString = string.format("{ %.6f, %.6f, 0, 0, 1, %s }, -- %s", x, y, xs, LMD.mapTexture)
   ChatPrint(locationString)
 end
-
 SLASH_COMMANDS["/fishloc"] = ShowMyPosition
 
 local function GetPoiTypeName(poiTypeId)
