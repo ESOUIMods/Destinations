@@ -118,7 +118,7 @@ end
 -------------------------------------------------
 
 local ADDON_AUTHOR = "|c990000Snowman|r|cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
-local ADDON_VERSION = "29.80"
+local ADDON_VERSION = "29.81"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
@@ -1620,16 +1620,18 @@ local lastMapTexture = ""
 local lastMapId = 0
 local zoneQuests = nil
 local function UpdateZoneQuestData()
-  local showQuestPins = (DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] or DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] or DestinationsCSSV.filters[DPINS.QUESTS_DONE] or DestinationsSV.settings.ShowCadwellsAlmanac or DestinationsSV.settings.ShowCadwellsAlmanacOnly or DestinationsSV.filters[DPINS.QUESTS_WRITS] or DestinationsSV.filters[DPINS.QUESTS_DAILIES] or DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] or DestinationsCSSV.filters[DPINS.QUESTS_COMPASS])
+  -- local showQuestPins = (DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] or DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] or DestinationsCSSV.filters[DPINS.QUESTS_DONE] or DestinationsSV.settings.ShowCadwellsAlmanac or DestinationsSV.settings.ShowCadwellsAlmanacOnly or DestinationsSV.filters[DPINS.QUESTS_WRITS] or DestinationsSV.filters[DPINS.QUESTS_DAILIES] or DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] or DestinationsCSSV.filters[DPINS.QUESTS_COMPASS])
 
   if LMD.isWorld then
     --Destinations:dm("Debug", "Tamriel or Aurbis reached, stopped")
     return
   end
+  --[[
   if not showQuestPins and not validMapType then
     zoneQuests = nil
     return
   end
+  ]]--
 
   if LMD.mapTexture ~= lastMapTexture or LMD.mapId ~= lastMapId then
     lastMapTexture = LMD.mapTexture
