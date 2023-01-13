@@ -117,8 +117,8 @@ end
 ----- Destinations                          -----
 -------------------------------------------------
 
-local ADDON_AUTHOR = "|c990000Snowman|r|cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
-local ADDON_VERSION = "29.81"
+local ADDON_AUTHOR = "|c990000Snowman|r, |cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
+local ADDON_VERSION = "29.82"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
@@ -1620,18 +1620,19 @@ local lastMapTexture = ""
 local lastMapId = 0
 local zoneQuests = nil
 local function UpdateZoneQuestData()
-  -- local showQuestPins = (DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] or DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] or DestinationsCSSV.filters[DPINS.QUESTS_DONE] or DestinationsSV.settings.ShowCadwellsAlmanac or DestinationsSV.settings.ShowCadwellsAlmanacOnly or DestinationsSV.filters[DPINS.QUESTS_WRITS] or DestinationsSV.filters[DPINS.QUESTS_DAILIES] or DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] or DestinationsCSSV.filters[DPINS.QUESTS_COMPASS])
+  if not Destinations.savedVarsInitialized then return end
+  -- if not LMP:IsEnabled(DPINS.QUESTS_UNDONE) and not LMP:IsEnabled(DPINS.QUESTS_IN_PROGRESS) and not LMP:IsEnabled(DPINS.QUESTS_DONE) then return end
+
+  local showQuestPins = DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] or DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] or DestinationsCSSV.filters[DPINS.QUESTS_DONE] or DestinationsSV.filters[DPINS.QUESTS_WRITS] or DestinationsSV.filters[DPINS.QUESTS_DAILIES] or DestinationsSV.filters[DPINS.QUESTS_REPEATABLES] or DestinationsCSSV.filters[DPINS.QUESTS_COMPASS] or DestinationsAWSV.filters[DPINS.QUESTS_COMPASS] or DestinationsSV.settings.ShowCadwellsAlmanac or DestinationsSV.settings.ShowCadwellsAlmanacOnly
 
   if LMD.isWorld then
     --Destinations:dm("Debug", "Tamriel or Aurbis reached, stopped")
     return
   end
-  --[[
-  if not showQuestPins and not validMapType then
+  if not showQuestPins then
     zoneQuests = nil
     return
   end
-  ]]--
 
   if LMD.mapTexture ~= lastMapTexture or LMD.mapId ~= lastMapId then
     lastMapTexture = LMD.mapTexture
@@ -1662,7 +1663,7 @@ WORLD_MAP_SCENE:RegisterCallback("StateChange", function(oldState, newState)
 end)
 
 function on_zone_changed(eventCode, zoneName, subZoneName, newSubzone, zoneId, subZoneId)
-    check_map_state()
+  check_map_state()
 end
 EVENT_MANAGER:RegisterForEvent(ADDON_NAME .. "_zone_changed", EVENT_ZONE_CHANGED, on_zone_changed)
 
@@ -3349,7 +3350,7 @@ end
 
 ------------------Quest Givers------------------
 local function Quests_Undone_pinTypeCallback(pinManager)
-  if GetMapType() >= MAPTYPE_WORLD then return end
+  UpdateZoneQuestData()
   drtv.pinName = DPINS.QUESTS_UNDONE
   if not zoneQuests then return end
   for _, pinData in ipairs(zoneQuests) do
@@ -3493,7 +3494,7 @@ local function Quests_Undone_pinTypeCallback(pinManager)
 end
 
 local function Quests_In_Progress_pinTypeCallback(pinManager)
-  if GetMapType() >= MAPTYPE_WORLD then return end
+  UpdateZoneQuestData()
   drtv.pinName = DPINS.QUESTS_IN_PROGRESS
   if not zoneQuests then return end
   for _, pinData in ipairs(zoneQuests) do
@@ -3609,7 +3610,7 @@ local function Quests_In_Progress_pinTypeCallback(pinManager)
 end
 
 local function Quests_Done_pinTypeCallback(pinManager)
-  if GetMapType() >= MAPTYPE_WORLD then return end
+  UpdateZoneQuestData()
   drtv.pinName = DPINS.QUESTS_DONE
   if not zoneQuests then return end
   for _, pinData in ipairs(zoneQuests) do
@@ -3884,14 +3885,8 @@ local function AddMiscCompassPins()
 end
 
 local function Quests_CompassPins()
-  if GetMapType() >= MAPTYPE_WORLD then return end
+  UpdateZoneQuestData()
   if not LMP:IsEnabled(DPINS.QUESTS_UNDONE) and not LMP:IsEnabled(DPINS.QUESTS_IN_PROGRESS) and not LMP:IsEnabled(DPINS.QUESTS_DONE) then return end
-  if not DestinationsCSSV.filters[DPINS.QUESTS_UNDONE] and not DestinationsCSSV.filters[DPINS.QUESTS_IN_PROGRESS] and not DestinationsCSSV.filters[DPINS.QUESTS_DONE] then return end
-  if not DestinationsSV.filters[DPINS.QUESTS_COMPASS] or not DestinationsAWSV.filters[DPINS.QUESTS_COMPASS] then return end
-  --[[
-    GetMapTextureName()
-    if not mapTextureName then return end
-    ]]--
   if not zoneQuests then return end
   for _, pinData in ipairs(zoneQuests) do
     local QuestID = pinData[LQD.quest_map_pin_index.quest_id]
@@ -10325,7 +10320,7 @@ local function OnLoad(eventCode, addonName)
     DestinationsSV = ZO_SavedVars:NewCharacterNameSettings("Destinations_Settings", 1, nil, defaults) -- Basic
     DestinationsCSSV = ZO_SavedVars:NewCharacterNameSettings("Destinations_Settings", 1, nil, defaults)
     DestinationsAWSV = ZO_SavedVars:NewAccountWide("Destinations_Settings", 1, nil, defaults) -- AccountWide
-
+    Destinations.savedVarsInitialized = true
     --d("Checking Map State")
     check_map_state()
 
