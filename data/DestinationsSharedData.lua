@@ -1298,6 +1298,7 @@ Destinations.ACHDataStore = {
     { 0.9224, 0.6193, 41, 1431, 1, "X" }, --2.0.24  > StrangerFull
     { 0.235188, 0.193560, 40, 1431, 1, "X" },
     { 0.2288, 0.1913, 40, 1431, 1, "X" },
+    { 0.246604, 0.297976, 50, 0, 1, "X" }, -- SnowmanDK (goldcoast_base_0)(823) comment: Lonely_Sentinel
   },
   ----Grahtwood
   ["grahtwood_base_0"] = {
@@ -3098,6 +3099,66 @@ Destinations.ACHDataStore = {
     { 0.3095, 0.4795, 42, 2191, 1, "X" }, --3.1.3   > AssemblerManiac
     { 0.3106, 0.4662, 42, 2191, 1, "X" }, --3.1.3   > AssemblerManiac
     { 0.2937, 0.4685, 42, 2191, 1, "X" }, --3.1.3   > AssemblerManiac
+    { 0.181322, 0.452481, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.196323, 0.366474, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.197674, 0.615601, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.201450, 0.400693, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.202060, 0.369167, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.210942, 0.267898, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.211696, 0.389267, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.217220, 0.272162, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.227049, 0.335208, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.231391, 0.332843, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.234240, 0.556012, 40, 2191, 1, "X" }, -- SnowmanDK
+    { 0.236546, 0.301854, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.237869, 0.288399, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.240260, 0.554405, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.241333, 0.296447, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.242064, 0.278590, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.249790, 0.443016, 40, 2191, 1, "X" }, -- SnowmanDK
+    { 0.250112, 0.539418, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.255529, 0.264470, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.262032, 0.456813, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.265443, 0.449077, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.268364, 0.510971, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.269693, 0.241460, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.280334, 0.211499, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.280523, 0.502894, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.290205, 0.494739, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.295642, 0.405897, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.295738, 0.190072, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.315555, 0.467395, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.321797, 0.460169, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.323211, 0.400029, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.332371, 0.472030, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.337336, 0.398076, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.351234, 0.415215, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.424176, 0.358037, 43, 2191, 1, "X" }, -- SnowmanDK
+    { 0.492349, 0.199194, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.525942, 0.245519, 41, 2191, 1, "X" }, -- SnowmanDK
+    { 0.527481, 0.241818, 41, 2191, 1, "X" }, -- SnowmanDK
+    { 0.537328, 0.222332, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.537881, 0.468321, 41, 2191, 1, "X" }, -- SnowmanDK
+    { 0.557167, 0.440419, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.574253, 0.437127, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.597654, 0.486229, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.601042, 0.413674, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.607159, 0.379872, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.612796, 0.494496, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.613752, 0.473219, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.615265, 0.368324, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.619841, 0.236618, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.624618, 0.505233, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.626052, 0.363414, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.654242, 0.525186, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.706392, 0.695590, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.716842, 0.667318, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.724371, 0.584920, 42, 2191, 1, "X" }, -- SnowmanDK
+  },
+  ["shimmerene_base_0"] = {
+    { 0.289105, 0.465858, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.469821, 0.307647, 42, 2191, 1, "X" }, -- SnowmanDK
+    { 0.555561, 0.709329, 42, 2191, 1, "X" }, -- SnowmanDK
   },
   ["sum_karnwasten_base_0"] = {
     { 0.6055, 0.4922, 42, 2191, 1, "X" }, --3.1.3   > AssemblerManiac
@@ -3370,6 +3431,7 @@ Destinations.ACHDataStore = {
     { 0.174902, 0.746487, 41, 2412, 1, "X" }, -- SnowmanDK
     { 0.159474, 0.754973, 41, 2412, 1, "X" }, -- SnowmanDK
     { 0.134190, 0.752400, 41, 2412, 1, "X" }, -- SnowmanDK
+    { 0.453867, 0.500464, 1, 0, 0, "X" }, -- M'aiq
   },
   ["southernelsweyr_base_0"] = {
     { 0.408900, 0.534300, 41, 2566, 1, "X" }, -- Sharlikran
@@ -3488,6 +3550,47 @@ Destinations.ACHDataStore = {
   },
   ["murkmire_base_0"] = {
     { 0.789300, 0.597700, 42, 2295, 1, "X" }, -- Sharlikran
+    { 0.496778, 0.712400, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.502003, 0.705564, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.502212, 0.741603, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.505773, 0.729215, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.539235, 0.714301, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.624141, 0.796713, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.651733, 0.789804, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.747690, 0.814338, 42, 2295, 1, "X" }, -- SnowmanDK
+    { 0.761807, 0.808545, 42, 2295, 1, "X" }, -- SnowmanDK
+    { 0.772739, 0.803729, 42, 2295, 1, "X" }, -- SnowmanDK
+    { 0.862318, 0.695307, 43, 2295, 1, "X" }, -- SnowmanDK
+    --6254 = the ID for the quest "Death Among the Dead-Water", which is a pre-requisite to be able to do the achievement "Vine-Tongue Traveler".
+    { 0.203430, 0.515531, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
+    { 0.249563, 0.619064, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
+    { 0.444215, 0.501905, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
+    { 0.466357, 0.374137, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
+    { 0.556210, 0.306030, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
+    { 0.865061, 0.635507, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
+    { 0.191815, 0.436259, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
+    { 0.395940, 0.305119, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
+    { 0.745548, 0.291321, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
+    { 0.755568, 0.555065, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
+    { 0.770229, 0.726549, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
+  },
+  ["lilmothcity_base_0"] = {
+    { 0.306251, 0.601673, 42, 2295, 1, "X" }, -- SnowmanDK
+    { 0.359065, 0.580000, 42, 2295, 1, "X" }, -- SnowmanDK
+    { 0.399963, 0.561983, 42, 2295, 1, "X" }, -- SnowmanDK
+    { 0.390572, 0.273245, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
+  },
+  ["teethofsithis02b_base_0"] = {
+    { 0.604651, 0.327907, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
+  },
+  ["ui_map_tsofeercavern01_0"] = {
+    { 0.623866, 0.395227, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
+  },
+  ["deadwatervillage_base_0"] = {
+    { 0.290297, 0.811046, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
+  },
+  ["brightthroatvillage_base_0"] = {
+    { 0.745671, 0.500847, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
   },
   -- The Reach, and Arkthzand Cavern are the same fishing ach
   -- The Reach
