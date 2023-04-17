@@ -3549,7 +3549,47 @@ Destinations.ACHDataStore = {
     { 0.162959, 0.272731, 41, 2566, 1, "X" }, -- SnowmanDK
   },
   ["murkmire_base_0"] = {
-    { 0.789300, 0.597700, 42, 2295, 1, "X" }, -- Sharlikran
+    { 0.244857, 0.613835, 42, 2295, 1, "X" }, -- SnowmanDK
+    { 0.319154, 0.641611, 40, 2295, 1, "X" }, -- SnowmanDK
+    { 0.340760, 0.558810, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.344477, 0.614902, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.349677, 0.666316, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.380184, 0.518929, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.395491, 0.597089, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.404432, 0.691316, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.408757, 0.699902, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.417465, 0.675658, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.422073, 0.658835, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.428896, 0.648070, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.430695, 0.638630, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.430924, 0.606917, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.431611, 0.626398, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.439595, 0.593213, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.458189, 0.656096, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.460548, 0.642919, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.461341, 0.627813, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.461881, 0.599836, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.464914, 0.613978, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.469644, 0.669399, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.486370, 0.688226, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.501868, 0.706112, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.566631, 0.599841, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.566688, 0.599804, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.576112, 0.543679, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.576562, 0.543994, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.584771, 0.647817, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.584877, 0.648079, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.595998, 0.663062, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.598798, 0.466443, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.621263, 0.454808, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.636889, 0.516460, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.637146, 0.516541, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.647179, 0.463115, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.658982, 0.546913, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.698467, 0.585666, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.718193, 0.481509, 41, 2295, 1, "X" }, -- SnowmanDK
+    { 0.738262, 0.622003, 43, 2295, 1, "X" }, -- SnowmanDK
+    { 0.769064, 0.618087, 43, 2295, 1, "X" }, -- SnowmanDK
     { 0.496778, 0.712400, 41, 2295, 1, "X" }, -- SnowmanDK
     { 0.502003, 0.705564, 41, 2295, 1, "X" }, -- SnowmanDK
     { 0.502212, 0.741603, 41, 2295, 1, "X" }, -- SnowmanDK
@@ -3560,6 +3600,7 @@ Destinations.ACHDataStore = {
     { 0.747690, 0.814338, 42, 2295, 1, "X" }, -- SnowmanDK
     { 0.761807, 0.808545, 42, 2295, 1, "X" }, -- SnowmanDK
     { 0.772739, 0.803729, 42, 2295, 1, "X" }, -- SnowmanDK
+    { 0.789300, 0.597700, 42, 2295, 1, "X" }, -- Sharlikran
     { 0.862318, 0.695307, 43, 2295, 1, "X" }, -- SnowmanDK
     --6254 = the ID for the quest "Death Among the Dead-Water", which is a pre-requisite to be able to do the achievement "Vine-Tongue Traveler".
     { 0.203430, 0.515531, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
@@ -3570,6 +3611,8 @@ Destinations.ACHDataStore = {
     { 0.865061, 0.635507, 50, 2357, 1, "6254" }, -- SnowmanDK comment: Vine-Tongue_Traveler achievement (code 50 = "Undetermined")
     { 0.191815, 0.436259, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
     { 0.395940, 0.305119, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
+    { 0.577445, 0.599178, 50, 2358, 1, "X" }, -- SnowmanDK comment: Swamp_Rescuer achievement (code 50 = "Undetermined")
+    { 0.704444, 0.458917, 50, 2330, 1, "X" }, -- SnowmanDK comment: Surreptitiously_Shadowed achievement (code 50 = "Undetermined")
     { 0.745548, 0.291321, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
     { 0.755568, 0.555065, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
     { 0.770229, 0.726549, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
@@ -3591,6 +3634,7 @@ Destinations.ACHDataStore = {
   },
   ["brightthroatvillage_base_0"] = {
     { 0.745671, 0.500847, 50, 2341, 1, "X" }, -- SnowmanDK comment: Poems_of_Nothing achievement (code 50 = "Undetermined")
+    { 0.208272, 0.788842, 41, 2295, 1, "X" }, -- SnowmanDK
   },
   -- The Reach, and Arkthzand Cavern are the same fishing ach
   -- The Reach

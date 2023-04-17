@@ -648,6 +648,7 @@ Destinations.POIsStore = {
     [61] = { n = "Old Mistveil Manor", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [62] = { n = "Autumn's-Gate", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [63] = { n = "Hunter's Glade", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [64] = { n = "Dungeon: Scrivener's Hall", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     ["zoneName"] = "The Rift",
   },
   [104] = --Alik'r Desert
@@ -788,6 +789,7 @@ Destinations.POIsStore = {
     [67] = { n = "Kragenhome", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [68] = { n = "The Ebony Flask Inn Room", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [69] = { n = "Ebonheart Chateau", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [70] = { n = "Dungeon: Bal Sunnar", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     ["zoneName"] = "Stonefalls",
   },
   [684] = --Wrothgar
