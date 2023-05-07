@@ -75,6 +75,7 @@ Destinations.FishIDs = {
   [3144] = (GetAchievementInfo(3144)), --"Deadlands Master Angler"
   [3269] = (GetAchievementInfo(3269)), --"High Isle Master Angler"
   [3500] = (GetAchievementInfo(3500)), --"Galen Master Angler"
+  [3636] = (GetAchievementInfo(3636)), --"Necrom Master Angler" : Telvanni Peninsula, Apocrypha
 }
 Destinations.FishLocs = {
   ["glenumbra_base_0"] = 471, --"Glenumbra Angler"
@@ -122,4 +123,6 @@ Destinations.FishLocs = {
   ["u32deadlandszone_base_0"] = 3144, --"Deadlands Master Angler"
   ["u34_systreszone_base_0"] = 3269, --"High Isle Master Angler"
   ["u36_galenisland_base_0"] = 3500, --"Galen Master Angler"
+  ["u38_telvannipeninsula_base_0"] = 3636, --"Necrom Master Angler"
+  ["u38_apocrypha_base_0"] = 3636, --"Necrom Master Angler"
 }

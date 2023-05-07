@@ -122,7 +122,7 @@ end
 -------------------------------------------------
 
 local ADDON_AUTHOR = "|c990000Snowman|r, |cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
-local ADDON_VERSION = "29.85"
+local ADDON_VERSION = "29.86"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
@@ -190,6 +190,8 @@ local DESTINATIONS_PIN_TYPE_DWEMERGEAR = 50
 local DESTINATIONS_PIN_TYPE_NORDBOAT = 51
 local DESTINATIONS_PIN_TYPE_DEADLANDS = 52
 local DESTINATIONS_PIN_TYPE_HIGHISLE = 53
+local DESTINATIONS_PIN_TYPE_MUSHROMTOWER = 54
+local DESTINATIONS_PIN_TYPE_GROUPPORTAL = 55
 local DESTINATIONS_PIN_TYPE_UNKNOWN = 99
 local DESTINATIONS_PIN_PRIORITY_OFFSET = 1
 
@@ -1549,6 +1551,13 @@ local ZoneIDsToFileNames = {
   [816] = "hewsbane_base_0",
   [1318] = "u34_systreszone_base_0", -- High Isle
   [1383] = "u36_galenisland_base_0", -- Galen
+  [1413] = "u38_apocrypha_base_0", -- Apocrypha
+  --[[ since there are two entries with 1414 the table is
+  messed up. So for Telvanni Peninsula and Necrom the mapId
+  will be used.
+  ]]--
+  [2274] = "u38_telvannipeninsula_base_0", -- Telvanni Peninsula, 1414
+  [2343] = "u38_necrom_base_0", -- Necrom, 1414
   [726] = "murkmire_base_0",
   [1086] = "elsweyr_base_0",
   [1133] = "southernelsweyr_base_0",
@@ -1688,7 +1697,7 @@ local function GetMapTextureName()
   zoneId = GetZoneId(GetCurrentMapZoneIndex())
   mapId = GetCurrentMapId()
   local notUsed
-  if zoneId == 1283 then
+  if zoneId == 1283 or zoneId == 1414 then
     zoneTextureName = ZoneIDsToFileNames[mapId]
   else
     zoneTextureName = ZoneIDsToFileNames[zoneId]
@@ -4125,6 +4134,7 @@ local function GetDestinationKnownPOITexture(poiTypeId)
     [DESTINATIONS_PIN_TYPE_MINE] = "/esoui/art/icons/poi/poi_mine_complete.dds",
     [DESTINATIONS_PIN_TYPE_MUNDUS] = "/esoui/art/icons/poi/poi_mundus_complete.dds",
     [DESTINATIONS_PIN_TYPE_PORTAL] = "/esoui/art/icons/poi/poi_portal_complete.dds",
+    [DESTINATIONS_PIN_TYPE_GROUPPORTAL] = "/esoui/art/icons/poi/poi_group_portal_complete.dds",
     [DESTINATIONS_PIN_TYPE_RAIDDUNGEON] = "/esoui/art/icons/poi/poi_raiddungeon_complete.dds",
     [DESTINATIONS_PIN_TYPE_RUIN] = "/esoui/art/icons/poi/poi_ruin_complete.dds",
     [DESTINATIONS_PIN_TYPE_SEWER] = "/esoui/art/icons/poi/poi_sewer_complete.dds",
@@ -4150,6 +4160,7 @@ local function GetDestinationKnownPOITexture(poiTypeId)
     [DESTINATIONS_PIN_TYPE_HOUSING] = "/esoui/art/icons/poi/poi_group_house_owned.dds",
     [DESTINATIONS_PIN_TYPE_DWEMERGEAR] = "/esoui/art/icons/poi/poi_u26_dwemergear_complete.dds",
     [DESTINATIONS_PIN_TYPE_NORDBOAT] = "/esoui/art/icons/poi/poi_u26_nord_boat_complete.dds",
+    [DESTINATIONS_PIN_TYPE_MUSHROMTOWER] = "/esoui/art/icons/poi/poi_mushromtower_complete.dds",
     [DESTINATIONS_PIN_TYPE_UNKNOWN] = "Destinations/pins/poi_unknown_pintype.dds",
   }
 
@@ -4190,6 +4201,7 @@ local function GetDestinationUnknownPOITexture(poiTypeId)
     [DESTINATIONS_PIN_TYPE_MINE] = "/esoui/art/icons/poi/poi_mine_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_MUNDUS] = "/esoui/art/icons/poi/poi_mundus_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_PORTAL] = "/esoui/art/icons/poi/poi_portal_incomplete.dds",
+    [DESTINATIONS_PIN_TYPE_GROUPPORTAL] = "/esoui/art/icons/poi/poi_group_portal_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_RAIDDUNGEON] = "/esoui/art/icons/poi/poi_raiddungeon_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_RUIN] = "/esoui/art/icons/poi/poi_ruin_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_SEWER] = "/esoui/art/icons/poi/poi_sewer_incomplete.dds",
@@ -4215,6 +4227,7 @@ local function GetDestinationUnknownPOITexture(poiTypeId)
     [DESTINATIONS_PIN_TYPE_HOUSING] = "/esoui/art/icons/poi/poi_group_house_unowned.dds",
     [DESTINATIONS_PIN_TYPE_DWEMERGEAR] = "/esoui/art/icons/poi/poi_u26_dwemergear_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_NORDBOAT] = "/esoui/art/icons/poi/poi_u26_nord_boat_incomplete.dds",
+    [DESTINATIONS_PIN_TYPE_MUSHROMTOWER] = "/esoui/art/icons/poi/poi_mushromtower_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_UNKNOWN] = "Destinations/pins/poi_unknown_pintype.dds",
   }
 

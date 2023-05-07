@@ -63,6 +63,10 @@ local DESTINATIONS_PIN_TYPE_GROUPAREAOFINTEREST = 48
 local DESTINATIONS_PIN_TYPE_HOUSING = 49
 local DESTINATIONS_PIN_TYPE_DWEMERGEAR = 50
 local DESTINATIONS_PIN_TYPE_NORDBOAT = 51
+local DESTINATIONS_PIN_TYPE_DEADLANDS = 52
+local DESTINATIONS_PIN_TYPE_HIGHISLE = 53
+local DESTINATIONS_PIN_TYPE_MUSHROMTOWER = 54
+local DESTINATIONS_PIN_TYPE_GROUPPORTAL = 55
 local DESTINATIONS_PIN_TYPE_UNKNOWN = 99
 
 -- value is abilityId
@@ -189,6 +193,10 @@ local CRAFTINGSET_CHIMERAS_REBUKE = 72
 local CRAFTINGSET_CLAW_OF_THE_FOREST_WRAITH = 73
 local CRAFTINGSET_OLD_GROWTH_BREWER = 74
 
+local CRAFTINGSET_TELVANNI_EFFICIENCY = 75
+local CRAFTINGSET_SEEKER_SYNTHESIS = 76
+local CRAFTINGSET_SHATTERED_FATE = 77
+
 -- itemId, numberOfTraitsRequired
 Destinations.SetsStore = {
 
@@ -314,6 +322,11 @@ Destinations.SetsStore = {
   [CRAFTINGSET_CHIMERAS_REBUKE] = { 191232, 7 }, -- 72
   [CRAFTINGSET_CLAW_OF_THE_FOREST_WRAITH] = { 192292, 5 }, -- 73
   [CRAFTINGSET_OLD_GROWTH_BREWER] = { 191667, 3 }, -- 74
+
+  -- Telvanni Peninsula
+  [CRAFTINGSET_TELVANNI_EFFICIENCY] = { 194942, 3 }, -- 75
+  [CRAFTINGSET_SEEKER_SYNTHESIS] = { 195322, 7 }, -- 76
+  [CRAFTINGSET_SHATTERED_FATE] = { 194562, 5 }, -- 77
 }
 
 Destinations.KeepsStore = {
@@ -2747,5 +2760,82 @@ Destinations.POIsStore = {
     [32] = { n = "Eastern Shores Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     ["zoneName"] = "Galen",
   },
-
+  [1414] = {
+    [1] = { n = "Anchre Egg Mine", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [2] = { n = "Camonnaruhn", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [3] = { n = "Ald Isra", t = DESTINATIONS_PIN_TYPE_MUSHROMTOWER },
+    [4] = { n = "Kemel-Ze", t = DESTINATIONS_PIN_TYPE_DWEMERRUIN },
+    [5] = { n = "Sailenmora", t = DESTINATIONS_PIN_TYPE_CRYPT },
+    [6] = { n = "Tel Dreloth", t = DESTINATIONS_PIN_TYPE_MUSHROMTOWER },
+    [7] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [8] = { n = "Necrom", t = DESTINATIONS_PIN_TYPE_CITY },
+    [9] = { n = "Tomb of the Nameless Master", t = DESTINATIONS_PIN_TYPE_AOI },
+    [10] = { n = "Tel Baro", t = DESTINATIONS_PIN_TYPE_MUSHROMTOWER },
+    [11] = { n = "Tel Rendys", t = DESTINATIONS_PIN_TYPE_MUSHROMTOWER },
+    [12] = { n = "Clamorclap Bowl", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
+    [13] = { n = "Nightmare Den", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
+    [14] = { n = "Alavelis", t = DESTINATIONS_PIN_TYPE_TOWN },
+    [15] = { n = "Tel Hlurag Ven", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_TELVANNI_EFFICIENCY },
+    [16] = { n = "Gorne", t = DESTINATIONS_PIN_TYPE_DUNGEON },
+    [17] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [18] = { n = "Fungal Downs Edifice", t = DESTINATIONS_PIN_TYPE_GROUPPORTAL },
+    [19] = { n = "Trial: Sanity's Edge", t = DESTINATIONS_PIN_TYPE_RAIDDUNGEON },
+    [20] = { n = "Glasscrag Edifice", t = DESTINATIONS_PIN_TYPE_GROUPPORTAL },
+    [21] = { n = "Necrom Outskirts Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [22] = { n = "Necrom Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [23] = { n = "Fungal Lowlands Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [24] = { n = "Ald Isra Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [25] = { n = "Padomaic Crest Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [26] = { n = "Great Arm Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [27] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [28] = { n = "Journey's End Lodgings", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [29] = { n = "Emissary's Enclave", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [30] = { n = "Alavelis Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [31] = { n = "House Dres Encampment", t = DESTINATIONS_PIN_TYPE_AOI },
+    [32] = { n = "Deshaan Gate", t = DESTINATIONS_PIN_TYPE_GATE },
+    [33] = { n = "Bal Foyen Passage", t = DESTINATIONS_PIN_TYPE_GATE },
+    ["zoneName"] = "Telvanni Peninsula",
+  },
+  [1413] = {
+    [1] = { n = "Portal to Necrom", t = DESTINATIONS_PIN_TYPE_GATE },
+    [2] = { n = "Portal to Necrom", t = DESTINATIONS_PIN_TYPE_GATE },
+    [3] = { n = "Rectory Corporea", t = DESTINATIONS_PIN_TYPE_CEMETERY },
+    [4] = { n = "The Feral Gallery", t = DESTINATIONS_PIN_TYPE_DAEDRICRUIN },
+    [5] = { n = "Cenotaph of the Remnants", t = DESTINATIONS_PIN_TYPE_GATE },
+    [6] = { n = "Cipher's Midden", t = DESTINATIONS_PIN_TYPE_TOWN },
+    [7] = { n = "The Sidereal Cloisters", t = DESTINATIONS_PIN_TYPE_KEEP },
+    [8] = { n = "The Ravening Morass", t = DESTINATIONS_PIN_TYPE_ESTATE },
+    [9] = { n = "Quires Wind", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [10] = { n = "The Disquiet Study", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [11] = { n = "The Underweave", t = DESTINATIONS_PIN_TYPE_DUNGEON },
+    [12] = { n = "Apogee of the Tormenting Eye", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [13] = { n = "Fathoms Drift", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [14] = { n = "Libram Cathedral", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
+    [15] = { n = "Deepreave Quag", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
+    [16] = { n = "Runemaster's Acropolis", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
+    [17] = { n = "Chthon Plaza", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
+    [18] = { n = "Versicolor Carrels", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_SEEKER_SYNTHESIS },
+    [19] = { n = "Artisan's Hermitage", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_SHATTERED_FATE },
+    [20] = { n = "The Tranquil Catalog", t = DESTINATIONS_PIN_TYPE_KEEP },
+    [21] = { n = "Fractured Monolith", t = DESTINATIONS_PIN_TYPE_AOI },
+    [22] = { n = "Chthonic Landing", t = DESTINATIONS_PIN_TYPE_AOI },
+    [23] = { n = "Writhing Wastes Edifice", t = DESTINATIONS_PIN_TYPE_GROUPPORTAL },
+    [24] = { n = "Fallen Hues Edifice", t = DESTINATIONS_PIN_TYPE_GROUPPORTAL },
+    [25] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [26] = { n = "Still Shallows Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [27] = { n = "Soundless Bight Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [28] = { n = "Cipher's Midden Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [29] = { n = "Speiran Tarn Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [30] = { n = "Writhing Wastes Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [31] = { n = "Tranquil Catalog Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [32] = { n = "Apogee Nadir Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [33] = { n = "Forlorn Palisades Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [34] = { n = "Feral Gallery Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [35] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [36] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [37] = { n = "Syzygial Rostrum", t = DESTINATIONS_PIN_TYPE_AOI },
+    [38] = { n = "Study of the Lost Cipher", t = DESTINATIONS_PIN_TYPE_AOI },
+    [39] = { n = "Altar of the One Who Knows", t = DESTINATIONS_PIN_TYPE_AOI },
+    ["zoneName"] = "Apocrypha",
+  },
 }

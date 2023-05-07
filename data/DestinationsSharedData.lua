@@ -3774,6 +3774,14 @@ Destinations.ACHDataStore = {
   ["u36_vastyrcity_base_0"] = {
     { 0.8898, 0.6256, 42, 3500, 1, "X" }, -- SnowmanDK
   },
+  -- Telvanni Peninsula
+  ["u38_telvannipeninsula_base_0"] = {
+    { 0.673287, 0.400269, 41, 3636, 1, "X" }, -- telvanni/u38_telvannipeninsula_base_0
+  },
+  -- Apocrypha
+  ["u38_apocrypha_base_0"] = {
+  { 0.177181, 0.267983, 40, 3636, 1, "X" }, -- apocrypha/u38_apocrypha_base_0
+  },
 }
 
 -- vunalk
@@ -3810,6 +3818,9 @@ Destinations.QOLDataStore = {
   [1940] = {
     { x = 0.16614331305027, y = 0.48378404974937, pinName = "Portal to Fargrave", pinsType = Destinations.Portals },
   },
+  [2343] = {
+    { x = 0.6000816822052, y = 0.52468365430832, pinName = "Portal to Apocrypha", pinsType = Destinations.Portals },
+  },
   -- [2000] = {
   -- { x = 0.20910930633545, y = 0.1810761988163, pinName = "Atoll Portal", pinsType = Destinations.Portals },
   -- { x = 0.17482243478298, y = 0.36620065569878, pinName = "Atoll Portal", pinsType = Destinations.Portals },
@@ -3838,4 +3849,9 @@ Destinations.QOLDataStore = {
   {0.7385361194, 0.4922370016, 3076},
   },
   -- ach 3096 Ruinach Rumble
+]]--
+
+--[[ Tome of unknown color
+X: 0.15867671370506, Y: 0.22877429425716
+X: 0.64143264293671, Y: 0.47950917482376
 ]]--
