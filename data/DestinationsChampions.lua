@@ -1643,6 +1643,72 @@ Destinations.ChampionTableStore = {
     { 0.5566987395, 0.4461925029, 3489, 1 }, -- Embervine
     { 0.2152689993, 0.4701301157, 3490, 1 }, -- Fauns' Thicket
   },
+  ["u38_telvannipeninsula_base_0"] = {
+    { 0.2419047057, 0.6903068423, 3621, 1 }, -- Camonnaruhn
+    { 0.7864651679, 0.4997152686, 3620, 1 }, -- eggmine
+    { 0.7191173434, 0.3177967369, 3660, 1 }, --Stupulag, Gorne breadcrumb
+    { 0.7191173434, 0.3177967369, 3660, 2 }, --Zygiite, Gorne breadcrumb
+    { 0.7191173434, 0.3177967369, 3660, 3 }, --Solenm, Gorne breadcrumb
+    { 0.7191173434, 0.3177967369, 3660, 4 }, --Staxuira, Gorne breadcrumb
+    { 0.7191173434, 0.3177967369, 3660, 5 }, --Keeag, Gorne breadcrumb
+    { 0.7939265370, 0.1978056430, 3658, 1 }, --Gorne Group Event, Gorne breadcrumb
+  },
+  ["u38_camonnaruhn_base_0"] = {
+    { 0.5970124006, 0.2194024771, 3621, 1 }, -- Camonnaruhn
+  },
+  ["u38_eggmine_base_0"] = {
+    { 0.5125712156, 0.4872870445, 3620, 1 }, -- eggmine
+  },
+  ["u38_gorne_main_0"] = {
+    { 0.5790, 0.1260, 3660, 1 }, --Stupulag
+    { 0.1540, 0.2150, 3660, 2 }, --Zygiite
+    { 0.8850, 0.5930, 3660, 3 }, --Solenm
+    { 0.6000, 0.6800, 3660, 4 }, --Staxuira
+    { 0.1210, 0.5480, 3660, 5 }, --Keeag
+    { 0.5670, 0.4210, 3658, 1 }, --Gorne Group Event
+  },
+  ["u38_apocrypha_base_0"] = {
+    { 0.9038958549, 0.6655811071, 3622, 1 }, -- Quires Wind
+    { 0.5787776708, 0.7339653968, 3623, 1 }, -- Disquiet Study
+    { 0.3335747718, 0.3868216574, 3625, 1 }, -- Apogee Wind, The Supernal Trespasser
+    { 0.3903756141, 0.1914914846, 3624, 1 }, -- Fathoms Drift, The Lightkeeper
+    -- underweave
+    { 0.4035774171, 0.4993368983, 3659, 1 }, --Caz'iunes the Executioner
+    { 0.4035774171, 0.4993368983, 3659, 2 }, --Creepclaw
+    { 0.4035774171, 0.4993368983, 3659, 3 }, --Qacath the Silent
+    { 0.4035774171, 0.4993368983, 3659, 4 }, --Kynreve Kev'ni ????
+    { 0.4035774171, 0.4993368983, 3659, 5 }, -- Loremaster Trigon
+    { 0.3506177663, 0.6382707953, 3657, 1 }, --All-Seeing Ky'zuu (Group Event)
+  },
+  ["u38_underweave_central_base_0"] = {
+    { 0.4991443157, 0.7969195842, 3659, 1 }, --Caz'iunes the Executioner
+    { 0.3730747401, 0.1865373700, 3659, 2 }, --Creepclaw
+    { 0.5898459553, 0.3348545432, 3657, 1 }, --All-Seeing Ky'zuu (Group Event)
+    { 0.6714203953, 0.7239018678, 3659, 4 }, --Kynreve Kev'ni, breadcrumb
+  },
+  ["u38_underweave_process02_base_0"] = {
+    { 0.3351351320, 0.3105105161, 3659, 3 }, --Qacath the Silent
+    { 0.8606606721, 0.7393393516, 3659, 5 }, -- Loremaster Trigon
+  },
+  ["u38_underweave_process01_base_0"] = {
+    { 0.8606606721, 0.7393393516, 3659, 5 }, -- Loremaster Trigon
+    { 0.3351351320, 0.3105105161, 3659, 3 }, --Qacath the Silent, breadcrumb
+  },
+  ["u38_underweave_heart_base_0"] = {
+    { 0.5171597599, 0.8473373055, 3659, 4 }, --Kynreve Kev'ni ????
+  },
+  ["u38_quires_wind_base_0"] = {
+    { 0.2515340149, 0.7395609617, 3622, 1 }, -- Quires Wind
+  },
+  ["u38_disquiet_study_base_0"] = {
+    { 0.4377440810, 0.6253392696, 3623, 1 }, -- Disquiet Study
+  },
+  ["u38_apogee_wind_base_0"] = {
+    { 0.5249978303, 0.7947553396, 3625, 1 }, -- Apogee Wind, The Supernal Trespasser
+  },
+  ["u38_corpusclebight_01_base_0"] = {
+    { 0.4876190423, 0.1144761890, 3624, 1 }, -- Fathoms Drift, The Lightkeeper
+  },
 }
 -- alias for orcrest
 Destinations.ChampionTableStore["orcrest2_base_0"] = Destinations.ChampionTableStore["orcrest_base_0"]
