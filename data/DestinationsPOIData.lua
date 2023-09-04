@@ -2723,6 +2723,7 @@ Destinations.POIsStore = {
     [82] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
     [83] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
     [84] = { n = "Stonelore Falls", t = DESTINATIONS_PIN_TYPE_AOI },
+    [85] = { n = "Fogbreak Lighthouse", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "High Isle",
   },
   [1383] = {
@@ -2758,6 +2759,7 @@ Destinations.POIsStore = {
     [30] = { n = "Y'free's Path Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [31] = { n = "Vastyr Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [32] = { n = "Eastern Shores Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [33] = { n = "The Fair Winds", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Galen",
   },
   [1414] = {
