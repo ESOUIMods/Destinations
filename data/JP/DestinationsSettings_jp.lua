@@ -405,6 +405,7 @@ local strings = {
   POITYPE_DARK_BROTHERHOOD = "闇の一党",
   POITYPE_BREAKING_ENTERING = "鍵開けと侵入",
   POITYPE_CUTPURSE_ABOVE = "上級スリ師",
+  POITYPE_ENDLESS_ARCHIVE = "Endless Archive",
 
   POITYPE_MAIQ = zo_strformat(GetAchievementInfo(872)),
   POITYPE_LB_GTTP_CP = zo_strformat(GetAchievementInfo(873)) .. "/" .. zo_strformat(GetAchievementInfo(871)) .. "/" .. zo_strformat(GetAchievementInfo(869)),

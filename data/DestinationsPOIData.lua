@@ -67,6 +67,7 @@ local DESTINATIONS_PIN_TYPE_DEADLANDS = 52
 local DESTINATIONS_PIN_TYPE_HIGHISLE = 53
 local DESTINATIONS_PIN_TYPE_MUSHROMTOWER = 54
 local DESTINATIONS_PIN_TYPE_GROUPPORTAL = 55
+local DESTINATIONS_PIN_TYPE_ENDLESSARCHIVE = 56
 local DESTINATIONS_PIN_TYPE_UNKNOWN = 99
 
 -- value is abilityId
@@ -2760,6 +2761,7 @@ Destinations.POIsStore = {
     [31] = { n = "Vastyr Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [32] = { n = "Eastern Shores Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [33] = { n = "The Fair Winds", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [34] = { n = "Gladesong Arboretum", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Galen",
   },
   [1414] = {
@@ -2796,6 +2798,7 @@ Destinations.POIsStore = {
     [31] = { n = "House Dres Encampment", t = DESTINATIONS_PIN_TYPE_AOI },
     [32] = { n = "Deshaan Gate", t = DESTINATIONS_PIN_TYPE_GATE },
     [33] = { n = "Bal Foyen Passage", t = DESTINATIONS_PIN_TYPE_GATE },
+    [34] = { n = "Kelesan'ruhn", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Telvanni Peninsula",
   },
   [1413] = {
@@ -2834,7 +2837,7 @@ Destinations.POIsStore = {
     [33] = { n = "Forlorn Palisades Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [34] = { n = "Feral Gallery Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [35] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
-    [36] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [36] = { n = "Endless Archive", t = DESTINATIONS_PIN_TYPE_ENDLESSARCHIVE },
     [37] = { n = "Syzygial Rostrum", t = DESTINATIONS_PIN_TYPE_AOI },
     [38] = { n = "Study of the Lost Cipher", t = DESTINATIONS_PIN_TYPE_AOI },
     [39] = { n = "Altar of the One Who Knows", t = DESTINATIONS_PIN_TYPE_AOI },

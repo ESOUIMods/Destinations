@@ -403,6 +403,7 @@ local strings = {
   POITYPE_DARK_BROTHERHOOD = "黑暗兄弟会",
   POITYPE_BREAKING_ENTERING = "破门而入",
   POITYPE_CUTPURSE_ABOVE = "高级窃贼",
+  POITYPE_ENDLESS_ARCHIVE = "Endless Archive",
 
   POITYPE_MAIQ = zo_strformat(GetAchievementInfo(872)),
   POITYPE_LB_GTTP_CP = zo_strformat(GetAchievementInfo(873)) .. "/" .. zo_strformat(GetAchievementInfo(871)) .. "/" .. zo_strformat(GetAchievementInfo(869)),

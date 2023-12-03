@@ -405,6 +405,7 @@ local strings = {
   POITYPE_DARK_BROTHERHOOD = "Темное братство",
   POITYPE_BREAKING_ENTERING = "Взлом и проникновение",
   POITYPE_CUTPURSE_ABOVE = "Одним карманником больше",
+  POITYPE_ENDLESS_ARCHIVE = "Endless Archive",
 
   POITYPE_MAIQ = zo_strformat(GetAchievementInfo(872)),
   POITYPE_LB_GTTP_CP = zo_strformat(GetAchievementInfo(873)) .. "/" .. zo_strformat(GetAchievementInfo(871)) .. "/" .. zo_strformat(GetAchievementInfo(869)),

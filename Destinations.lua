@@ -122,7 +122,7 @@ end
 -------------------------------------------------
 
 local ADDON_AUTHOR = "|c990000Snowman|r, |cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
-local ADDON_VERSION = "29.90"
+local ADDON_VERSION = "29.91"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
@@ -192,6 +192,7 @@ local DESTINATIONS_PIN_TYPE_DEADLANDS = 52
 local DESTINATIONS_PIN_TYPE_HIGHISLE = 53
 local DESTINATIONS_PIN_TYPE_MUSHROMTOWER = 54
 local DESTINATIONS_PIN_TYPE_GROUPPORTAL = 55
+local DESTINATIONS_PIN_TYPE_ENDLESSARCHIVE = 56
 local DESTINATIONS_PIN_TYPE_UNKNOWN = 99
 local DESTINATIONS_PIN_PRIORITY_OFFSET = 1
 
@@ -1432,6 +1433,7 @@ local poiTypes = {
   [DESTINATIONS_PIN_TYPE_HOUSING] = GetString(POITYPE_HOUSING),
   [DESTINATIONS_PIN_TYPE_DWEMERGEAR] = GetString(POITYPE_QUESTHUB),
   [DESTINATIONS_PIN_TYPE_NORDBOAT] = GetString(POITYPE_QUESTHUB),
+  [DESTINATIONS_PIN_TYPE_ENDLESSARCHIVE] = GetString(POITYPE_ENDLESS_ARCHIVE),
   [DESTINATIONS_PIN_TYPE_UNKNOWN] = GetString(POITYPE_UNKNOWN),
 }
 
@@ -4161,6 +4163,7 @@ local function GetDestinationKnownPOITexture(poiTypeId)
     [DESTINATIONS_PIN_TYPE_DWEMERGEAR] = "/esoui/art/icons/poi/poi_u26_dwemergear_complete.dds",
     [DESTINATIONS_PIN_TYPE_NORDBOAT] = "/esoui/art/icons/poi/poi_u26_nord_boat_complete.dds",
     [DESTINATIONS_PIN_TYPE_MUSHROMTOWER] = "/esoui/art/icons/poi/poi_mushromtower_complete.dds",
+    [DESTINATIONS_PIN_TYPE_ENDLESSARCHIVE] = "/esoui/art/icons/poi/poi_endlessdungeon_complete.dds",
     [DESTINATIONS_PIN_TYPE_UNKNOWN] = "Destinations/pins/poi_unknown_pintype.dds",
   }
 
@@ -4228,6 +4231,7 @@ local function GetDestinationUnknownPOITexture(poiTypeId)
     [DESTINATIONS_PIN_TYPE_DWEMERGEAR] = "/esoui/art/icons/poi/poi_u26_dwemergear_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_NORDBOAT] = "/esoui/art/icons/poi/poi_u26_nord_boat_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_MUSHROMTOWER] = "/esoui/art/icons/poi/poi_mushromtower_incomplete.dds",
+    [DESTINATIONS_PIN_TYPE_ENDLESSARCHIVE] = "/esoui/art/icons/poi/poi_endlessdungeon_incomplete.dds",
     [DESTINATIONS_PIN_TYPE_UNKNOWN] = "Destinations/pins/poi_unknown_pintype.dds",
   }
 
