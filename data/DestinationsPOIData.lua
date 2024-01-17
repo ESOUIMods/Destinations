@@ -2837,7 +2837,7 @@ Destinations.POIsStore = {
     [33] = { n = "Forlorn Palisades Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [34] = { n = "Feral Gallery Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [35] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
-    [36] = { n = "Endless Archive", t = DESTINATIONS_PIN_TYPE_ENDLESSARCHIVE },
+    [36] = { n = "Infinite Archive", t = DESTINATIONS_PIN_TYPE_ENDLESSARCHIVE },
     [37] = { n = "Syzygial Rostrum", t = DESTINATIONS_PIN_TYPE_AOI },
     [38] = { n = "Study of the Lost Cipher", t = DESTINATIONS_PIN_TYPE_AOI },
     [39] = { n = "Altar of the One Who Knows", t = DESTINATIONS_PIN_TYPE_AOI },

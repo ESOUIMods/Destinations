@@ -122,7 +122,7 @@ end
 -------------------------------------------------
 
 local ADDON_AUTHOR = "|c990000Snowman|r, |cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
-local ADDON_VERSION = "29.91"
+local ADDON_VERSION = "29.92"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
@@ -4463,7 +4463,7 @@ local function RegisterQuestAdded(eventCode, journalIndex, questName, objectiveN
   RedrawAllPins(DPINS.QUESTS_DONE)
 end
 
-local function RegisterQuestDone(eventCode, questName, level, previousExperience, currentExperience, championPoints, questType, instanceDisplayType)
+local function RegisterQuestDone(eventCode, questName, level, previousExperience, currentExperience, championPoints, questType, zoneDisplayType)
   local questFound, questID = false, 0
   local tempQuestID = LQD:get_questids_table(questName, Destinations.effective_quest_lang)
   local questData = {}
