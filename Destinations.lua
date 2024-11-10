@@ -122,7 +122,7 @@ end
 -------------------------------------------------
 
 local ADDON_AUTHOR = "|c990000Snowman|r, |cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
-local ADDON_VERSION = "29.92"
+local ADDON_VERSION = "29.93"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
@@ -1567,6 +1567,7 @@ local ZoneIDsToFileNames = {
   [1286] = "u32deadlandszone_base_0",
   [1207] = "reach_base_0",
   [849] = "vvardenfell_base_0",
+  [1443] = "westwealdoverland_base_0",
   [1160] = "westernskryim_base_0",
   [684] = "wrothgar_base_0",
   [181] = "ava_whole_0",
@@ -6671,13 +6672,9 @@ local function InitSettings()
     registerForDefaults = true,
     website = ADDON_WEBSITE,
   }
-
   local settingsPanel = LAM:RegisterAddonPanel("Destinations_OptionsPanel", panelData)
 
-  local optionsTable = {}
-
   --Icon Preview
-
   local unknownPoiPreview, otherPreview, otherPreviewDone, MaiqPreview, MaiqPreviewDone, PeacemakerPreview, PeacemakerPreviewDone, NosediverPreview, NosediverPreviewDone
   local EarthlyPosPreview, EarthlyPosPreviewDone, OnMePreview, OnMePreviewDone, BrawlPreview, BrawlPreviewDone, PatronPreview, PatronPreviewDone
   local WrothgarJumperPreview, WrothgarJumperPreviewDone, RelicHunterPreview, RelicHunterPreviewDone, BreakingPreview, BreakingPreviewDone, CutpursePreview, CutpursePreviewDone
@@ -6926,6 +6923,7 @@ local function InitSettings()
 
   CALLBACK_MANAGER:RegisterCallback("LAM-PanelControlsCreated", CreateIcons)
 
+  local optionsTable = {}
   optionsTable[#optionsTable + 1] = { -- Toggle using Account Wide settings
     type = "checkbox",
     name = defaults.miscColorCodes.settingsTextAccountWide:Colorize(GetString(DEST_SETTINGS_USE_ACCOUNTWIDE)),
@@ -9480,6 +9478,10 @@ local function InitSettings()
     name = defaults.miscColorCodes.settingsTextAchHeaders:Colorize(GetString(DEST_SETTINGS_QUEST_DAILIES_HEADER)),
   }
   -- Writs pin toggle
+  --[[TODO: Update other quest pin types
+
+  Change writs, because they are dailies.
+  ]]--
   optionsTable[quests].controls[#optionsTable[quests].controls + 1] = {
     type = "checkbox",
     width = "full",

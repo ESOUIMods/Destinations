@@ -1709,6 +1709,29 @@ Destinations.ChampionTableStore = {
   ["u38_corpusclebight_01_base_0"] = {
     { 0.4876190423, 0.1144761890, 3624, 1 }, -- Fathoms Drift, The Lightkeeper
   },
+  -- West Weald
+  ["westwealdoverland_base_0"] = {
+  -- 4000 Group Leftwheal
+  -- 4001 Leftwheal
+  -- 4002 Group Silorn
+  -- 4003 Silorn
+  -- 3954 Fyrelight Cave
+  -- 3955 Haldain Lumber Camp
+  -- 3956 Nonungalo
+  -- 3957 Fort Colovia
+  -- 3958 Varen's Watch
+  -- 3959 Legion's Rest
+    { 0.8684709072, 0.6871860027, 4003, 2 }, -- Bloodmane and Spitetooth
+    { 0.8684709072, 0.6871860027, 4003, 4 }, -- Juxheis the Dread
+    { 0.8684709072, 0.6871860027, 4003, 5 }, -- Galrok the Burning
+    { 0.8684709072, 0.6871860027, 4002, 1 }, -- Viikor Brazen Hoof
+  },
+  ["u42_silorn_base_0"] = {
+    { 0.6855435967, 0.7171827554, 4003, 2 }, -- Bloodmane and Spitetooth
+    { 0.1115785911, 0.4740827977, 4003, 4 }, -- Juxheis the Dread
+    { 0.3738640248, 0.2203803360, 4003, 5 }, -- Galrok the Burning
+    { 0.8066307902, 0.4522046446, 4002, 1 }, -- Viikor Brazen Hoof
+  },
 }
 -- alias for orcrest
 Destinations.ChampionTableStore["orcrest2_base_0"] = Destinations.ChampionTableStore["orcrest_base_0"]

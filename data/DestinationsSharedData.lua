@@ -3782,6 +3782,10 @@ Destinations.ACHDataStore = {
   ["u38_apocrypha_base_0"] = {
   { 0.177181, 0.267983, 40, 3636, 1, "X" }, -- apocrypha/u38_apocrypha_base_0
   },
+  -- West Weald
+  ["westwealdoverland_base_0"] = {
+  { 0.869512, 0.671947, 41, 3948, 1, "X" }, -- westweald/westwealdoverland_base_0
+  },
 }
 
 -- vunalk
@@ -3798,6 +3802,7 @@ Destinations.Stable = 2
 Destinations.Portals = 3
 
 --[[For LibMapPins-1.0 use:
+Key: mapId
 pinName: Name for tooltip
 ]]--
 Destinations.QOLDataStore = {
@@ -3820,6 +3825,9 @@ Destinations.QOLDataStore = {
   },
   [2343] = {
     { x = 0.6000816822052, y = 0.52468365430832, pinName = "Portal to Apocrypha", pinsType = Destinations.Portals },
+  },
+  [2514] = {
+    { x = 0.3430613577, y = 0.8155988454, pinName = "Portal to The Scholarium", pinsType = Destinations.Portals },
   },
   -- [2000] = {
   -- { x = 0.20910930633545, y = 0.1810761988163, pinName = "Atoll Portal", pinsType = Destinations.Portals },
