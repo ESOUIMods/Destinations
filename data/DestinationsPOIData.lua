@@ -198,6 +198,10 @@ local CRAFTINGSET_TELVANNI_EFFICIENCY = 75
 local CRAFTINGSET_SEEKER_SYNTHESIS = 76
 local CRAFTINGSET_SHATTERED_FATE = 77
 
+local CRAFTINGSET_HIGHLAND_SENTINEL = 78
+local CRAFTINGSET_THARRIKER_STRIKE = 79
+local CRAFTINGSET_THREADS_OF_WAR = 80
+
 -- itemId, numberOfTraitsRequired
 Destinations.SetsStore = {
 
@@ -328,6 +332,12 @@ Destinations.SetsStore = {
   [CRAFTINGSET_TELVANNI_EFFICIENCY] = { 194942, 3 }, -- 75
   [CRAFTINGSET_SEEKER_SYNTHESIS] = { 195322, 7 }, -- 76
   [CRAFTINGSET_SHATTERED_FATE] = { 194562, 5 }, -- 77
+
+  -- West Weald
+  [CRAFTINGSET_HIGHLAND_SENTINEL] = { 205773, 5 }, -- 78
+  [CRAFTINGSET_THARRIKER_STRIKE] = { 205393, 3 }, -- 79
+  [CRAFTINGSET_THREADS_OF_WAR] = { 206153, 7 }, -- 80
+
 }
 
 Destinations.KeepsStore = {
@@ -2843,14 +2853,15 @@ Destinations.POIsStore = {
     [37] = { n = "Syzygial Rostrum", t = DESTINATIONS_PIN_TYPE_AOI },
     [38] = { n = "Study of the Lost Cipher", t = DESTINATIONS_PIN_TYPE_AOI },
     [39] = { n = "Altar of the One Who Knows", t = DESTINATIONS_PIN_TYPE_AOI },
+    [40] = { n = "Tower of Unutterable Truths", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Apocrypha",
   },
   [1443] = {
     [1] = { n = "Skingrad", t = DESTINATIONS_PIN_TYPE_CITY },
     [2] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
-    [3] = { n = "Leftwheal Grainery", t = DESTINATIONS_PIN_TYPE_CRAFTING },
-    [4] = { n = "Singer's Outpost", t = DESTINATIONS_PIN_TYPE_CRAFTING },
-    [5] = { n = "Deserter's Lagoon", t = DESTINATIONS_PIN_TYPE_CRAFTING },
+    [3] = { n = "Leftwheal Grainery", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_HIGHLAND_SENTINEL },
+    [4] = { n = "Singer's Outpost", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_THARRIKER_STRIKE },
+    [5] = { n = "Deserter's Lagoon", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_THREADS_OF_WAR },
     [6] = { n = "Haldain Lumber Camp", t = DESTINATIONS_PIN_TYPE_DELVE },
     [7] = { n = "Fyrelight Cave", t = DESTINATIONS_PIN_TYPE_DELVE },
     [8] = { n = "Nonungalo", t = DESTINATIONS_PIN_TYPE_DELVE },
@@ -2921,5 +2932,13 @@ Destinations.POIsStore = {
     [73] = { n = "Feldagard Keep Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [74] = { n = "Three Points Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     ["zoneName"] = "West Weald",
+  },
+  [267] = {
+    [1] = { n = "Eyevea Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    ["zoneName"] = "0x22Eyevea",
+  },
+  [1463] = {
+    [1] = { n = "The Scholarium", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    ["zoneName"] = "The Scholarium",
   },
 }

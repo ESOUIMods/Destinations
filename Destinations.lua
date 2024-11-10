@@ -122,7 +122,7 @@ end
 -------------------------------------------------
 
 local ADDON_AUTHOR = "|c990000Snowman|r, |cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
-local ADDON_VERSION = "29.93"
+local ADDON_VERSION = "29.94"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
@@ -1542,6 +1542,7 @@ local ZoneIDsToFileNames = {
   [982] = "clockworkoutlawsrefuge_base_0",
   [347] = "coldharbour_base_0",
   [888] = "craglorn_base_0",
+  [267] = "eyevea_base_0",
   --[[ since there are two entries with 1283 the table is
   messed up. So for Fargrave and The Shambles the mapId
   will be used.
@@ -1572,7 +1573,6 @@ local ZoneIDsToFileNames = {
   [684] = "wrothgar_base_0",
   [181] = "ava_whole_0",
   [584] = "imperialcity_base_0",
-  [267] = "eyevea_base_0",
 }
 
 local achTypes = {
