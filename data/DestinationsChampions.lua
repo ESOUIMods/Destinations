@@ -1711,27 +1711,73 @@ Destinations.ChampionTableStore = {
   },
   -- West Weald
   ["westwealdoverland_base_0"] = {
-  -- 4000 Group Leftwheal
-  -- 4001 Leftwheal
-  -- 4002 Group Silorn
-  -- 4003 Silorn
-  -- 3954 Fyrelight Cave
-  -- 3955 Haldain Lumber Camp
-  -- 3956 Nonungalo
-  -- 3957 Fort Colovia
-  -- 3958 Varen's Watch
-  -- 3959 Legion's Rest
+    -- 3954 Fyrelight Cave
+    { 0.5352417230, 0.7284537553, 3954, 1 }, -- Scourgetail
+    -- 3955 Haldain Lumber Camp
+    { 0.7179077267, 0.7287099957, 3955, 1 }, -- Aggression of Root
+    -- 3956 Nonungalo
+    { 0.5141121149, 0.5196861624, 3956, 1 }, -- Shattered Shard
+    -- 3957 Fort Colovia
+    { 0.7652077674, 0.2078177928, 3957, 1 }, -- Deserter Marius Gallo
+    -- 3958 Varen's Watch
+    { 0.1411607116, 0.6133843064, 3958, 1 }, -- Commander Hanhael
+    -- 3959 Legion's Rest
+    { 0.6796976923, 0.3768257200, 3959, 1 }, -- Gilroy Vassinus
+
+    -- 4000 Group Leftwheal
+    { 0.3553315699, 0.4904370903, 4000, 1 }, -- Yrrkkyyn (Group Event)
+    -- 4001 Leftwheal
+    { 0.3553315699, 0.4904370903, 4001, 1 }, -- Swarmkeeper Xvarcon
+    { 0.3553315699, 0.4904370903, 4001, 2 }, -- Hrakkzur
+    { 0.3553315699, 0.4904370903, 4001, 3 }, -- Zvartek the Weapon Master
+    { 0.3553315699, 0.4904370903, 4001, 4 }, -- Klynklaynk
+    { 0.3553315699, 0.4904370903, 4001, 5 }, -- Olashyan and Ranishyn
+    -- 4002 Group Silorn
+    { 0.8684709072, 0.6871860027, 4002, 1 }, -- Viikor Brazen Hoof (Group Event)
+    -- 4003 Silorn
+    { 0.8684709072, 0.6871860027, 4003, 1 }, -- Shaman Rezzutum and Bone-Breaker
     { 0.8684709072, 0.6871860027, 4003, 2 }, -- Bloodmane and Spitetooth
+    { 0.8684709072, 0.6871860027, 4003, 3 }, -- Shepherd of the Doomed
     { 0.8684709072, 0.6871860027, 4003, 4 }, -- Juxheis the Dread
     { 0.8684709072, 0.6871860027, 4003, 5 }, -- Galrok the Burning
-    { 0.8684709072, 0.6871860027, 4002, 1 }, -- Viikor Brazen Hoof
   },
+  -- 4001 Leftwheal
+  ["u42_leftwheal_ext2_base_0"] = {
+    { 0.2710, 0.6220, 4000, 1 }, -- Yrrkkyyn
+    { 0.6060, 0.8150, 4001, 1 }, -- Swarmkeeper Xvarcon
+    { 0.8270, 0.4980, 4001, 2 }, -- Hrakkzur
+    { 0.3140, 0.5720, 4001, 3 }, -- Zvartek the Weapon Master
+    { 0.0710, 0.5260, 4001, 4 }, -- Klynklaynk
+    { 0.4560, 0.1230, 4001, 5 }, -- Olashyan and Ranishyn
+  },
+  -- 4003 Silorn
   ["u42_silorn_base_0"] = {
+    { 0.8066307902, 0.4522046446, 4002, 1 }, -- Viikor Brazen Hoof (Group Event)
+    { 0.9325143098, 0.3244698643, 4003, 1 }, -- Shaman Rezzutum and Bone-Breaker
     { 0.6855435967, 0.7171827554, 4003, 2 }, -- Bloodmane and Spitetooth
+    { 0.4106361567, 0.7434365749, 4003, 3 }, -- Shepherd of the Doomed
     { 0.1115785911, 0.4740827977, 4003, 4 }, -- Juxheis the Dread
     { 0.3738640248, 0.2203803360, 4003, 5 }, -- Galrok the Burning
-    { 0.8066307902, 0.4522046446, 4002, 1 }, -- Viikor Brazen Hoof
   },
+  ["u42_fyrelightcave_base_0"] = {
+    { 0.7749865055, 0.7056320905, 3954, 1 }, -- Scourgetail
+  },
+  ["u42_base_haldain_0"] = {
+    { 0.7138701081, 0.3641491532, 3955, 1 }, -- Aggression of Root
+  },
+  ["u42_base_nonungalo_0"] = {
+    { 0.7308226823, 0.5120607961, 3956, 1 }, -- Shattered Shard
+  },
+  ["u42_base_towerbelli_0"] = {
+    { 0.2639731168, 0.6620053052, 3957, 1 }, -- Deserter Marius Gallo
+  },
+  ["u42_windcave_base_0"] = {
+    { 0.6342884302, 0.3038341999, 3958, 1 }, -- Commander Hanhael
+  },
+  ["u42_windcave_base_0"] = {
+    { 0.3736828863, 0.4983033835, 3959, 1 }, -- Gilroy Vassinus
+  },
+  
 }
 -- alias for orcrest
 Destinations.ChampionTableStore["orcrest2_base_0"] = Destinations.ChampionTableStore["orcrest_base_0"]

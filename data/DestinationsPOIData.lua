@@ -673,6 +673,7 @@ Destinations.POIsStore = {
     [62] = { n = "Autumn's-Gate", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [63] = { n = "Hunter's Glade", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [64] = { n = "Dungeon: Scrivener's Hall", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
+    [65] = { n = "Grand Gallery of Tamriel", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "The Rift",
   },
   [104] = --Alik'r Desert
@@ -2462,6 +2463,7 @@ Destinations.POIsStore = {
     [28] = { n = "Gloomstalker Village", t = DESTINATIONS_PIN_TYPE_AOI },
     [29] = { n = "Bastion Sanguinaris", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [30] = { n = "Dungeon: Stone Garden", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
+    [31] = { n = "Kthendral Deep Mines", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Blackreach: Greymoor Caverns",
   },
   [1207] = -- The Reach (Greymoor)
@@ -2931,6 +2933,7 @@ Destinations.POIsStore = {
     [72] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
     [73] = { n = "Feldagard Keep Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [74] = { n = "Three Points Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [75] = { n = "Haven of the Five Companions", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "West Weald",
   },
   [267] = {
