@@ -202,6 +202,8 @@ local CRAFTINGSET_HIGHLAND_SENTINEL = 78
 local CRAFTINGSET_THARRIKER_STRIKE = 79
 local CRAFTINGSET_THREADS_OF_WAR = 80
 
+local CRAFTINGSET_TIDE_BORN_WILDSTALKER = 81
+
 -- itemId, numberOfTraitsRequired
 Destinations.SetsStore = {
 
@@ -338,6 +340,7 @@ Destinations.SetsStore = {
   [CRAFTINGSET_THARRIKER_STRIKE] = { 205393, 3 }, -- 79
   [CRAFTINGSET_THREADS_OF_WAR] = { 206153, 7 }, -- 80
 
+  [CRAFTINGSET_TIDE_BORN_WILDSTALKER] = { 215479, 5 }, -- 81
 }
 
 Destinations.KeepsStore = {
@@ -880,6 +883,7 @@ Destinations.POIsStore = {
     [58] = { n = "Pariah's Pinnacle", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [59] = { n = "Dungeon: Icereach", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     [60] = { n = "Forgemaster Falls", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [61] = { n = "Dungeon: Bedlam Veil", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     ["zoneName"] = "Wrothgar",
   },
   [888] = --Craglorn
@@ -1025,7 +1029,7 @@ Destinations.POIsStore = {
     [58] = { n = "Dungeon: City of Ash II", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     [59] = { n = "Cliffshade", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [60] = { n = "Bouldertree Refuge", t = DESTINATIONS_PIN_TYPE_HOUSING },
-    [61] = { n = "Dungeon: March of Sacrifices", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
+    [61] = { n = "March of Sacrifices", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     ["zoneName"] = "Greenshade",
   },
   [537] = --Khenrati's Roost
@@ -1067,9 +1071,9 @@ Destinations.POIsStore = {
     [14] = { n = "Sunscale Strand", t = DESTINATIONS_PIN_TYPE_RUIN },
     [15] = { n = "Mud Tree Village", t = DESTINATIONS_PIN_TYPE_MINE },
     [16] = { n = "Percolating Mire", t = DESTINATIONS_PIN_TYPE_ESTATE },
-    [17] = { n = "Atronach Stone", t = DESTINATIONS_PIN_TYPE_MUNDUS, s = MUNDUS_STONE_ATRONACH },
+    [17] = { n = "The Atronach", t = DESTINATIONS_PIN_TYPE_MUNDUS, s = MUNDUS_STONE_ATRONACH },
     [18] = { n = "The Shadow", t = DESTINATIONS_PIN_TYPE_MUNDUS, s = MUNDUS_STONE_SHADOW },
-    [19] = { n = "Serpent Stone", t = DESTINATIONS_PIN_TYPE_MUNDUS, s = MUNDUS_STONE_SERPENT },
+    [19] = { n = "The Serpent", t = DESTINATIONS_PIN_TYPE_MUNDUS, s = MUNDUS_STONE_SERPENT },
     [20] = { n = "Stillrise Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [21] = { n = "Stormhold Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [22] = { n = "Hatching Pools Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
@@ -1241,6 +1245,7 @@ Destinations.POIsStore = {
     [23] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
     [24] = { n = "No Shira Workshop", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_CLEVER_ALCHEMIST },
     [25] = { n = "Princely Dawnlight Palace", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [26] = { n = "Dungeon: Lep Seclusa", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     ["zoneName"] = "Hew's Bane",
   },
   [281] = --Bal Foyen
@@ -1354,7 +1359,7 @@ Destinations.POIsStore = {
     [63] = { n = "Hammerdeath Arena", t = DESTINATIONS_PIN_TYPE_BATTLEFIELD },
     [64] = { n = "Gardner House", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [65] = { n = "Hammerdeath Bungalow", t = DESTINATIONS_PIN_TYPE_HOUSING },
-    [66] = { n = "Dungeon: Scalecaller Peak", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
+    [66] = { n = "Scalecaller Peak", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     ["zoneName"] = "Stormhaven",
   },
   [20] = --Rivenspire
@@ -1428,7 +1433,7 @@ Destinations.POIsStore = {
     [2] = { n = "Gray Viper Outpost", t = DESTINATIONS_PIN_TYPE_CAMP },
     [3] = { n = "Homestead Ruins", t = DESTINATIONS_PIN_TYPE_RUIN },
     [4] = { n = "Culotte", t = DESTINATIONS_PIN_TYPE_AYLEIDRUIN },
-    [5] = { n = "Juras' Fall", t = DESTINATIONS_PIN_TYPE_AYLEIDRUIN },
+    [5] = { n = "Juras Falls", t = DESTINATIONS_PIN_TYPE_AYLEIDRUIN },
     [6] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
     [7] = { n = "Howling Cave", t = DESTINATIONS_PIN_TYPE_CAVE },
     [8] = { n = "Ceyatatar", t = DESTINATIONS_PIN_TYPE_AYLEIDRUIN },
@@ -1659,7 +1664,7 @@ Destinations.POIsStore = {
     [5] = { n = "Vulkwasten Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [6] = { n = "Abamath Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [7] = { n = "Wilding Run Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
-    [8] = { n = "Baandari Post Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [8] = { n = "Baandari Market Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [9] = { n = "Bloodtoil Valley Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [10] = { n = "Valeguard Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [11] = { n = "The Thief", t = DESTINATIONS_PIN_TYPE_MUNDUS, s = MUNDUS_STONE_THIEF },
@@ -1842,8 +1847,8 @@ Destinations.POIsStore = {
     [61] = { n = "Forsaken Stronghold", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [62] = { n = "Mournoth Keep", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [63] = { n = "Twin Arches", t = DESTINATIONS_PIN_TYPE_HOUSING },
-    [64] = { n = "Dungeon: Fang Lair", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
-    [65] = { n = "Unhallowed Grave", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
+    [64] = { n = "Fang Lair", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
+    [65] = { n = "Dungeon: Unhallowed Grave", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     [66] = { n = "Thieves' Oasis", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Bangkorai",
   },
@@ -1911,8 +1916,9 @@ Destinations.POIsStore = {
     [60] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
     [61] = { n = "Dungeon: The Banished Cells II", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     [62] = { n = "Barbed Hook Private Room", t = DESTINATIONS_PIN_TYPE_HOUSING },
-    [63] = { n = "Mara's Kiss Inn Room", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [63] = { n = "Mara's Kiss Public House", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [64] = { n = "Mathiisen Manor", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [65] = { n = "Seabloom Villa", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Auridon",
   },
   [382] = --Reaper's March
@@ -1978,7 +1984,7 @@ Destinations.POIsStore = {
     [59] = { n = "Strident Springs Demesne", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [60] = { n = "Dawnshadow", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [61] = { n = "Sleek Creek House", t = DESTINATIONS_PIN_TYPE_HOUSING },
-    [62] = { n = "Dungeon: Moon Hunter Keep", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
+    [62] = { n = "Moon Hunter Keep", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     ["zoneName"] = "Reaper's March",
   },
   [383] = --Grahtwood
@@ -2124,7 +2130,7 @@ Destinations.POIsStore = {
     [73] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
     [74] = { n = "Molag Mar", t = DESTINATIONS_PIN_TYPE_TOWN },
     [75] = { n = "Vivec City", t = DESTINATIONS_PIN_TYPE_CITY },
-    [76] = { n = "Yasammidan", t = DESTINATIONS_PIN_TYPE_AOI },
+    [76] = { n = "Yasammidin", t = DESTINATIONS_PIN_TYPE_AOI },
     [77] = { n = "Ashalmimilkala", t = DESTINATIONS_PIN_TYPE_AOI },
     [78] = { n = "Shrine of Azura", t = DESTINATIONS_PIN_TYPE_AOI },
     [79] = { n = "Holamayan Monastery", t = DESTINATIONS_PIN_TYPE_AOI },
@@ -2160,7 +2166,7 @@ Destinations.POIsStore = {
     [14] = { n = "Sanctuary of Verification", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
     [15] = { n = "Exarchs' Egress", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
     [16] = { n = "Mire Mechanica", t = DESTINATIONS_PIN_TYPE_AOI },
-    [17] = { n = "Brass Fortress", t = DESTINATIONS_PIN_TYPE_CITY },
+    [17] = { n = "The Brass Fortress", t = DESTINATIONS_PIN_TYPE_CITY },
     [18] = { n = "Sanctuary Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
     [19] = { n = "The Refurbishing Yard", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_INNATE_AXIOM },
     [20] = { n = "Pavilion of Artifice", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_MECHANICAL_ACUITY },
@@ -2181,7 +2187,7 @@ Destinations.POIsStore = {
     [2] = { n = "Shimmerene Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
     [3] = { n = "Sil-Var-Woad Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
     [4] = { n = "Russafeld Heights Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
-    [5] = { n = "Cey-Tarn Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
+    [5] = { n = "Cey-Tarn Keep Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
     [6] = { n = "Ebon Stadmont Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
     [7] = { n = "Alinor", t = DESTINATIONS_PIN_TYPE_CITY }, --
     [8] = { n = "Shimmerene", t = DESTINATIONS_PIN_TYPE_TOWN }, --
@@ -2197,7 +2203,7 @@ Destinations.POIsStore = {
     [18] = { n = "Corgrad Wastes", t = DESTINATIONS_PIN_TYPE_CAMP }, --
     [19] = { n = "King's Haven Pass", t = DESTINATIONS_PIN_TYPE_DELVE }, --
     [20] = { n = "King's Haven Pass", t = DESTINATIONS_PIN_TYPE_DELVE }, --
-    [21] = { n = "Eton Nir", t = DESTINATIONS_PIN_TYPE_DELVE }, --
+    [21] = { n = "Eton Nir Grotto", t = DESTINATIONS_PIN_TYPE_DELVE }, --
     [22] = { n = "Archon's Grove", t = DESTINATIONS_PIN_TYPE_DELVE }, --
     [23] = { n = "Tor-Hame-Khard", t = DESTINATIONS_PIN_TYPE_DELVE }, --
     [24] = { n = "Wasten Coraldale", t = DESTINATIONS_PIN_TYPE_DELVE }, --
@@ -2220,21 +2226,21 @@ Destinations.POIsStore = {
     [41] = { n = "Alinor Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
     [42] = { n = "Lillandril Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
     [43] = { n = "Eastern Pass Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
-    [44] = { n = "Abyssal Geyser Direnni", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
+    [44] = { n = "Direnni Abyssal Geyser", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
     [45] = { n = "The Crystal Tower Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
-    [46] = { n = "Abyssal Geyser Sil'var Woad", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
+    [46] = { n = "Sil-Var-Woad Abyssal Geyser", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
     [47] = { n = "Eldbur Ruins Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
     [48] = { n = "", t = DESTINATIONS_PIN_TYPE_RAIDDUNGEON }, --
-    [49] = { n = "Abyssal Geyser Rellenthil", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
+    [49] = { n = "Rellenthil Abyssal Geyser", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
     [50] = { n = "Eldbur Ruins", t = DESTINATIONS_PIN_TYPE_AOI }, --
-    [51] = { n = "Abyssal Geyser Corgrad", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
-    [52] = { n = "Abyssal Geyser Welenkin", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
+    [51] = { n = "Corgrad Abyssal Geyser", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
+    [52] = { n = "Welenkin Abyssal Geyser", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
     [53] = { n = "Dusk Keep", t = DESTINATIONS_PIN_TYPE_AOI }, --
-    [54] = { n = "Cloudrest", t = DESTINATIONS_PIN_TYPE_RAIDDUNGEON }, --
+    [54] = { n = "Trial: Cloudrest", t = DESTINATIONS_PIN_TYPE_RAIDDUNGEON }, --
     [55] = { n = "Sunhold Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
     [56] = { n = "Alaxon'ald", t = DESTINATIONS_PIN_TYPE_AOI }, --
     [57] = { n = "Veyond Wyte Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE }, --
-    [58] = { n = "Abyssal Geyser Sunhold", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
+    [58] = { n = "Sunhold Abyssal Geyser", t = DESTINATIONS_PIN_TYPE_PORTAL }, --
     [59] = { n = "Golden Gryphon Garret", t = DESTINATIONS_PIN_TYPE_HOUSING }, --
     [60] = { n = "Alinor Crest Townhouse", t = DESTINATIONS_PIN_TYPE_HOUSING }, --
     [61] = { n = "Colossal Aldmeri Grotto", t = DESTINATIONS_PIN_TYPE_HOUSING }, --
@@ -2250,7 +2256,7 @@ Destinations.POIsStore = {
     [5] = { n = "Lilmoth Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [6] = { n = "Bright-Throat Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [7] = { n = "Dead-Water Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
-    [8] = { n = "Blackrose Prison", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
+    [8] = { n = "Arena: Blackrose Prison", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     [9] = { n = "Echoing Hollow", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
     [10] = { n = "Bok-Xul", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
     [11] = { n = "Tsofeer Cavern", t = DESTINATIONS_PIN_TYPE_DELVE },
@@ -2284,7 +2290,7 @@ Destinations.POIsStore = {
     [7] = { n = "Abode of Ignominy", t = DESTINATIONS_PIN_TYPE_DELVE },
     [8] = { n = "Predator Mesa", t = DESTINATIONS_PIN_TYPE_DELVE },
     [9] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
-    [10] = { n = "Tomb of Serpents", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [10] = { n = "Tomb of the Serpents", t = DESTINATIONS_PIN_TYPE_DELVE },
     [11] = { n = "Darkpool Mine", t = DESTINATIONS_PIN_TYPE_DELVE },
     [12] = { n = "The Tangle", t = DESTINATIONS_PIN_TYPE_DELVE },
     [13] = { n = "Rimmen Necropolis", t = DESTINATIONS_PIN_TYPE_DUNGEON },
@@ -2321,8 +2327,8 @@ Destinations.POIsStore = {
     [44] = { n = "Hakoshae Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [45] = { n = "Desert Wind Caverns", t = DESTINATIONS_PIN_TYPE_DELVE },
     [46] = { n = "Valenwood Gate", t = DESTINATIONS_PIN_TYPE_AOI },
-    [47] = { n = "Sunspire", t = DESTINATIONS_PIN_TYPE_RAIDDUNGEON },
-    [48] = { n = "Moongrave Fane", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
+    [47] = { n = "Trial: Sunspire", t = DESTINATIONS_PIN_TYPE_RAIDDUNGEON },
+    [48] = { n = "Dungeon: Moongrave Fane", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     [49] = { n = "Sugar Bowl Suite", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [50] = { n = "Jode's Embrace", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [51] = { n = "Hall of the Lunar Champion", t = DESTINATIONS_PIN_TYPE_HOUSING },
@@ -2338,12 +2344,12 @@ Destinations.POIsStore = {
     [4] = { n = "Black Heights Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [5] = { n = "Pridehome Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [6] = { n = "Senchal", t = DESTINATIONS_PIN_TYPE_CITY },
-    [7] = { n = "Sout Guard Ruins", t = DESTINATIONS_PIN_TYPE_RUIN },
+    [7] = { n = "South Guard Ruins", t = DESTINATIONS_PIN_TYPE_RUIN },
     [8] = { n = "Black Heights", t = DESTINATIONS_PIN_TYPE_TOWN },
     [9] = { n = "Moonlit Cove", t = DESTINATIONS_PIN_TYPE_DELVE },
     [10] = { n = "Forsaken Citadel", t = DESTINATIONS_PIN_TYPE_DELVE },
     [11] = { n = "Fur-Forge Cove", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_NEW_MOON_ACOLYTE },
-    [12] = { n = "Cat's Claw Station", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_DARING_CORSAIR },
+    [12] = { n = "Cat's-Claw Station", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_DARING_CORSAIR },
     [13] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
     [14] = { n = "Shrine of the Reforged", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
     [15] = { n = "Ri'Atahrashi's Training Ground", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
@@ -2356,6 +2362,7 @@ Destinations.POIsStore = {
     [22] = { n = "Khenarthi's Arch", t = DESTINATIONS_PIN_TYPE_AOI },
     [23] = { n = "Lucky Cat Landing", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [24] = { n = "Potentate's Retreat", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [25] = { n = "Zhan Khaj Crest", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Southern Elsweyr",
   },
   [1146] = -- Tideholm, Southern Elsweyr (Dragonhold)
@@ -2503,6 +2510,7 @@ Destinations.POIsStore = {
     [33] = { n = "Druadach Mountains Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [34] = { n = "Markarth Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [35] = { n = "Stone Eagle Aerie", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [36] = { n = "Dungeon: Oathsworn Pit", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     ["zoneName"] = "The Reach",
   },
   [1208] = -- Blackreach: Arkthzand Cavern
@@ -2601,6 +2609,7 @@ Destinations.POIsStore = {
     [76] = { n = "Vunalk Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [77] = { n = "Sweetwater Cascades", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [78] = { n = "Willowpond Haven", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [79] = { n = "Theater of the Ancestors", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Blackwood",
   },
   [1282] = {
@@ -2609,6 +2618,7 @@ Destinations.POIsStore = {
     [3] = { n = "Ossa Accentium", t = DESTINATIONS_PIN_TYPE_HOUSING },
     [4] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
     [5] = { n = "Fargrave Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [6] = { n = "Shattered Mirror Isle", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "Fargrave",
   },
   [1283] = {
@@ -2679,7 +2689,7 @@ Destinations.POIsStore = {
     [23] = { n = "Amenos Basin", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
     [24] = { n = "Mornard Falls", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
     [25] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
-    [26] = { n = "Coral Road  Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [26] = { n = "Coral Road Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [27] = { n = "Tor Draioch Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [28] = { n = "Steadfast Manor Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [29] = { n = "Castle Navire Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
@@ -2771,7 +2781,7 @@ Destinations.POIsStore = {
     [27] = { n = "Glimmertarn Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [28] = { n = "Embervine Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [29] = { n = "Llanshara Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
-    [30] = { n = "Y'free's Path Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [30] = { n = "Y'ffre's Path Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [31] = { n = "Vastyr Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [32] = { n = "Eastern Shores Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [33] = { n = "The Fair Winds", t = DESTINATIONS_PIN_TYPE_HOUSING },
@@ -2861,7 +2871,7 @@ Destinations.POIsStore = {
   [1443] = {
     [1] = { n = "Skingrad", t = DESTINATIONS_PIN_TYPE_CITY },
     [2] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
-    [3] = { n = "Leftwheal Grainery", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_HIGHLAND_SENTINEL },
+    [3] = { n = "Leftwheal Granary", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_HIGHLAND_SENTINEL },
     [4] = { n = "Singer's Outpost", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_THARRIKER_STRIKE },
     [5] = { n = "Deserter's Lagoon", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_THREADS_OF_WAR },
     [6] = { n = "Haldain Lumber Camp", t = DESTINATIONS_PIN_TYPE_DELVE },
@@ -2930,10 +2940,11 @@ Destinations.POIsStore = {
     [69] = { n = "Ostumir Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [70] = { n = "Centurion's Watch Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [71] = { n = "Valente Vineyards Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
-    [72] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [72] = { n = "Dungeon: Exiled Redoubt", t = DESTINATIONS_PIN_TYPE_GROUPINSTANCE },
     [73] = { n = "Feldagard Keep Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [74] = { n = "Three Points Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     [75] = { n = "Haven of the Five Companions", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [76] = { n = "Castle Skingrad", t = DESTINATIONS_PIN_TYPE_HOUSING },
     ["zoneName"] = "West Weald",
   },
   [267] = {
@@ -2943,5 +2954,72 @@ Destinations.POIsStore = {
   [1463] = {
     [1] = { n = "The Scholarium", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
     ["zoneName"] = "The Scholarium",
+  },
+  [1502] = {
+    [1] = { n = "Sunport", t = DESTINATIONS_PIN_TYPE_CITY },
+    [2] = { n = "Warm-Stone Village", t = DESTINATIONS_PIN_TYPE_AOI },
+    [3] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [4] = { n = "Li-Xal Pass", t = DESTINATIONS_PIN_TYPE_CAVE },
+    [5] = { n = "Tarnur Mine", t = DESTINATIONS_PIN_TYPE_CAVE },
+    [6] = { n = "Vosgah Shrine", t = DESTINATIONS_PIN_TYPE_CAVE },
+    [7] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [08] = { n = "Broken Light Temple", t = DESTINATIONS_PIN_TYPE_KEEP },
+    [09] = { n = "Shor's Stand", t = DESTINATIONS_PIN_TYPE_ESTATE },
+    [10] = { n = "Corelanya Manor", t = DESTINATIONS_PIN_TYPE_ESTATE },
+    [11] = { n = "Everlasting  Fair", t = DESTINATIONS_PIN_TYPE_ESTATE },
+    [12] = { n = "Shell-Tide Village", t = DESTINATIONS_PIN_TYPE_ESTATE },
+    [13] = { n = "Deetra Grotto", t = DESTINATIONS_PIN_TYPE_DUNGEON },
+    [14] = { n = "Carapace Cavern", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [15] = { n = "Tainted Leel", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [16] = { n = "Vale of Revelry", t = DESTINATIONS_PIN_TYPE_DELVE },
+    [17] = { n = "Shrine of Vakkan", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
+    [18] = { n = "Ruins of Tuniria", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
+    [19] = { n = "Tidewash Strand", t = DESTINATIONS_PIN_TYPE_GROUPBOSS },
+    [20] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [21] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [22] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [23] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [24] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [25] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [26] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [27] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [28] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [29] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [30] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [31] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [32] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [33] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [34] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [35] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [36] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [37] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [38] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [39] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [40] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [41] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [42] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [43] = { n = "Trial: Ossein Cage", t = DESTINATIONS_PIN_TYPE_RAIDDUNGEON },
+    [44] = { n = "Sunport Docks Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [45] = { n = "Western Bay Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [46] = { n = "Shor's Stand Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [47] = { n = "Vale of Revelry Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [48] = { n = "Corelanya Manor Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [49] = { n = "Shell-Tide Village Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [50] = { n = "Sunport Wayshrine", t = DESTINATIONS_PIN_TYPE_WAYSHRINE },
+    [51] = { n = "Tide-Born Foundry", t = DESTINATIONS_PIN_TYPE_CRAFTING, s = CRAFTINGSET_TIDE_BORN_WILDSTALKER },
+    [52] = { n = "Swencoast Cottage", t = DESTINATIONS_PIN_TYPE_AOI },
+    [53] = { n = "Tidal Fishing Camp", t = DESTINATIONS_PIN_TYPE_AOI },
+    [54] = { n = "Xi-Tak Ruins", t = DESTINATIONS_PIN_TYPE_AOI },
+    [55] = { n = "Sanguine Islet", t = DESTINATIONS_PIN_TYPE_AOI },
+    [56] = { n = "The Sleepy Sloth", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [57] = { n = "Bismuth Steam Baths", t = DESTINATIONS_PIN_TYPE_HOUSING },
+    [58] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [59] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [60] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [61] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [62] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [63] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    [64] = { n = "", t = DESTINATIONS_PIN_TYPE_UNKNOWN },
+    ["zoneName"] = "Solstice",
   },
 }

@@ -77,6 +77,7 @@ Destinations.FishIDs = {
   [3500] = (GetAchievementInfo(3500)), --"Galen Master Angler"
   [3636] = (GetAchievementInfo(3636)), --"Necrom Master Angler" : Telvanni Peninsula, Apocrypha
   [3948] = (GetAchievementInfo(3948)), --"West Weald Master Angler"
+  [4404] = (GetAchievementInfo(4404)), --"West Weald Master Angler"
 }
 Destinations.FishLocs = {
   ["glenumbra_base_0"] = 471, --"Glenumbra Angler"
@@ -127,4 +128,5 @@ Destinations.FishLocs = {
   ["u38_telvannipeninsula_base_0"] = 3636, --"Necrom Master Angler"
   ["u38_apocrypha_base_0"] = 3636, --"Necrom Master Angler"
   ["westwealdoverland_base_0"] = 3948, --"West Weald Master Angler"
+  ["u46_overland_base_0"] = 4404, --"Western Solstice Master Angler"
 }
