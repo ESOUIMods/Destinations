@@ -3,14 +3,20 @@
 -------------------------------------------------
 local ADDON_NAME = "Destinations"
 
+local function is_empty_or_nil(t)
+  if t == nil or t == "" then return true end
+  return type(t) == "table" and ZO_IsTableEmpty(t) or false
+end
+
 local function is_in(search_value, search_table)
-  for k, v in pairs(search_table) do
-    if search_value == v then return true end
-    if type(search_value) == "string" then
-      if string.find(string.lower(v), string.lower(search_value)) then return true end
+    if is_empty_or_nil(search_value) then return false end
+    for k, v in pairs(search_table) do
+        if search_value == v then return true end
+        if type(search_value) == "string" then
+            if string.find(string.lower(v), string.lower(search_value)) then return true end
+        end
     end
-  end
-  return false
+    return false
 end
 
 -------------------------------------------------
@@ -122,7 +128,7 @@ end
 -------------------------------------------------
 
 local ADDON_AUTHOR = "|c990000Snowman|r, |cFFFFFFDK|r, Ayantir, MasterLenman, |cFF9B15Sharlikran|r"
-local ADDON_VERSION = "29.95"
+local ADDON_VERSION = "29.96"
 local ADDON_WEBSITE = "http://www.esoui.com/downloads/info667-Destinations.html"
 
 local LMP = LibMapPins
