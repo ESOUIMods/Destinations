@@ -40,10 +40,6 @@ local strings = {
   DEST_FILTER_FISHING = "(Dest) Fishing Pins",
   DEST_FILTER_FISHING_DONE = "(Dest) Fishing Done",
 
-  DEST_FILTER_QUESTGIVER = "(Dest) Quest Giver Pins",
-  DEST_FILTER_QUESTS_IN_PROGRESS = "(Dest) Quests in progress",
-  DEST_FILTER_QUESTS_DONE = "(Dest) Quests Done",
-
   DEST_FILTER_AYLEID = "(Dest) Ayleid Wells",
   DEST_FILTER_DEADLANDS_ENTRANCE = "(Dest) Deadlands Entrance",
   DEST_FILTER_HIGHISLE_DRUIDICSHRINE = "(Dest) Druidic Shrine",
@@ -345,7 +341,6 @@ local strings = {
   POITYPE_WAYSHRINE = "Wegschrein",
   POITYPE_VAULT = "Trophäenkammer",
   POITYPE_DARK_BROTHERHOOD = "Dunkle Bruderschaft",
-  POITYPE_BREAKING_ENTERING = "Einbruch",
   POITYPE_CUTPURSE_ABOVE = "Leert die Ladung",
   POITYPE_ENDLESS_ARCHIVE = "Endless Archive",
 
@@ -376,30 +371,7 @@ local strings = {
   POITYPE_COLLECTIBLE = "Sammlungen",
   POITYPE_FISH = "Angeln",
   POITYPE_UNDETERMINED = "Unbestimmt",
-
-  -- Quest completion editing texts
-  QUEST_EDIT_ON = "Destinations Questgeber Bearbeitung ist EINGESCHALTEN!",
-  QUEST_EDIT_OFF = "Destinations Questgeber Bearbeitung ist AUSGESCHALTEN!",
-  QUEST_MENU_NOT_FOUND = "Die Quest konnte nicht in der Datenbank gefunden werden",
-  QUEST_MENU_HIDE_QUEST = "Verstecke diese Quest",
-  QUEST_MENU_DISABLE_EDIT = "Bearbeitung ausschalten",
-
-  -- Quest types
-  QUESTTYPE_NONE = "Quest",
-  QUESTTYPE_GROUP = "Gruppenquest",
-  QUESTTYPE_MAIN_STORY = "Hauptgeschichte Quest",
-  QUESTTYPE_GUILD = "Gilden Quest",
-  QUESTTYPE_CRAFTING = "Handwerks Quest",
-  QUESTTYPE_DUNGEON = "Verlies Quest",
-  QUESTTYPE_RAID = "Prüfungs Quest",
-  QUESTTYPE_AVA = "Allianzkrieg Quest",
-  QUESTTYPE_CLASS = "Klassen Quest",
-  QUESTTYPE_QA_TEST = "Q&A Test Quest",
-  QUESTTYPE_AVA_GROUP = "Allianzkrieg Gruppen Quest",
-  QUESTTYPE_AVA_GRAND = "Allianzkrieg Quest",
-  QUESTREPEAT_NOT_REPEATABLE = "Normale Quest",
-  QUESTREPEAT_REPEATABLE = "Wiederholbare Quest",
-  QUESTREPEAT_DAILY = "Dailie Quest",
+  POITYPE_CHAMPION = "Champions/Dungeon Bosses",
 
   -- Fishing
   FISHING_FOUL = "Tümpel",
@@ -419,8 +391,6 @@ local strings = {
   DESTCOMMANDdset = "/dset (Destinations Einstellungen) : Öffnet die Einstellungen.",
 
   -- Destinations Misc
-  LOAD_NEW_QUEST_FORMAT = "Questdaten zurücksetzen",
-  LOAD_NEW_QUEST_FORMAT_TT = "Das wird alle bekannten Quests in eine neue Tabelle speichern. Dabei macht das Spiel einen /reloadui um es abzuschliessen.",
   RELOADUI_WARNING = "Wenn du diesen Knopf drückst, führt das Spiel einen /reloadui aus",
   RELOADUI_INFO = "Erst nach einem \'ReloadUI\' werden diese Einstellungen übernommen.",
   DEST_SETTINGS_RELOADUI = "ReloadUI",

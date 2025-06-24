@@ -40,10 +40,6 @@ local strings = {
   DEST_FILTER_FISHING = "(Dest) Points de pêche",
   DEST_FILTER_FISHING_DONE = "Points de pêche finis",
 
-  DEST_FILTER_QUESTGIVER = "(Dest) Donneurs de quête",
-  DEST_FILTER_QUESTS_IN_PROGRESS = "(Dest) Quêtes en cours",
-  DEST_FILTER_QUESTS_DONE = "(Dest) Quêtes finis",
-
   DEST_FILTER_AYLEID = "(Dest) Puits ayléides",
   DEST_FILTER_DEADLANDS_ENTRANCE = "(Dest) Entrée des Terres mortes",
   DEST_FILTER_HIGHISLE_DRUIDICSHRINE = "(Dest) Sanctuaire druidique",
@@ -344,7 +340,6 @@ local strings = {
   POITYPE_WAYSHRINE = "Oratoire",
   POITYPE_VAULT = "Crypte",
   POITYPE_DARK_BROTHERHOOD = "Confrérie noire",
-  POITYPE_BREAKING_ENTERING = "Entrée par effraction",
   POITYPE_CUTPURSE_ABOVE = "De haut vol",
   POITYPE_ENDLESS_ARCHIVE = "Endless Archive",
 
@@ -375,30 +370,7 @@ local strings = {
   POITYPE_COLLECTIBLE = "Trophée",
   POITYPE_FISH = "Pêche",
   POITYPE_UNDETERMINED = "Indéterminé",
-
-  -- Éditeur de texte d'achèvement de quête
-  QUEST_EDIT_ON = "(Destinations) L'éditeur des Donneurs de quête est ACTIVÉ !",
-  QUEST_EDIT_OFF = "(Destinations) L'éditeur des Donneurs de quête est DÉSACTIVÉ !",
-  QUEST_MENU_NOT_FOUND = "Impossible de trouver la Quête dans la base de donnée",
-  QUEST_MENU_HIDE_QUEST = "Masquer cette icône de Quête",
-  QUEST_MENU_DISABLE_EDIT = "Désactiver l'éditeur",
-
-  -- Types de quête
-  QUESTTYPE_NONE = "Quête",
-  QUESTTYPE_GROUP = "Quête de groupe",
-  QUESTTYPE_MAIN_STORY = "Quête de l'histoire principale",
-  QUESTTYPE_GUILD = "Quête de guilde",
-  QUESTTYPE_CRAFTING = "Quête d'artisanat",
-  QUESTTYPE_DUNGEON = "Quête de donjon",
-  QUESTTYPE_RAID = "Quête de raid",
-  QUESTTYPE_AVA = "Quête de guerre d'Alliance",
-  QUESTTYPE_CLASS = "Quête de classe",
-  QUESTTYPE_QA_TEST = "Quête de test Question et Réponses",
-  QUESTTYPE_AVA_GROUP = "Quête de guerre d'Alliance en groupe",
-  QUESTTYPE_AVA_GRAND = "Grande quête de guerre d'Alliance",
-  QUESTREPEAT_NOT_REPEATABLE = "Quête normale",
-  QUESTREPEAT_REPEATABLE = "Quête répétable",
-  QUESTREPEAT_DAILY = "Quête journalière",
+  POITYPE_CHAMPION = "Champions/Dungeon Bosses",
 
   -- Pêche
   FISHING_FOUL = "Marécage",
@@ -418,8 +390,6 @@ local strings = {
   DESTCOMMANDdset = "/dset (Paramètres de Destinations) : Ouvre les paramètres de configuration de Destinations.",
 
   -- Destinations => Divers
-  LOAD_NEW_QUEST_FORMAT = "Réinitialiser les données de quête",
-  LOAD_NEW_QUEST_FORMAT_TT = "Cela rechargera toutes les quêtes connues dans un nouveau tableau. Un rechargement de l'interface utilisateur sera effectué pour terminer l'opération.",
   RELOADUI_WARNING = "Si vous cliquez sur ce bouton, un rechargement de l'interface utilisateur sera effectué.",
   RELOADUI_INFO = "Les modifications apportées à ce paramètre ne seront pas effectives tant que vous n'aurez pas cliqué sur le bouton 'Recharger UI'.",
   DEST_SETTINGS_RELOADUI = "Recharger UI",

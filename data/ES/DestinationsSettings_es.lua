@@ -40,10 +40,6 @@ local strings = {
   DEST_FILTER_FISHING = "(Dest) Pins de pesca",
   DEST_FILTER_FISHING_DONE = "(Dest) Pesca realizada",
 
-  DEST_FILTER_QUESTGIVER = "(Dest) Pins de Misiones",
-  DEST_FILTER_QUESTS_IN_PROGRESS = "(Dest) Misiones en progreso",
-  DEST_FILTER_QUESTS_DONE = "(Dest) Misiones realizadas",
-
   DEST_FILTER_AYLEID = "(Dest) Pozos Ayleid",
   DEST_FILTER_DEADLANDS_ENTRANCE = "(Dest) Entrada a Tierras Muertas",
   DEST_FILTER_HIGHISLE_DRUIDICSHRINE = "(Dest) Santuario druídico",
@@ -344,7 +340,6 @@ local strings = {
   POITYPE_WAYSHRINE = "Camino",
   POITYPE_VAULT = "Bóveda",
   POITYPE_DARK_BROTHERHOOD = "Hermandad oscura",
-  POITYPE_BREAKING_ENTERING = "Allanamiento de morada",
   POITYPE_CUTPURSE_ABOVE = "Un monedero encima",
   POITYPE_ENDLESS_ARCHIVE = "Archivo Infinito",
 
@@ -375,30 +370,7 @@ local strings = {
   POITYPE_COLLECTIBLE = "Coleccionables",
   POITYPE_FISH = "Pesca",
   POITYPE_UNDETERMINED = "Indeterminado",
-
-  -- Quest completion editing texts
-  QUEST_EDIT_ON = "¡La edición de los Destinos Quest Giver está activada!",
-  QUEST_EDIT_OFF = "¡La edición de los Destinos Quest Giver está desactivada!",
-  QUEST_MENU_NOT_FOUND = "No se ha podido encontrar la búsqueda en la base de datos",
-  QUEST_MENU_HIDE_QUEST = "Ocultar este pin de búsqueda",
-  QUEST_MENU_DISABLE_EDIT = "Desactivar edición",
-
-  -- Quest types
-  QUESTTYPE_NONE = "Misión",
-  QUESTTYPE_GROUP = "Búsqueda de grupo",
-  QUESTTYPE_MAIN_STORY = "Búsqueda de la historia principal",
-  QUESTTYPE_GUILD = "Misión de Gremio",
-  QUESTTYPE_CRAFTING = "Misión de artesanía",
-  QUESTTYPE_DUNGEON = "Misión de Mazmorra",
-  QUESTTYPE_RAID = "Misión de Prueba",
-  QUESTTYPE_AVA = "Búsqueda de guerra de la Alianza",
-  QUESTTYPE_CLASS = "Búsqueda de clase",
-  QUESTTYPE_QA_TEST = "P&R Test de Misión",
-  QUESTTYPE_AVA_GROUP = "Búsqueda del Grupo de Guerra de la Alianza",
-  QUESTTYPE_AVA_GRAND = "Gran Búsqueda de Guerra de la Alianza",
-  QUESTREPEAT_NOT_REPEATABLE = "Búsqueda normal",
-  QUESTREPEAT_REPEATABLE = "Búsqueda repetible",
-  QUESTREPEAT_DAILY = "Búsqueda diaria",
+  POITYPE_CHAMPION = "Champions/Dungeon Bosses",
 
   -- Fishing
   FISHING_FOUL = "Agua sucia",
@@ -418,8 +390,6 @@ local strings = {
   DESTCOMMANDdset = "/dset (Configuración de destinos) : Abre la ventana de Configuración de destinos",
 
   -- Destinations Misc
-  LOAD_NEW_QUEST_FORMAT = "Restablecer datos de búsqueda",
-  LOAD_NEW_QUEST_FORMAT_TT = "Esto recargará todas las misiones conocidas en una nueva tabla. El juego hará un /reloadui para completarla",
   RELOADUI_WARNING = "Si haces clic en este botón, el juego hará un /reloadui",
   RELOADUI_INFO = "Los cambios en esta configuración no tendrán efecto hasta que hayas hecho clic en el botón 'ReloadUI'",
   DEST_SETTINGS_RELOADUI = "ReloadUI",

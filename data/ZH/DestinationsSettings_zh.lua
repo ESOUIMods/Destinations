@@ -39,10 +39,6 @@ local strings = {
   DEST_FILTER_FISHING = "(Dest) 钓鱼点图标",
   DEST_FILTER_FISHING_DONE = "(Dest) 钓鱼点 已完成",
 
-  DEST_FILTER_QUESTGIVER = "(Dest) 任务提供者图标",
-  DEST_FILTER_QUESTS_IN_PROGRESS = "(Dest) 进行中的任务",
-  DEST_FILTER_QUESTS_DONE = "(Dest) 任务 已完成",
-
   DEST_FILTER_AYLEID = "(Dest) 亚历德魔法井",
   DEST_FILTER_DEADLANDS_ENTRANCE = "(Dest) Deadlands Entrance",
   DEST_FILTER_HIGHISLE_DRUIDICSHRINE = "(Dest) Druidic Shrine",
@@ -343,7 +339,6 @@ local strings = {
   POITYPE_WAYSHRINE = "指路祭坛",
   POITYPE_VAULT = "地下室",
   POITYPE_DARK_BROTHERHOOD = "黑暗兄弟会",
-  POITYPE_BREAKING_ENTERING = "破门而入",
   POITYPE_CUTPURSE_ABOVE = "高级窃贼",
   POITYPE_ENDLESS_ARCHIVE = "Endless Archive",
 
@@ -374,30 +369,7 @@ local strings = {
   POITYPE_COLLECTIBLE = "收藏品",
   POITYPE_FISH = "钓鱼",
   POITYPE_UNDETERMINED = "未确定",
-
-  -- Quest completion editing texts
-  QUEST_EDIT_ON = "Destinations 目的地 任务提供者编辑被打开!",
-  QUEST_EDIT_OFF = "Destinations 目的地 任务提供者编辑被关闭!",
-  QUEST_MENU_NOT_FOUND = "无法在数据库中找到此任务",
-  QUEST_MENU_HIDE_QUEST = "隐藏此任务图标",
-  QUEST_MENU_DISABLE_EDIT = "禁用编辑",
-
-  -- Quest types
-  QUESTTYPE_NONE = "任务",
-  QUESTTYPE_GROUP = "组队任务",
-  QUESTTYPE_MAIN_STORY = "主线任务",
-  QUESTTYPE_GUILD = "公会任务",
-  QUESTTYPE_CRAFTING = "制造任务",
-  QUESTTYPE_DUNGEON = "副本任务",
-  QUESTTYPE_RAID = "团队任务",
-  QUESTTYPE_AVA = "联盟战争任务",
-  QUESTTYPE_CLASS = "职业任务",
-  QUESTTYPE_QA_TEST = "Q&A 测试任务",
-  QUESTTYPE_AVA_GROUP = "联盟战争组队任务",
-  QUESTTYPE_AVA_GRAND = "联盟战争大任务",
-  QUESTREPEAT_NOT_REPEATABLE = "普通任务",
-  QUESTREPEAT_REPEATABLE = "可重复任务",
-  QUESTREPEAT_DAILY = "日常任务",
+  POITYPE_CHAMPION = "Champions/Dungeon Bosses",
 
   -- 钓鱼
   FISHING_FOUL = "污水",
@@ -417,8 +389,6 @@ local strings = {
   DESTCOMMANDdset = "/dset (Destinations 目的地 设置) : 打开Destinations 目的地 设置窗口.",
 
   -- Destinations Misc
-  LOAD_NEW_QUEST_FORMAT = "重置任务数据",
-  LOAD_NEW_QUEST_FORMAT_TT = "这将把所有已知的任务重新加载到一个新表中。游戏将做一次重载界面来完成它.",
   RELOADUI_WARNING = "如果你按下此按钮, 游戏将做一次重载界面",
   RELOADUI_INFO = "在您单击“重置界面”按钮之前，对该设置的更改将不会生效.",
   DEST_SETTINGS_RELOADUI = "重置界面",

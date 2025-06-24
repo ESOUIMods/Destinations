@@ -39,10 +39,6 @@ local strings = {
   DEST_FILTER_FISHING = "(Dest) Łowiska",
   DEST_FILTER_FISHING_DONE = "(Dest) Ukończone łowiska",
 
-  DEST_FILTER_QUESTGIVER = "(Dest) Zleceniodawcy zadań",
-  DEST_FILTER_QUESTS_IN_PROGRESS = "(Dest) Zadania w trakcie",
-  DEST_FILTER_QUESTS_DONE = "(Dest) Ukończone zadania",
-
   DEST_FILTER_AYLEID = "(Dest) Ayleidzkie studnie",
   DEST_FILTER_DEADLANDS_ENTRANCE = "(Dest) Deadlands Entrance",
   DEST_FILTER_HIGHISLE_DRUIDICSHRINE = "(Dest) Druidic Shrine",
@@ -343,7 +339,6 @@ local strings = {
   POITYPE_WAYSHRINE = "Kapliczka",
   POITYPE_VAULT = "Skarbiec",
   POITYPE_DARK_BROTHERHOOD = "Mroczne Bractwo",
-  POITYPE_BREAKING_ENTERING = "Włamanie i wtargnięcie",
   POITYPE_CUTPURSE_ABOVE = "Nadkieszonkowiec",
   POITYPE_ENDLESS_ARCHIVE = "Endless Archive",
 
@@ -374,30 +369,7 @@ local strings = {
   POITYPE_COLLECTIBLE = "Collectibles",
   POITYPE_FISH = "Fishing",
   POITYPE_UNDETERMINED = "Nieokreślone",
-
-  -- Quest completion editing texts
-  QUEST_EDIT_ON = "Edycja zleceniodawców zadań Destinations jest włączona!",
-  QUEST_EDIT_OFF = "Edycja zleceniodawców zadań Destinations jest wyłączona!",
-  QUEST_MENU_NOT_FOUND = "Nie można znaleźć zadania w bazie danych",
-  QUEST_MENU_HIDE_QUEST = "Ukryj ten punkt zadania",
-  QUEST_MENU_DISABLE_EDIT = "Wyłącz edycję",
-
-  -- Quest types
-  QUESTTYPE_NONE = "Zadanie",
-  QUESTTYPE_GROUP = "Grupowe zadanie",
-  QUESTTYPE_MAIN_STORY = "Zadanie głównego wątku",
-  QUESTTYPE_GUILD = "Zadanie gildii",
-  QUESTTYPE_CRAFTING = "Zadanie rzemieślnicze",
-  QUESTTYPE_DUNGEON = "Zadanie lochu",
-  QUESTTYPE_RAID = "Zadanie próby",
-  QUESTTYPE_AVA = "Zadanie wojny frakcji",
-  QUESTTYPE_CLASS = "Zadanie klasowe",
-  QUESTTYPE_QA_TEST = "Q&A Test Quest",
-  QUESTTYPE_AVA_GROUP = "Grupowe zadanie wojny frakcji",
-  QUESTTYPE_AVA_GRAND = "Alliance War Grand Quest",
-  QUESTREPEAT_NOT_REPEATABLE = "Zwykłe zadanie",
-  QUESTREPEAT_REPEATABLE = "Powtarzalne zadanie",
-  QUESTREPEAT_DAILY = "Dzienne zadanie",
+  POITYPE_CHAMPION = "Champions/Dungeon Bosses",
 
   -- Fishing
   FISHING_FOUL = "Foul Water",
@@ -417,8 +389,6 @@ local strings = {
   DESTCOMMANDdset = "/ dset (Ustawienia Destinations): Otwiera okno Ustawienia Destinations.",
 
   -- Destinations Misc
-  LOAD_NEW_QUEST_FORMAT = "Zresetuj dane zadań",
-  LOAD_NEW_QUEST_FORMAT_TT = "Spowoduje to ponowne załadowanie wszystkich znanych zadań do nowej tabeli. Gra wykona operację /reloadui, aby ukończyć tą operację.",
   RELOADUI_WARNING = "Jeśli klikniesz ten przycisk, gra wykona operację /reloadui",
   RELOADUI_INFO = "Zmiany tego ustawienia będą obowiązywać dopiero po kliknięciu przycisku 'ReloadUI'.",
   DEST_SETTINGS_RELOADUI = "ReloadUI",

@@ -40,10 +40,6 @@ local strings = {
   DEST_FILTER_FISHING = "(Dest) 釣りのピン",
   DEST_FILTER_FISHING_DONE = "(Dest) 釣り 完了",
 
-  DEST_FILTER_QUESTGIVER = "(Dest) クエストNPCのピン",
-  DEST_FILTER_QUESTS_IN_PROGRESS = "(Dest) クエスト 進行中",
-  DEST_FILTER_QUESTS_DONE = "(Dest) クエスト 完了",
-
   DEST_FILTER_AYLEID = "(Dest) アイレイドの井戸",
   DEST_FILTER_DEADLANDS_ENTRANCE = "(Dest) Deadlands Entrance",
   DEST_FILTER_HIGHISLE_DRUIDICSHRINE = "(Dest) Druidic Shrine",
@@ -345,7 +341,6 @@ local strings = {
   POITYPE_WAYSHRINE = "旅の祠",
   POITYPE_VAULT = "地下室",
   POITYPE_DARK_BROTHERHOOD = "闇の一党",
-  POITYPE_BREAKING_ENTERING = "鍵開けと侵入",
   POITYPE_CUTPURSE_ABOVE = "上級スリ師",
   POITYPE_ENDLESS_ARCHIVE = "Endless Archive",
 
@@ -376,30 +371,7 @@ local strings = {
   POITYPE_COLLECTIBLE = "収集",
   POITYPE_FISH = "釣り",
   POITYPE_UNDETERMINED = "未確定",
-
-  -- Quest completion editing texts
-  QUEST_EDIT_ON = "クエストNPCの目的地の編集をON!",
-  QUEST_EDIT_OFF = "クエストNPCの目的地の編集をOFF!",
-  QUEST_MENU_NOT_FOUND = "データベースにクエストが見つかりませんでした",
-  QUEST_MENU_HIDE_QUEST = "このクエストのピンを隠す",
-  QUEST_MENU_DISABLE_EDIT = "編集の無効化",
-
-  -- Quest types
-  QUESTTYPE_NONE = "クエスト",
-  QUESTTYPE_GROUP = "グループクエスト",
-  QUESTTYPE_MAIN_STORY = "メインストーリークエスト",
-  QUESTTYPE_GUILD = "ギルドクエスト",
-  QUESTTYPE_CRAFTING = "クラフトクエスト",
-  QUESTTYPE_DUNGEON = "ダンジョンクエスト",
-  QUESTTYPE_RAID = "レイドクエスト",
-  QUESTTYPE_AVA = "同盟戦争クエスト",
-  QUESTTYPE_CLASS = "クラスクエスト",
-  QUESTTYPE_QA_TEST = "Q&Aテストクエスト",
-  QUESTTYPE_AVA_GROUP = "同盟戦争グループクエスト",
-  QUESTTYPE_AVA_GRAND = "同盟戦闘グランドクエスト",
-  QUESTREPEAT_NOT_REPEATABLE = "通常のクエスト",
-  QUESTREPEAT_REPEATABLE = "繰り返し可能なクエスト",
-  QUESTREPEAT_DAILY = "デイリークエスト",
+  POITYPE_CHAMPION = "Champions/Dungeon Bosses",
 
   -- Fishing
   FISHING_FOUL = "汚水",
@@ -419,8 +391,6 @@ local strings = {
   DESTCOMMANDdset = "/dset (Destinations 設定) : Destinations の設定ウィンドウを開く",
 
   -- Destinations Misc
-  LOAD_NEW_QUEST_FORMAT = "クエストデータのリセット",
-  LOAD_NEW_QUEST_FORMAT_TT = "これは新しいテーブルに全ての既知のクエストをリロードします。完了するには /reloadui を実行しします。",
   RELOADUI_WARNING = "このボタンをクリックしたら /reloadui が実行されます",
   RELOADUI_INFO = "この設定の変更は'UI更新'ボタンをクリックするまで反映されません。",
   DEST_SETTINGS_RELOADUI = "UI更新",

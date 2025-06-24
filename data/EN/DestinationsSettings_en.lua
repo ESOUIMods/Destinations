@@ -40,10 +40,6 @@ local strings = {
   DEST_FILTER_FISHING = "(Dest) Fishing Pins",
   DEST_FILTER_FISHING_DONE = "(Dest) Fishing Done",
 
-  DEST_FILTER_QUESTGIVER = "(Dest) Quest Giver Pins",
-  DEST_FILTER_QUESTS_IN_PROGRESS = "(Dest) Quests in progress",
-  DEST_FILTER_QUESTS_DONE = "(Dest) Quests Done",
-
   DEST_FILTER_AYLEID = "(Dest) Ayleid Wells",
   DEST_FILTER_DEADLANDS_ENTRANCE = "(Dest) Deadlands Entrance",
   DEST_FILTER_HIGHISLE_DRUIDICSHRINE = "(Dest) Druidic Shrine",
@@ -344,7 +340,6 @@ local strings = {
   POITYPE_WAYSHRINE = "Wayshrine",
   POITYPE_VAULT = "Vault",
   POITYPE_DARK_BROTHERHOOD = "Dark Brotherhood",
-  POITYPE_BREAKING_ENTERING = "Breaking and Entering",
   POITYPE_CUTPURSE_ABOVE = "A Cutpurse Above",
   POITYPE_ENDLESS_ARCHIVE = "Endless Archive",
 
@@ -375,30 +370,7 @@ local strings = {
   POITYPE_COLLECTIBLE = "Collectibles",
   POITYPE_FISH = "Fishing",
   POITYPE_UNDETERMINED = "Undetermined",
-
-  -- Quest completion editing texts
-  QUEST_EDIT_ON = "Destinations Quest Giver editing is turned ON!",
-  QUEST_EDIT_OFF = "Destinations Quest Giver editing is turned OFF!",
-  QUEST_MENU_NOT_FOUND = "Could not find the quest in the database",
-  QUEST_MENU_HIDE_QUEST = "Hide this quest pin",
-  QUEST_MENU_DISABLE_EDIT = "Disable Editing",
-
-  -- Quest types
-  QUESTTYPE_NONE = "Quest",
-  QUESTTYPE_GROUP = "Group Quest",
-  QUESTTYPE_MAIN_STORY = "Main Storyline Quest",
-  QUESTTYPE_GUILD = "Guild Quest",
-  QUESTTYPE_CRAFTING = "Crafting Quest",
-  QUESTTYPE_DUNGEON = "Dungeon Quest",
-  QUESTTYPE_RAID = "Raid Quest",
-  QUESTTYPE_AVA = "Alliance War Quest",
-  QUESTTYPE_CLASS = "Class Quest",
-  QUESTTYPE_QA_TEST = "Q&A Test Quest",
-  QUESTTYPE_AVA_GROUP = "Alliance War Group Quest",
-  QUESTTYPE_AVA_GRAND = "Alliance War Grand Quest",
-  QUESTREPEAT_NOT_REPEATABLE = "Normal Quest",
-  QUESTREPEAT_REPEATABLE = "Repeatable Quest",
-  QUESTREPEAT_DAILY = "Daily Quest",
+  POITYPE_CHAMPION = "Champions/Dungeon Bosses",
 
   -- Fishing
   FISHING_FOUL = "Foul Water",
@@ -418,8 +390,6 @@ local strings = {
   DESTCOMMANDdset = "/dset (Destinations Settings) : Opens the Destinations Settings window.",
 
   -- Destinations Misc
-  LOAD_NEW_QUEST_FORMAT = "Reset Quest Data",
-  LOAD_NEW_QUEST_FORMAT_TT = "This will reload all known quests into a new table. The game will do a /reloadui to complete it.",
   RELOADUI_WARNING = "If you click this button, the game will do a /reloadui",
   RELOADUI_INFO = "Changes to this setting will not be in effect until after you have clicked the 'ReloadUI' button.",
   DEST_SETTINGS_RELOADUI = "ReloadUI",
