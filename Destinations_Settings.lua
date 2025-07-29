@@ -1,10 +1,12 @@
 local LAM = LibAddonMenu2
 local LMP = LibMapPins
+local DESTINATIONS_PIN_PRIORITY_OFFSET = 1
 
 -- Toggle filters depending on settings
 function Destinations:TogglePins(pinType, value)
   Destinations.CSSV.filters[pinType] = value
   LMP:SetEnabled(pinType, value)
+  COMPASS_PINS:SetCompassPinEnabled(pinType, value)
 end
 
 -- Refresh map and compass pins
@@ -551,15 +553,15 @@ function Destinations:InitSettings()
     setFunc = function(state)
       local pinLevel = Destinations.SV.pins.pinTextureOther.level or Destinations.defaults.pins.pinTextureOther.level
       if state == true then
-        Destinations.SV.pins.pinTextureChampion.level = pinLevel + 1
+        Destinations.SV.pins.pinTextureChampion.level = pinLevel + DESTINATIONS_PIN_PRIORITY_OFFSET
         Destinations.SV.pins.pinTextureChampionDone.level = pinLevel
-        LMP:SetLayoutKey(Destinations.PIN_TYPES.CHAMPION, "level", pinLevel + 1)
+        LMP:SetLayoutKey(Destinations.PIN_TYPES.CHAMPION, "level", pinLevel + DESTINATIONS_PIN_PRIORITY_OFFSET)
         LMP:SetLayoutKey(Destinations.PIN_TYPES.CHAMPION_DONE, "level", pinLevel)
       else
-        Destinations.SV.pins.pinTextureChampion.level = 30 + 1
-        Destinations.SV.pins.pinTextureChampionDone.level = 30
-        LMP:SetLayoutKey(Destinations.PIN_TYPES.CHAMPION, "level", Destinations.SV.pins.pinTextureChampion.level)
-        LMP:SetLayoutKey(Destinations.PIN_TYPES.CHAMPION_DONE, "level", Destinations.SV.pins.pinTextureChampionDone.level)
+        DestinationsSV.pins.pinTextureChampion.level = 30 + DESTINATIONS_PIN_PRIORITY_OFFSET
+        DestinationsSV.pins.pinTextureChampionDone.level = 30
+        LMP:SetLayoutKey(DPINS.CHAMPION, "level", 30 + DESTINATIONS_PIN_PRIORITY_OFFSET)
+        LMP:SetLayoutKey(DPINS.CHAMPION_DONE, "level", 30)
       end
       Destinations.SV.settings.ShowDungeonBossesOnTop = state
       RedrawAllPins(Destinations.PIN_TYPES.CHAMPION)
@@ -1576,15 +1578,16 @@ function Destinations:InitSettings()
     getFunc = function() return Destinations.SV.pins.pinTextureOther.level end,
     setFunc = function(level)
       for _, pinName in pairs(Destinations.drtv.AchPinTex) do
-        Destinations.SV.pins[pinName].level = level
+        Destinations.SV.pins[pinName].level = level + DESTINATIONS_PIN_PRIORITY_OFFSET
         pinName = pinName .. "Done"
         Destinations.SV.pins[pinName].level = level
       end
       for _, pinName in pairs(Destinations.drtv.AchPins) do
-        LMP:SetLayoutKey(Destinations.PIN_TYPES[pinName], "level", level)
+        LMP:SetLayoutKey(Destinations.PIN_TYPES[pinName], "level", level + DESTINATIONS_PIN_PRIORITY_OFFSET)
         pinName = pinName .. "_DONE"
         LMP:SetLayoutKey(Destinations.PIN_TYPES[pinName], "level", level)
       end
+      Destinations.SV.pins.pinTextureOther.level = level
       RedrawAllAchievementPins()
     end,
     disabled = function() return
@@ -2478,12 +2481,15 @@ function Destinations:InitSettings()
       Destinations.SV.pins.pinTextureWWVamp.tint = { r, g, b, a }
       Destinations.SV.pins.pinTextureVampAltar.tint = { r, g, b, a }
       Destinations.SV.pins.pinTextureWWShrine.tint = { r, g, b, a }
+
       DEST_PIN_TINT_WWVAMP:SetRGBA(r, g, b, a)
-      WWVampPreview:SetColor(r, g, b, a)
       DEST_PIN_TINT_VAMPALTAR:SetRGBA(r, g, b, a)
-      VampAltarPreview:SetColor(r, g, b, a)
       DEST_PIN_TINT_WWSHRINE:SetRGBA(r, g, b, a)
+
+      WWVampPreview:SetColor(r, g, b, a)
+      VampAltarPreview:SetColor(r, g, b, a)
       WWShrinePreview:SetColor(r, g, b, a)
+
       RedrawAllPins(Destinations.PIN_TYPES.WWVAMP)
       RedrawAllPins(Destinations.PIN_TYPES.VAMPIRE_ALTAR)
       RedrawAllPins(Destinations.PIN_TYPES.WEREWOLF_SHRINE)
@@ -2752,10 +2758,10 @@ function Destinations:InitSettings()
     step = 5,
     getFunc = function() return Destinations.SV.pins.pinTextureCollectible.level end,
     setFunc = function(level)
-      Destinations.SV.pins.pinTextureCollectible.level = level
-      Destinations.SV.pins.pinTextureCollectibleDone.level = level - 1
-      LMP:SetLayoutKey(Destinations.PIN_TYPES.COLLECTIBLES, "level", level)
-      LMP:SetLayoutKey(Destinations.PIN_TYPES.COLLECTIBLESDONE, "level", level - 1)
+      Destinations.SV.pins.pinTextureCollectible.level = level + DESTINATIONS_PIN_PRIORITY_OFFSET
+      Destinations.SV.pins.pinTextureCollectibleDone.level = level
+      LMP:SetLayoutKey(Destinations.PIN_TYPES.COLLECTIBLES, "level", level + DESTINATIONS_PIN_PRIORITY_OFFSET)
+      LMP:SetLayoutKey(Destinations.PIN_TYPES.COLLECTIBLESDONE, "level", level)
       RedrawAllPins(Destinations.PIN_TYPES.COLLECTIBLES)
       RedrawAllPins(Destinations.PIN_TYPES.COLLECTIBLESDONE)
     end,
@@ -3081,10 +3087,10 @@ function Destinations:InitSettings()
     step = 5,
     getFunc = function() return Destinations.SV.pins.pinTextureFish.level end,
     setFunc = function(level)
-      Destinations.SV.pins.pinTextureFish.level = level
-      Destinations.SV.pins.pinTextureFishDone.level = level - 1
-      LMP:SetLayoutKey(Destinations.PIN_TYPES.FISHING, "level", level)
-      LMP:SetLayoutKey(Destinations.PIN_TYPES.FISHINGDONE, "level", level - 1)
+      Destinations.SV.pins.pinTextureFish.level = level + DESTINATIONS_PIN_PRIORITY_OFFSET
+      Destinations.SV.pins.pinTextureFishDone.level = level
+      LMP:SetLayoutKey(Destinations.PIN_TYPES.FISHING, "level", level + DESTINATIONS_PIN_PRIORITY_OFFSET)
+      LMP:SetLayoutKey(Destinations.PIN_TYPES.FISHINGDONE, "level", level)
       RedrawAllPins(Destinations.PIN_TYPES.FISHING)
       RedrawAllPins(Destinations.PIN_TYPES.FISHINGDONE)
     end,

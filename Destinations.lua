@@ -2700,7 +2700,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.UNKNOWN,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2717,7 +2717,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.LB_GTTP_CP,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2734,7 +2734,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.LB_GTTP_CP_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2751,7 +2751,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.MAIQ,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2768,7 +2768,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.MAIQ_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2785,7 +2785,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.PEACEMAKER,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2802,7 +2802,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.PEACEMAKER_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2819,7 +2819,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.NOSEDIVER,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2836,7 +2836,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.NOSEDIVER_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2853,7 +2853,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.EARTHLYPOS,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2870,7 +2870,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.EARTHLYPOS_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2887,7 +2887,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.ON_ME,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2904,7 +2904,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.ON_ME_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2921,7 +2921,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.BRAWL,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2938,7 +2938,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.BRAWL_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2955,7 +2955,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.PATRON,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2972,7 +2972,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.PATRON_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -2989,7 +2989,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.WROTHGAR_JUMPER,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3006,7 +3006,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.WROTHGAR_JUMPER_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3023,7 +3023,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.RELIC_HUNTER,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3040,7 +3040,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.RELIC_HUNTER_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3057,7 +3057,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.CHAMPION,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3074,7 +3074,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.CHAMPION_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3091,7 +3091,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.BREAKING,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3108,7 +3108,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.BREAKING_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3125,7 +3125,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.CUTPURSE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3142,7 +3142,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.CUTPURSE_DONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3159,7 +3159,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.COLLECTIBLES,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3176,7 +3176,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.COLLECTIBLESDONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3193,7 +3193,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.FISHING,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3210,7 +3210,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.FISHINGDONE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3227,7 +3227,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.AYLEID,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3244,7 +3244,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.DEADLANDS,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3261,7 +3261,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.HIGHISLE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3278,7 +3278,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.DWEMER,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3295,7 +3295,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.WWVAMP,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3312,7 +3312,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.VAMPIRE_ALTAR,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3329,7 +3329,7 @@ local function SetPinLayouts()
     },
     mapPinTypeString = Destinations.PIN_TYPES.WEREWOLF_SHRINE,
     onToggleCallback = function(compassPinType, enabled)
-      COMPASS_PINS:SetCustomPinEnabled(compassPinType, enabled)
+      COMPASS_PINS:SetCompassPinEnabled(compassPinType, enabled)
       COMPASS_PINS:RefreshPins(compassPinType)
     end,
   }
@@ -3842,6 +3842,17 @@ local function UpdateMapFilters()
   end
 end
 
+local function UpdateCompassFilters()
+  if not Destinations or not Destinations.CSSV or not Destinations.CSSV.filters then return end
+
+  for _, pinName in pairs(Destinations.PIN_TYPES) do
+    local enabled = Destinations.CSSV.filters[pinName]
+    if enabled then
+      COMPASS_PINS:RefreshPins(pinName)
+    end
+  end
+end
+
 local function ShowLanguageWarning()
   EVENT_MANAGER:UnregisterForEvent(Destinations.name, EVENT_PLAYER_ACTIVATED)
   if Destinations.client_lang == "it" then
@@ -3962,32 +3973,21 @@ local function OnLoad(eventCode, addonName)
 
     InitializeDatastores()
 
+    -- Initialize Saved Variables (default to character-specific)
     Destinations.SV = ZO_SavedVars:NewCharacterNameSettings("Destinations_Settings", 1, nil, Destinations.defaults) -- Basic
     Destinations.CSSV = ZO_SavedVars:NewCharacterNameSettings("Destinations_Settings", 1, nil, Destinations.defaults)
     Destinations.AWSV = ZO_SavedVars:NewAccountWide("Destinations_Settings", 1, nil, Destinations.defaults) -- AccountWide
 
-    InitializePinTextColorDefs()
-    InitializePinTintColorDefs()
-    InitializePinTextColorCollectibleDefs()
-    InitializePinTextColorFishingDefs()
-
-    Destinations.savedVarsInitialized = true
-    --d("Redrawin Qol Pins")
-    RedrawQolPins()
-
-    if not Destinations.supported_menu_lang then
-      --chat messages aren't shown before player is activated
-      EVENT_MANAGER:RegisterForEvent(Destinations.name, EVENT_PLAYER_ACTIVATED, ShowLanguageWarning)
-    end
-
-    --Initialize Settings
+    -- Use account-wide data if enabled
     if Destinations.AWSV.settings.useAccountWide then
       Destinations.SV = ZO_SavedVars:NewAccountWide("Destinations_Settings", 1, nil, Destinations.defaults)
     end
 
+    -- Sync the settings flag across all tables
     Destinations.SV.settings.useAccountWide = Destinations.AWSV.settings.useAccountWide
     Destinations.CSSV.settings.useAccountWide = Destinations.AWSV.settings.useAccountWide
 
+    -- OneTamriel patch for legacy upgrades (runs once)
     if not Destinations.SV.oneTamrielUpdate and not Destinations.CSSV.oneTamrielUpdate and not Destinations.AWSV.oneTamrielUpdate then
       Destinations.SV.pins.pinTextureUnknown = Destinations.defaults.pins.pinTextureUnknown
       Destinations.CSSV.pins.pinTextureUnknown = Destinations.defaults.pins.pinTextureUnknown
@@ -3997,8 +3997,26 @@ local function OnLoad(eventCode, addonName)
       Destinations.AWSV.oneTamrielUpdate = true
     end
 
+    -- Language functionality
     DisableEnglishFunctionnalities()
 
+    -- Initialize Pin colors and text colors (requires SV to be resolved)
+    InitializePinTextColorDefs()
+    InitializePinTintColorDefs()
+    InitializePinTextColorCollectibleDefs()
+    InitializePinTextColorFishingDefs()
+
+    Destinations.savedVarsInitialized = true
+
+    --d("Redrawin Qol Pins")
+    RedrawQolPins()
+
+    if not Destinations.supported_menu_lang then
+      --chat messages aren't shown before player is activated
+      EVENT_MANAGER:RegisterForEvent(Destinations.name, EVENT_PLAYER_ACTIVATED, ShowLanguageWarning)
+    end
+
+    --Initialize Variables
     InitVariables()
 
     --Check if Gampad mode is activated
@@ -4010,6 +4028,9 @@ local function OnLoad(eventCode, addonName)
 
     --Establish Pin Configurations
     SetPinLayouts()
+
+    -- Refresh enabled compass pins after initialization
+    UpdateCompassFilters()
 
     --Initialize Settings Menu
     Destinations:InitSettings()

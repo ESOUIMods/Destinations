@@ -340,6 +340,7 @@ local strings = {
   POITYPE_WAYSHRINE = "Camino",
   POITYPE_VAULT = "Bóveda",
   POITYPE_DARK_BROTHERHOOD = "Hermandad oscura",
+  POITYPE_BREAKING_ENTERING = "Allanamiento de morada",
   POITYPE_CUTPURSE_ABOVE = "Un monedero encima",
   POITYPE_ENDLESS_ARCHIVE = "Archivo Infinito",
 
