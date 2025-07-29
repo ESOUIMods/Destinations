@@ -1,4 +1,4 @@
-Destinations = Destinations or {}
+
 
 Destinations.AchIDs = {                     -- using dummy code 999999 for things that have no achievements.
   [872] = (GetAchievementInfo(872)), --"I like M'aiq"

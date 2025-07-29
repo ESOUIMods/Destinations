@@ -366,6 +366,53 @@ local ZoneIDsToFileNames = {
   [584] = "imperialcity_base_0",
 }
 
+--[[ Various map names
+    Reference https://wiki.esoui.com/Texture_List/ESO/art/maps
+
+   "/art/maps/southernelsweyr/els_dragonguard_island05_base_8.dds",
+   "/art/maps/murkmire/tsofeercavern01_1.dds",
+   "/art/maps/housing/blackreachcrypts.base_0.dds",
+   "/art/maps/housing/blackreachcrypts.base_1.dds",
+   "Art/maps/skyrim/blackreach_base_0.dds",
+   "Textures/maps/summerset/alinor_base.dds",
+   "art/maps/murkmire/ui_map_tsofeercavern01_0.dds",
+   "art/maps/elsweyr/jodesembrace1.base_0.dds",
+]]--
+local function GetMapTextureName()
+  zoneId = GetZoneId(GetCurrentMapZoneIndex())
+  mapId = GetCurrentMapId()
+  local notUsed
+  if zoneId == 1283 or zoneId == 1414 then
+    zoneTextureName = ZoneIDsToFileNames[mapId]
+  else
+    zoneTextureName = ZoneIDsToFileNames[zoneId]
+  end
+  notUsed, mapTextureName = LMP:GetZoneAndSubzone(false, true, true)
+  if not zoneTextureName then
+    zoneTextureName = mapTextureName
+  end
+end
+
+local function IsCurrentMapGlobal()
+  return GetMapType() > MAPTYPE_ZONE
+end
+
+local function IsOverlandMap()
+  local zoneIndex = GetCurrentMapZoneIndex()
+  if not zoneIndex then return false end
+
+  zoneId = GetZoneId(zoneIndex)
+  mapId = GetCurrentMapId()
+
+  if zoneId == 1283 or zoneId == 1414 then
+    zoneTextureName = ZoneIDsToFileNames[mapId]
+  else
+    zoneTextureName = ZoneIDsToFileNames[zoneId]
+  end
+
+  return zoneTextureName ~= nil
+end
+
 local achTypes = {
   [1] = GetString(POITYPE_MAIQ),
   [2] = GetString(POITYPE_LB_GTTP_CP),
@@ -405,33 +452,6 @@ local function RedrawQolPins()
   RedrawMapPinsOnly(Destinations.PIN_TYPES.QOLPINS_DOCK)
   RedrawMapPinsOnly(Destinations.PIN_TYPES.QOLPINS_STABLE)
   RedrawMapPinsOnly(Destinations.PIN_TYPES.QOLPINS_PORTAL)
-end
-
---[[ Various map names
-    Reference https://wiki.esoui.com/Texture_List/ESO/art/maps
-
-   "/art/maps/southernelsweyr/els_dragonguard_island05_base_8.dds",
-   "/art/maps/murkmire/tsofeercavern01_1.dds",
-   "/art/maps/housing/blackreachcrypts.base_0.dds",
-   "/art/maps/housing/blackreachcrypts.base_1.dds",
-   "Art/maps/skyrim/blackreach_base_0.dds",
-   "Textures/maps/summerset/alinor_base.dds",
-   "art/maps/murkmire/ui_map_tsofeercavern01_0.dds",
-   "art/maps/elsweyr/jodesembrace1.base_0.dds",
-]]--
-local function GetMapTextureName()
-  zoneId = GetZoneId(GetCurrentMapZoneIndex())
-  mapId = GetCurrentMapId()
-  local notUsed
-  if zoneId == 1283 or zoneId == 1414 then
-    zoneTextureName = ZoneIDsToFileNames[mapId]
-  else
-    zoneTextureName = ZoneIDsToFileNames[zoneId]
-  end
-  notUsed, mapTextureName = LMP:GetZoneAndSubzone(false, true, true)
-  if not zoneTextureName then
-    zoneTextureName = mapTextureName
-  end
 end
 
 -----
@@ -3825,6 +3845,13 @@ local function HookKeepTooltips()
     end
   end
 
+end
+
+-- Toggle filters depending on settings
+function Destinations:TogglePins(pinType, value)
+  Destinations.CSSV.filters[pinType] = value
+  LMP:SetEnabled(pinType, value)
+  COMPASS_PINS:SetCompassPinEnabled(pinType, value)
 end
 
 local function UpdateMapFilters()

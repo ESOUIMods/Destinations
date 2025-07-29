@@ -32,7 +32,7 @@ TYPES:
     50 = "Undetermined"
     55 = "Unknown"
 ]]--
-Destinations = Destinations or {}
+
 
 Destinations.ACHDataIndex = {
   X = 1,

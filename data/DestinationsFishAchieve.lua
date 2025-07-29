@@ -1,4 +1,4 @@
-Destinations = Destinations or {}
+
 
 Destinations.FishLocationsIndex = {
   FISHNUMBER = 1,

@@ -1,4 +1,4 @@
-Destinations = Destinations or {}
+
 
 Destinations.ChampionTableIndex = {
   X = 1,

@@ -1,4 +1,4 @@
-Destinations = Destinations or {}
+
 
 -- Ability is the ability casted by the stone itself
 Destinations.mundusStrings = {

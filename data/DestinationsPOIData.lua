@@ -10,7 +10,7 @@ Each subentry should be regenerated at each POI addition
 /script d(GetZoneId(GetCurrentMapZoneIndex()))
 ]]
 
-Destinations = Destinations or {}
+
 
 local DESTINATIONS_PIN_TYPE_AOI = 1
 local DESTINATIONS_PIN_TYPE_AYLEIDRUIN = 2

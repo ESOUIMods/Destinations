@@ -2,13 +2,6 @@ local LAM = LibAddonMenu2
 local LMP = LibMapPins
 local DESTINATIONS_PIN_PRIORITY_OFFSET = 1
 
--- Toggle filters depending on settings
-function Destinations:TogglePins(pinType, value)
-  Destinations.CSSV.filters[pinType] = value
-  LMP:SetEnabled(pinType, value)
-  COMPASS_PINS:SetCompassPinEnabled(pinType, value)
-end
-
 -- Refresh map and compass pins
 local function RedrawAllPins(pinType)
   LMP:RefreshPins(pinType)

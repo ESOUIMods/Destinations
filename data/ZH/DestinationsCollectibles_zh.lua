@@ -1,4 +1,4 @@
-Destinations = Destinations or {}
+
 
 Destinations.CollectibleDataIndex = {
 	KEY = 1,
