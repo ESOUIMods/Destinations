@@ -26,39 +26,42 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 -------------------------------------------------------------------------------
-Contributions by Sharlikran (starting 2023-05-22) – BSD 3-Clause License:
+Contributions by Sharlikran (starting 2023-05-22) – Creative Commons BY-NC-SA 4.0:
 -------------------------------------------------------------------------------
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+You are free to:
+1. Share - copy and redistribute the material in any medium or format.
+2. Adapt - remix, transform, and build upon the material.
 
-1. Redistributions of source code must retain the above copyright notice,
-   this list of conditions and the following disclaimer.
+Under the following terms:
+1. Attribution - You must give appropriate credit, provide a link to the license,
+   and indicate if changes were made.
+2. NonCommercial - You may not use the material for commercial purposes.
+3. ShareAlike - If you remix, transform, or build upon the material, you must
+   distribute your contributions under the same license as the original.
 
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+Full terms: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 
-3. Neither the name of the author "Sharlikran" nor the names of previous
-   maintainers may be used to endorse or promote products derived from this
-   software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED. IN NO EVENT SHALL THE
-COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING IN
-ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
-OF SUCH DAMAGE.
 -------------------------------------------------------------------------------
 About the License and Original Author
 -------------------------------------------------------------------------------
 
-Destinations was originally created by SnowmanDK on 07/29/14. He has publicly confirmed that he no longer maintains the addon and has passed on stewardship to the community.
+Destinations was originally created by SnowmanDK on 07/29/14. He has publicly
+confirmed that he no longer maintains the addon and has passed on stewardship
+to the community.
 
-As of January 4, 2023, SnowmanDK acknowledged and appreciated the ongoing community maintenance of the addon. He has not revoked the original license, and it remains in full effect.
+As of January 4, 2023, SnowmanDK acknowledged and appreciated the ongoing
+community maintenance of the addon. He has not revoked the original license,
+and it remains in full effect.
 
-The original addon is licensed under an MIT-style license, which grants broad reuse rights with proper attribution.
+The original addon is licensed under an MIT-style license, which grants broad
+reuse rights with proper attribution.
 
-Contributions made by Sharlikran (beginning on 2023-05-22) are licensed under the BSD 3-Clause License. This license applies only to changes and additions made since that date.
+Contributions made by Sharlikran (beginning on 2023-05-22) are licensed under the
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+This license applies only to changes and additions made since that date.
 
-Some legacy features, such as questgiver tracking, have been removed in accordance with modern performance needs and console compatibility considerations. These decisions reflect the evolution of the addon, with respect to the original design and limitations of current ESO platforms.
+Some legacy features, such as questgiver tracking, have been removed in
+accordance with modern performance needs and console compatibility
+considerations. These decisions reflect the evolution of the addon, with respect
+to the original design and limitations of current ESO platforms.

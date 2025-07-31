@@ -30,28 +30,19 @@
 --
 -- ----------------------------------------------------------------------------
 -- Contributions by Sharlikran (starting 2023-05-22) are licensed under the
--- BSD 3-Clause License:
+-- Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License:
 --
--- Redistribution and use in source and binary forms, with or without
--- modification, are permitted provided that the following conditions are met:
+-- You are free to:
+--   Share — copy and redistribute the material in any medium or format
+--   Adapt — remix, transform, and build upon the material
+-- Under the following terms:
+--   Attribution — You must give appropriate credit, provide a link to the license,
+--     and indicate if changes were made.
+--   NonCommercial — You may not use the material for commercial purposes.
+--   ShareAlike — If you remix, transform, or build upon the material, you must
+--     distribute your contributions under the same license as the original.
 --
--- 1. Redistributions of source code must retain the above copyright notice,
---    this list of conditions and the following disclaimer.
---
--- 2. Redistributions in binary form must reproduce the above copyright notice,
---    this list of conditions and the following disclaimer in the documentation
---    and/or other materials provided with the distribution.
---
--- 3. Neither the name of the author "Sharlikran" nor the names of previous
---    maintainers may be used to endorse or promote products derived from this
---    software without specific prior written permission.
---
--- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
--- AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED. IN NO EVENT SHALL THE
--- COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
--- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING IN
--- ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
--- OF SUCH DAMAGE.
+-- Full terms at: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 --
 -- Maintainer Notice:
 -- Redistribution of this software outside of ESOUI.com (including Bethesda.net
@@ -1128,7 +1119,7 @@ local function ChampionpinTypeCallback()
         local CHAMPNAME, completed, required = GetAchievementCriterion(tonumber(CHAMPACH), tonumber(CHAMPIDX))
         Destinations.drtv.pinTag = {}
         if completed ~= required then
-          Destinations.drtv.pinTag = { DEST_PIN_TINT_OTHER:Colorize(zo_strformat("<<1>>", CHAMPNAME)) }
+          Destinations.drtv.pinTag = { DEST_PIN_TINT_CHAMPION:Colorize(zo_strformat("<<1>>", CHAMPNAME)) }
           LMP:CreatePin(Destinations.drtv.pinName, Destinations.drtv.pinTag, pinData[DBossIndex.X], pinData[DBossIndex.Y])
         end
       end
@@ -1149,7 +1140,7 @@ local function ChampionpinTypeCallbackDone()
         local CHAMPNAME, completed, required = GetAchievementCriterion(tonumber(CHAMPACH), tonumber(CHAMPIDX))
         Destinations.drtv.pinTag = {}
         if completed == required then
-          Destinations.drtv.pinTag = { DEST_PIN_TINT_OTHER_DONE:Colorize(zo_strformat("<<1>>", CHAMPNAME)) }
+          Destinations.drtv.pinTag = { DEST_PIN_TINT_CHAMPION_DONE:Colorize(zo_strformat("<<1>>", CHAMPNAME)) }
           LMP:CreatePin(Destinations.drtv.pinName, Destinations.drtv.pinTag, pinData[DBossIndex.X], pinData[DBossIndex.Y])
         end
       end
@@ -3133,7 +3124,7 @@ local function SetPinLayouts()
     level = Destinations.SV.pins.pinTextureChampion.level,
     texture = Destinations.pinTextures.paths.Champion[Destinations.SV.pins.pinTextureChampion.type],
     size = Destinations.SV.pins.pinTextureChampion.size,
-    tint = DEST_PIN_TINT_OTHER,
+    tint = DEST_PIN_TINT_CHAMPION,
     additionalLayout = {
       [CUSTOM_COMPASS_LAYOUT_UPDATE] = function(pin)
         pin:GetNamedChild("Background"):SetColor(unpack(Destinations.SV.pins.pinTextureChampion.tint))
@@ -3150,7 +3141,7 @@ local function SetPinLayouts()
     level = Destinations.SV.pins.pinTextureChampionDone.level,
     texture = Destinations.pinTextures.paths.ChampionDone[Destinations.SV.pins.pinTextureChampionDone.type],
     size = Destinations.SV.pins.pinTextureChampionDone.size,
-    tint = DEST_PIN_TINT_OTHER_DONE,
+    tint = DEST_PIN_TINT_CHAMPION_DONE,
     additionalLayout = {
       [CUSTOM_COMPASS_LAYOUT_UPDATE] = function(pin)
         pin:GetNamedChild("Background"):SetColor(unpack(Destinations.SV.pins.pinTextureChampionDone.tint))
@@ -3985,77 +3976,91 @@ local function InitializeDatastores()
 
 end
 
+local function Destinations_SetTextColor(colorDef, savedVarColorTable)
+  local colorTable = type(savedVarColorTable) == "table" and savedVarColorTable or {1, 1, 1}
+  if colorDef then
+    colorDef:SetRGB(unpack(colorTable))
+  end
+end
+
+local function Destinations_SetTintColor(colorDef, savedVarColorTable)
+  local colorTable = type(savedVarColorTable) == "table" and savedVarColorTable or {1, 1, 1, 1}
+  if colorDef then
+    colorDef:SetRGBA(unpack(colorTable))
+  end
+end
+
 local function InitializePinTextColorDefs()
-  DEST_PIN_TEXT_COLOR_OTHER:SetRGB(unpack(Destinations.SV.pins.pinTextureOther.textcolor))
-  DEST_PIN_TEXT_COLOR_OTHER_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureOtherDone.textcolor))
-  DEST_PIN_TEXT_COLOR_MAIQ:SetRGB(unpack(Destinations.SV.pins.pinTextureMaiq.textcolor))
-  DEST_PIN_TEXT_COLOR_MAIQ_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureMaiqDone.textcolor))
-  DEST_PIN_TEXT_COLOR_PEACEMAKER:SetRGB(unpack(Destinations.SV.pins.pinTexturePeacemaker.textcolor))
-  DEST_PIN_TEXT_COLOR_PEACEMAKER_DONE:SetRGB(unpack(Destinations.SV.pins.pinTexturePeacemakerDone.textcolor))
-  DEST_PIN_TEXT_COLOR_NOSEDIVER:SetRGB(unpack(Destinations.SV.pins.pinTextureNosediver.textcolor))
-  DEST_PIN_TEXT_COLOR_NOSEDIVER_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureNosediverDone.textcolor))
-  DEST_PIN_TEXT_COLOR_EARTHLYPOS:SetRGB(unpack(Destinations.SV.pins.pinTextureEarthlyPos.textcolor))
-  DEST_PIN_TEXT_COLOR_EARTHLYPOS_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureEarthlyPosDone.textcolor))
-  DEST_PIN_TEXT_COLOR_ONME:SetRGB(unpack(Destinations.SV.pins.pinTextureOnMe.textcolor))
-  DEST_PIN_TEXT_COLOR_ONME_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureOnMeDone.textcolor))
-  DEST_PIN_TEXT_COLOR_BRAWL:SetRGB(unpack(Destinations.SV.pins.pinTextureBrawl.textcolor))
-  DEST_PIN_TEXT_COLOR_BRAWL_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureBrawlDone.textcolor))
-  DEST_PIN_TEXT_COLOR_PATRON:SetRGB(unpack(Destinations.SV.pins.pinTexturePatron.textcolor))
-  DEST_PIN_TEXT_COLOR_PATRON_DONE:SetRGB(unpack(Destinations.SV.pins.pinTexturePatronDone.textcolor))
-  DEST_PIN_TEXT_COLOR_WROTHGARJUMPER:SetRGB(unpack(Destinations.SV.pins.pinTextureWrothgarJumper.textcolor))
-  DEST_PIN_TEXT_COLOR_WROTHGARJUMPER_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureWrothgarJumperDone.textcolor))
-  DEST_PIN_TEXT_COLOR_RELICHUNTER:SetRGB(unpack(Destinations.SV.pins.pinTextureRelicHunter.textcolor))
-  DEST_PIN_TEXT_COLOR_RELICHUNTER_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureRelicHunterDone.textcolor))
-  DEST_PIN_TEXT_COLOR_BREAKING:SetRGB(unpack(Destinations.SV.pins.pinTextureBreaking.textcolor))
-  DEST_PIN_TEXT_COLOR_BREAKING_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureBreakingDone.textcolor))
-  DEST_PIN_TEXT_COLOR_CUTPURSE:SetRGB(unpack(Destinations.SV.pins.pinTextureCutpurse.textcolor))
-  DEST_PIN_TEXT_COLOR_CUTPURSE_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureCutpurseDone.textcolor))
-  DEST_PIN_TEXT_COLOR_CHAMPION:SetRGB(unpack(Destinations.SV.pins.pinTextureChampion.textcolor))
-  DEST_PIN_TEXT_COLOR_CHAMPION_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureChampionDone.textcolor))
-  DEST_PIN_TEXT_COLOR_AYLEID:SetRGB(unpack(Destinations.SV.pins.pinTextureAyleid.textcolor))
-  DEST_PIN_TEXT_COLOR_DEADLANDS:SetRGB(unpack(Destinations.SV.pins.pinTextureDeadlands.textcolor))
-  DEST_PIN_TEXT_COLOR_HIGHISLE:SetRGB(unpack(Destinations.SV.pins.pinTextureHighIsle.textcolor))
-  DEST_PIN_TEXT_COLOR_DWEMER:SetRGB(unpack(Destinations.SV.pins.pinTextureDwemer.textcolor))
-  DEST_PIN_TEXT_COLOR_WWVAMP:SetRGB(unpack(Destinations.SV.pins.pinTextureWWVamp.textcolor))
-  DEST_PIN_TEXT_COLOR_VAMPALTAR:SetRGB(unpack(Destinations.SV.pins.pinTextureVampAltar.textcolor))
-  DEST_PIN_TEXT_COLOR_WWSHRINE:SetRGB(unpack(Destinations.SV.pins.pinTextureWWShrine.textcolor))
-  DEST_PIN_TEXT_COLOR_COLLECTIBLE:SetRGB(unpack(Destinations.SV.pins.pinTextureCollectible.textcolor))
-  DEST_PIN_TEXT_COLOR_COLLECTIBLE_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureCollectibleDone.textcolor))
-  DEST_PIN_TEXT_COLOR_FISH:SetRGB(unpack(Destinations.SV.pins.pinTextureFish.textcolor))
-  DEST_PIN_TEXT_COLOR_FISH_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureFishDone.textcolor))
-  DEST_PIN_TEXT_COLOR_QOLPIN:SetRGB(unpack(Destinations.SV.pins.pinTextureQolPin.textcolor))
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_OTHER, Destinations.SV.pins.pinTextureOther.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_OTHER_DONE, Destinations.SV.pins.pinTextureOtherDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_MAIQ, Destinations.SV.pins.pinTextureMaiq.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_MAIQ_DONE, Destinations.SV.pins.pinTextureMaiqDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_PEACEMAKER, Destinations.SV.pins.pinTexturePeacemaker.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_PEACEMAKER_DONE, Destinations.SV.pins.pinTexturePeacemakerDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_NOSEDIVER, Destinations.SV.pins.pinTextureNosediver.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_NOSEDIVER_DONE, Destinations.SV.pins.pinTextureNosediverDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_EARTHLYPOS, Destinations.SV.pins.pinTextureEarthlyPos.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_EARTHLYPOS_DONE, Destinations.SV.pins.pinTextureEarthlyPosDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_ONME, Destinations.SV.pins.pinTextureOnMe.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_ONME_DONE, Destinations.SV.pins.pinTextureOnMeDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_BRAWL, Destinations.SV.pins.pinTextureBrawl.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_BRAWL_DONE, Destinations.SV.pins.pinTextureBrawlDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_PATRON, Destinations.SV.pins.pinTexturePatron.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_PATRON_DONE, Destinations.SV.pins.pinTexturePatronDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_WROTHGARJUMPER, Destinations.SV.pins.pinTextureWrothgarJumper.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_WROTHGARJUMPER_DONE, Destinations.SV.pins.pinTextureWrothgarJumperDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_RELICHUNTER, Destinations.SV.pins.pinTextureRelicHunter.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_RELICHUNTER_DONE, Destinations.SV.pins.pinTextureRelicHunterDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_BREAKING, Destinations.SV.pins.pinTextureBreaking.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_BREAKING_DONE, Destinations.SV.pins.pinTextureBreakingDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_CUTPURSE, Destinations.SV.pins.pinTextureCutpurse.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_CUTPURSE_DONE, Destinations.SV.pins.pinTextureCutpurseDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_CHAMPION, Destinations.SV.pins.pinTextureChampion.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_CHAMPION_DONE, Destinations.SV.pins.pinTextureChampionDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_AYLEID, Destinations.SV.pins.pinTextureAyleid.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_DEADLANDS, Destinations.SV.pins.pinTextureDeadlands.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_HIGHISLE, Destinations.SV.pins.pinTextureHighIsle.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_DWEMER, Destinations.SV.pins.pinTextureDwemer.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_WWVAMP, Destinations.SV.pins.pinTextureWWVamp.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_VAMPALTAR, Destinations.SV.pins.pinTextureVampAltar.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_WWSHRINE, Destinations.SV.pins.pinTextureWWShrine.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_COLLECTIBLE, Destinations.SV.pins.pinTextureCollectible.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_COLLECTIBLE_DONE, Destinations.SV.pins.pinTextureCollectibleDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_FISH, Destinations.SV.pins.pinTextureFish.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_FISH_DONE, Destinations.SV.pins.pinTextureFishDone.textcolor)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLOR_QOLPIN, Destinations.SV.pins.pinTextureQolPin.textcolor)
 end
 
 local function InitializePinTextColorCollectibleDefs()
-  DEST_PIN_TEXT_COLORTITLE_COLLECTIBLE:SetRGB(unpack(Destinations.SV.pins.pinTextureCollectible.textcolortitle))
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLORTITLE_COLLECTIBLE, Destinations.SV.pins.pinTextureCollectible.textcolortitle)
 end
 
 local function InitializePinTextColorFishingDefs()
-  DEST_PIN_TEXT_COLORTITLE_FISH:SetRGB(unpack(Destinations.SV.pins.pinTextureFish.textcolortitle))
-  DEST_PIN_TEXT_COLORTITLE_FISH_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureFishDone.textcolortitle))
-  DEST_PIN_TEXT_COLORBAIT_FISH:SetRGB(unpack(Destinations.SV.pins.pinTextureFish.textcolorBait))
-  DEST_PIN_TEXT_COLORBAIT_FISH_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureFishDone.textcolorBait))
-  DEST_PIN_TEXT_COLORWATER_FISH:SetRGB(unpack(Destinations.SV.pins.pinTextureFish.textcolorWater))
-  DEST_PIN_TEXT_COLORWATER_FISH_DONE:SetRGB(unpack(Destinations.SV.pins.pinTextureFishDone.textcolorWater))
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLORTITLE_FISH, Destinations.SV.pins.pinTextureFish.textcolortitle)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLORTITLE_FISH_DONE, Destinations.SV.pins.pinTextureFishDone.textcolortitle)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLORBAIT_FISH, Destinations.SV.pins.pinTextureFish.textcolorBait)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLORBAIT_FISH_DONE, Destinations.SV.pins.pinTextureFishDone.textcolorBait)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLORWATER_FISH, Destinations.SV.pins.pinTextureFish.textcolorWater)
+    Destinations_SetTextColor(DEST_PIN_TEXT_COLORWATER_FISH_DONE, Destinations.SV.pins.pinTextureFishDone.textcolorWater)
 end
 
 local function InitializePinTintColorDefs()
-  DEST_PIN_TINT_UNKNOWN:SetRGBA(unpack(Destinations.SV.pins.pinTextureUnknown.tint))
-  DEST_PIN_TINT_OTHER:SetRGBA(unpack(Destinations.SV.pins.pinTextureOther.tint))
-  DEST_PIN_TINT_OTHER_DONE:SetRGBA(unpack(Destinations.SV.pins.pinTextureOtherDone.tint))
+    Destinations_SetTintColor(DEST_PIN_TINT_UNKNOWN, Destinations.SV.pins.pinTextureUnknown.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_OTHER, Destinations.SV.pins.pinTextureOther.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_OTHER_DONE, Destinations.SV.pins.pinTextureOtherDone.tint)
 
-  DEST_PIN_TINT_COLLECTIBLE:SetRGBA(unpack(Destinations.SV.pins.pinTextureCollectible.tint))
-  DEST_PIN_TINT_COLLECTIBLE_DONE:SetRGBA(unpack(Destinations.SV.pins.pinTextureCollectibleDone.tint))
-  DEST_PIN_TINT_FISH:SetRGBA(unpack(Destinations.SV.pins.pinTextureFish.tint))
-  DEST_PIN_TINT_FISH_DONE:SetRGBA(unpack(Destinations.SV.pins.pinTextureFishDone.tint))
-  DEST_PIN_TINT_AYLEID:SetRGBA(unpack(Destinations.SV.pins.pinTextureAyleid.tint))
-  DEST_PIN_TINT_DEADLANDS:SetRGBA(unpack(Destinations.SV.pins.pinTextureDeadlands.tint))
-  DEST_PIN_TINT_HIGHISLE:SetRGBA(unpack(Destinations.SV.pins.pinTextureHighIsle.tint))
-  DEST_PIN_TINT_DWEMER:SetRGBA(unpack(Destinations.SV.pins.pinTextureDwemer.tint))
-  DEST_PIN_TINT_WWVAMP:SetRGBA(unpack(Destinations.SV.pins.pinTextureWWVamp.tint))
-  DEST_PIN_TINT_VAMPALTAR:SetRGBA(unpack(Destinations.SV.pins.pinTextureVampAltar.tint))
-  DEST_PIN_TINT_WWSHRINE:SetRGBA(unpack(Destinations.SV.pins.pinTextureWWShrine.tint))
-  DEST_PIN_TINT_QOLPIN:SetRGBA(unpack(Destinations.SV.pins.pinTextureQolPin.tint))
+    Destinations_SetTintColor(DEST_PIN_TINT_COLLECTIBLE, Destinations.SV.pins.pinTextureCollectible.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_COLLECTIBLE_DONE, Destinations.SV.pins.pinTextureCollectibleDone.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_FISH, Destinations.SV.pins.pinTextureFish.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_FISH_DONE, Destinations.SV.pins.pinTextureFishDone.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_AYLEID, Destinations.SV.pins.pinTextureAyleid.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_DEADLANDS, Destinations.SV.pins.pinTextureDeadlands.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_HIGHISLE, Destinations.SV.pins.pinTextureHighIsle.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_DWEMER, Destinations.SV.pins.pinTextureDwemer.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_WWVAMP, Destinations.SV.pins.pinTextureWWVamp.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_VAMPALTAR, Destinations.SV.pins.pinTextureVampAltar.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_WWSHRINE, Destinations.SV.pins.pinTextureWWShrine.tint)
+    Destinations_SetTintColor(DEST_PIN_TINT_QOLPIN, Destinations.SV.pins.pinTextureQolPin.tint)
 end
 
 local function OnLoad(eventCode, addonName)

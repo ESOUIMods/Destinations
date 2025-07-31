@@ -30,28 +30,19 @@
 --
 -- ----------------------------------------------------------------------------
 -- Contributions by Sharlikran (starting 2023-05-22) are licensed under the
--- BSD 3-Clause License:
+-- Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License:
 --
--- Redistribution and use in source and binary forms, with or without
--- modification, are permitted provided that the following conditions are met:
+-- You are free to:
+--   Share — copy and redistribute the material in any medium or format
+--   Adapt — remix, transform, and build upon the material
+-- Under the following terms:
+--   Attribution — You must give appropriate credit, provide a link to the license,
+--     and indicate if changes were made.
+--   NonCommercial — You may not use the material for commercial purposes.
+--   ShareAlike — If you remix, transform, or build upon the material, you must
+--     distribute your contributions under the same license as the original.
 --
--- 1. Redistributions of source code must retain the above copyright notice,
---    this list of conditions and the following disclaimer.
---
--- 2. Redistributions in binary form must reproduce the above copyright notice,
---    this list of conditions and the following disclaimer in the documentation
---    and/or other materials provided with the distribution.
---
--- 3. Neither the name of the author "Sharlikran" nor the names of previous
---    maintainers may be used to endorse or promote products derived from this
---    software without specific prior written permission.
---
--- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
--- AND ANY EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED. IN NO EVENT SHALL THE
--- COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
--- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING IN
--- ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY
--- OF SUCH DAMAGE.
+-- Full terms at: https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
 --
 -- Maintainer Notice:
 -- Redistribution of this software outside of ESOUI.com (including Bethesda.net
